@@ -1,0 +1,39 @@
+
+
+Comandos a correr al borrar la db:
+php artisan migrate
+php artisan migrate --seed >> para correr todos los seed
+php artisan make:seeder UserSeeder  >> para crear un seed 
+
+Comandos luego de hacer pull (para actualizar dependencias):
+npm i
+composer i
+
+crear dos consolas:
+
+1. php artisan serve 
+2. npm run dev
+
+
+# BORRAR CACHE:
+
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+php artisan cache:clear
+php artisan optimize:clear
+
+composer dump-autoload -o
+php artisan optimize
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+
+
+
+Comandos para ir agregando js:
+npm run dev
+(si da error de permiso yo hago de nuevo npm i, npm rebuild y pruebo de nuevo npm run dev)
+
+
