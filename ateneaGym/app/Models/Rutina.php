@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Rutina extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'profesor_id',
+        'dia_semana'
+    ];
 }
