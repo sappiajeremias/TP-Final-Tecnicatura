@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->integer('repeticiones');
             $table->integer('series');
             // $table->integer('descanso');
-            $table->string('adicional');
+            $table->string('adicional')->nulleable();
             $table->timestamps();
         });
     }

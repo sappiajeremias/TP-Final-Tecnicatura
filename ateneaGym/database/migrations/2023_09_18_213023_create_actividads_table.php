@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('actividads', function (Blueprint $table) {
             $table->id();
-            $table->enum('dia_semana',['lunes','martes','miercoles','jueves','viernes']);
+            $table->string('dia_semana');
             $table->string('hora_inicio');
             $table->string('hora_fin');
             $table->integer('duracion');

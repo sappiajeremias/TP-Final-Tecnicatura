@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('profesor_id');
             $table->foreign('profesor_id')->references('id')->on('profesors')->onDelete('cascade');
-            $table->enum('dia_semana',['lunes','martes','miercoles','jueves','viernes']);
+            $table->string('dia_semana');
             $table->timestamps();
         });
     }

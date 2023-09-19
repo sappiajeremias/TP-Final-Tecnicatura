@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('turnos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('alumno_id');
+            $table->unsignedBigInteger('alumno_id')->nullable();
             $table->foreign('alumno_id')->references('id')->on('alumnos')->onDelete('cascade');
             $table->unsignedBigInteger('actividad_id');
             $table->foreign('actividad_id')->references('id')->on('actividads')->onDelete('cascade');

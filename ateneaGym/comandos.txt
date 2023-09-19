@@ -1,5 +1,3 @@
-
-
 Comandos a correr al borrar la db:
 php artisan migrate
 php artisan migrate --seed >> para correr todos los seed
@@ -14,7 +12,6 @@ crear dos consolas:
 1. php artisan serve 
 2. npm run dev
 
-
 # BORRAR CACHE:
 
 php artisan config:clear
@@ -28,9 +25,6 @@ php artisan optimize
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
-
-
-
 
 Comandos para ir agregando js:
 npm run dev
