@@ -9,11 +9,11 @@ const TrBody = ({ coleccion, nombreProp }) => {
     return (
         <>
             {coleccion.map((obj) => (
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    {nombreProp.map((p) => (
-                        <td class="px-6 py-4">{obj[p]}</td>
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={obj.id}>
+                    {nombreProp.map((p, index) => (
+                        <td className="px-6 py-4" key={index}>{obj[p]}</td>
                     ))}
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4">
                         <a href="#" className="text-blue-600">
                             Editar
                         </a>

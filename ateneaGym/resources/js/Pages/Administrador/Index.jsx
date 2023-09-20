@@ -14,11 +14,9 @@ const Index = ({ usuarios, auth }) => {
     const nombreProp = ["name", "apellido", "dni", "fecha_nac", "email"];
     return (
         <AuthenticatedLayout
-            user={auth.user}
-           
-        >
+            // user={auth.user}
+                   >
             <h1 className="text-red-600 text-center text-2xl pt-5">
-                {" "}
                 Tabla Usuarios
             </h1>
             <div className="container m-auto max-w-6xl p-5">
