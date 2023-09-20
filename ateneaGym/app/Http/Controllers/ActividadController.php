@@ -9,9 +9,8 @@ class ActividadController extends Controller
 {
     //
 public function index(){
-    return Inertia::render('Actividad/Index',[
-
-    ]);
+    $actividad = Actividad::all();
+        return Inertia::render('Actividad/ListarActividad', ['actividades' => $actividad]);
 }
 
 public function store(Request $request){
