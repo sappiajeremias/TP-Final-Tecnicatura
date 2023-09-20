@@ -5,6 +5,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,7 +40,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('actividad', ActividadController::class)
-->only(['store', 'index', 'update', 'destroy'])
-->middleware(['auth']);
+    ->only(['store', 'index', 'update', 'destroy'])
+    ->middleware(['auth']);
 
-require __DIR__.'/auth.php';
+Route::resource('registrarUsuarios', UserController::class)
+    ->only(['store', 'index', 'update', 'destroy'])
+    ->middleware(['auth']);
+
+
+require __DIR__ . '/auth.php';
