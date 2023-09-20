@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
-
-export default function CrearActividad() {
+import ListarActs from "./ListarActividad";
+export default function CrearActividad({auth}) {
     const { data, setData, post, processing, errors, reset } = useForm({
         dia_semana: "",
         hora_inicio: "",
@@ -28,8 +28,11 @@ export default function CrearActividad() {
     };
 
     return (
-        <GuestLayout>
+        
+        <AuthenticatedLayout auth={auth}>
             <Head title="Actividades" />
+
+            
 
             <form onSubmit={submit}>
                 <div>
@@ -141,6 +144,6 @@ export default function CrearActividad() {
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthenticatedLayout>
     );
 }
