@@ -36,7 +36,7 @@ const Nav = ({ children }) => {
 
     return (
         // ALTO DEL NAVBAR
-        <div className="flex-no-wrap h-screen">
+        <div className="flex flex-no-wrap h-screen">
             <button
                 aria-label="toggle sidebar"
                 id="openSideBar"
@@ -71,10 +71,10 @@ const Nav = ({ children }) => {
             </button>
 
             <div
-                className={` w-64 z-40 absolute bg-gray-800 shadow h-full flex-col justify-between transition duration-150 ease-in-out ${
+                className={` w-64 z-40 absolute bg-gray-800 shadow h-full flex flex-col justify-between transition duration-150 ease-in-out ${
                     sidebarVisible ? "" : "hidden"
                 }`}
-                id="mobile-nav"
+                
             >
                 <button
                     aria-label="Close sidebar"
@@ -102,7 +102,6 @@ const Nav = ({ children }) => {
                     </svg>
                 </button>
                 <div className="px-8">
-
                     <div className="h-20 w-full flex items-center justify-center pt-8 ">
                         <img
                             src="./assets/img/logo/logo_atenea.svg"
@@ -110,8 +109,7 @@ const Nav = ({ children }) => {
                             className="bg-white h-24 rounded-lg"
                         />
                     </div>
-                    
-                    <ul className="mt-12 pb-10">
+                    <ul className="mt-12">
                         <li className="flex w-full justify-between text-gray-300 hover:text-gray-500 cursor-pointer items-center mb-6">
                             <a
                                 href="#"
@@ -372,7 +370,7 @@ const Nav = ({ children }) => {
                     </div> */}
                 </div>
 
-                <div className=" px-8 border-t border-gray-700">
+                <div className="flex px-8 border-t border-gray-700">
                     <ul className="w-full flex items-center justify-between bg-gray-800">
                         <li className="cursor-pointer text-white pt-5 pb-3">
                             <button
