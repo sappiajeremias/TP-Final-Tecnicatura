@@ -3,7 +3,7 @@ import CrearActividad from "./CrearActividad";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 function Index({ auth }) {
     return (
-        <Authenticated user={auth.user}>
+        <Authenticated auth={auth}>
             <CrearActividad></CrearActividad>
         </Authenticated>
     );
