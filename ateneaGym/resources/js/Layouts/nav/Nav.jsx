@@ -579,7 +579,7 @@ const Nav = ({ children, auth }) => {
                                     />
                                     <div>
                                         <h2 className="text-lg font-semibold">
-                                            Leroy Jenkins
+                                            {auth.user.name}
                                         </h2>
                                         {/* <span className="flex items-center space-x-1">
                                         <a
