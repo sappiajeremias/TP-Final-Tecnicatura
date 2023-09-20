@@ -6,7 +6,7 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import Nav from "./nav/Nav";
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ auth, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -189,11 +189,7 @@ export default function Authenticated({ user, header, children }) {
                 </header>
             )} */}
 
-            <Nav>
-            {children}
-
-            </Nav>
-
+            <Nav auth={auth}>{children}</Nav>
         </div>
     );
 }

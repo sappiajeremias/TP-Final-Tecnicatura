@@ -1,10 +1,10 @@
 import Nav from "@/Layouts/nav/Nav";
 import { Link, Head } from "@inertiajs/react";
 
-export default function Welcome() {
+export default function Welcome({ auth }) {
     return (
         <>
-            <Nav></Nav>
+            <Nav auth={auth}></Nav>
         </>
     );
 }
