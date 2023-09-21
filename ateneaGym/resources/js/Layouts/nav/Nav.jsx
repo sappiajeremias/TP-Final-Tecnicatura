@@ -572,6 +572,7 @@ const Nav = ({ children, auth }) => {
                         <ul className=" flex items-center justify-between  bg-gray-800">
                             <li className="cursor-pointer text-white pb-3">
                                 <div className="flex items-center p-2 mt-12 space-x-4 justify-self-end">
+                                    {/* <a href={route("profile.edit")}> */}{" "}
                                     <img
                                         src="https://source.unsplash.com/100x100/?portrait"
                                         alt=""
@@ -581,6 +582,9 @@ const Nav = ({ children, auth }) => {
                                         <h2 className="text-lg font-semibold">
                                             {auth.user.name}
                                         </h2>
+                                        <a href={route("profile.edit")}>
+                                            Ver Perfil
+                                        </a>
                                         {/* <span className="flex items-center space-x-1">
                                         <a
                                             rel="noopener noreferrer"
@@ -591,6 +595,7 @@ const Nav = ({ children, auth }) => {
                                         </a>
                                     </span> */}
                                     </div>
+                                    {/* </a> */}
                                 </div>
                             </li>
                             <li className="cursor-pointer text-white pt-14 pb-3 ">

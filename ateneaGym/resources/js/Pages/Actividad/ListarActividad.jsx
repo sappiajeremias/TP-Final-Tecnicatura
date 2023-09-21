@@ -10,7 +10,9 @@ export default function ListarActs({ actividades }) {
         "Hora Fin",
         "Duracion",
         "Descripcion",
+        "Acciones",
     ];
+    const nombreController = "actividad";
     const nombreProp = [
         "id",
         "dia_semana",
@@ -29,6 +31,7 @@ export default function ListarActs({ actividades }) {
                     nombreColumnas={nombreColumnas}
                     coleccion={actividades}
                     nombreProp={nombreProp}
+                    nombreController={nombreController}
                 ></Table>
             </div>
         </>
