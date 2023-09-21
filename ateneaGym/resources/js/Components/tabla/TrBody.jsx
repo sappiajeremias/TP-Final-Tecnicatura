@@ -13,7 +13,6 @@ const TrBody = ({ coleccion, nombreProp }) => {
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                     key={obj.id}
                 >
-                   { console.log( coleccion)}
                     {nombreProp.map((p, index) => (
                         <td className="px-6 py-4" key={index}>
                             {obj[p]}

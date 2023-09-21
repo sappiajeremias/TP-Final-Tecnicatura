@@ -23,11 +23,11 @@ export default function Register() {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("register"));
+        post(route("usuarios.store"));
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Register" />
 
             <form onSubmit={submit}>
@@ -88,7 +88,7 @@ export default function Register() {
                     <TextInput
                         id="fecha_nac"
                         name="fecha_nac"
-                        type='date'
+                        type="date"
                         value={data.fecha_nac}
                         className="mt-1 block w-full"
                         autoComplete="fecha_nac"
@@ -172,6 +172,6 @@ export default function Register() {
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </>
     );
 }

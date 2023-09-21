@@ -46,7 +46,7 @@ Route::resource('actividad', ActividadController::class)
    
 
 
-Route::resource('registrarUsuarios', UserController::class)
+Route::resource('usuarios', UserController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
