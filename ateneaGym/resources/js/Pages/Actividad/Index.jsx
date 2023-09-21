@@ -2,11 +2,12 @@ import React from "react";
 import CrearActividad from "./CrearActividad";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import ListarActs from "./ListarActividad";
-function Index({ auth }) {
+function Index({ auth, actividades }) {
     return (
         <Authenticated auth={auth}>
+            
             <CrearActividad></CrearActividad>
-            <ListarActs></ListarActs>
+            <ListarActs actividades={actividades}></ListarActs>
         </Authenticated>
     );
 }

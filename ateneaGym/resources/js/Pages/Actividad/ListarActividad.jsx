@@ -2,7 +2,7 @@ import Table from "@/Components/Table";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import React, { useEffect, useState } from "react";
 
-export default function ListarActs({actividades, auth}) {
+export default function ListarActs({ actividades }) {
     const nombreColumnas = [
         "ID",
         "Dias Semana",
@@ -11,10 +11,16 @@ export default function ListarActs({actividades, auth}) {
         "Duracion",
         "Descripcion",
     ];
-    const nombreProp = ["id", "dia_semana", "hora_inicio", "hora_fin", "duracion", "descripcion"];
+    const nombreProp = [
+        "id",
+        "dia_semana",
+        "hora_inicio",
+        "hora_fin",
+        "duracion",
+        "descripcion",
+    ];
     return (
-        <AuthenticatedLayout auth={auth}
-        >
+        <>
             <h1 className="text-red-600 text-center text-2xl pt-5">
                 Tabla Actividades
             </h1>
@@ -25,7 +31,6 @@ export default function ListarActs({actividades, auth}) {
                     nombreProp={nombreProp}
                 ></Table>
             </div>
-        </AuthenticatedLayout>
+        </>
     );
-};
-
+}
