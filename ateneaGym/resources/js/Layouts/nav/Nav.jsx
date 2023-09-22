@@ -236,20 +236,20 @@ const Nav = ({ children, auth }) => {
                             <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                 <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
                                     <svg
-                                        className=" text-gray-100 dark:text-white"
-                                        aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 20 18"
-                                        width="18"
-                                        height="18"
+                                        width="16"
+                                        height="16"
+                                        fill="currentColor"
+                                        className="bi bi-box-arrow-right"
+                                        viewBox="0 0 16 16"
                                     >
                                         <path
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
+                                            fill-rule="evenodd"
+                                            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+                                        />
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
                                         />
                                     </svg>
                                     <NavLink
@@ -259,7 +259,7 @@ const Nav = ({ children, auth }) => {
                                         as="button"
                                         active={route().current("logout")}
                                     >
-                                        Log Out
+                                        Cerrar Sesion
                                     </NavLink>
                                 </div>
                                 {/* <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
