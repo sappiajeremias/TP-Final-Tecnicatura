@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Termwind\Components\Dd;
 
 class UserController extends Controller {
     /**
@@ -48,23 +49,20 @@ class UserController extends Controller {
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(User $id) {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, User $id) {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $id) {
-        //
+    public function destroy(String $id) {
+        $usuario = User::find($id);
+        $usuario->delete();
+        // $usuario::destroy;
+
+
+        // return redirect()->route('dashboard');
     }
 }

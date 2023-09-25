@@ -4,15 +4,20 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
 
-export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
-        email: "",
-        password: "",
+export default function Register({ isEdit, objeto }) {
+
+    const { data, setData, put, post, processing, errors, reset } = useForm({
+        name: objeto.name || "",
+        apellido: objeto.apellido || "",
+        email: objeto.email || "",
+        dni: objeto.dni || "",
+        fecha_nac: objeto.fecha_nac || "",
+        password: objeto.password || "",
         password_confirmation: "",
     });
+
 
     useEffect(() => {
         return () => {
@@ -22,8 +27,12 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
+        if (isEdit) {
+            router.visit(`/usuarios/${objeto.id}`, { method: 'put' });
+        } else {
+            post(route("usuarios.store"));
+        }
 
-        post(route("usuarios.store"));
     };
 
     return (
@@ -168,7 +177,7 @@ export default function Register() {
                     </Link>
 
                     <PrimaryButton className="ml-4" disabled={processing}>
-                        Registrar
+                        Confirmar
                     </PrimaryButton>
                 </div>
             </form>
