@@ -37,7 +37,7 @@ const Nav = ({ children, auth }) => {
 
     return (
         // ALTO DEL NAVBAR
-        <div className="relative flex flex-no-wrap h-full">
+        <div className="flex flex-no-wrap h-full ">
             <button
                 aria-label="toggle sidebar"
                 id="openSideBar"
@@ -71,7 +71,7 @@ const Nav = ({ children, auth }) => {
             </button>
 
             <div
-                className={` w-64 z-40 absolute bg-gray-800 shadow h-full flex flex-col justify-between transition duration-150 ease-in-out ${sidebarVisible ? "" : "hidden"
+                className={` w-64 z-40 fixed bg-gray-800 shadow h-full flex flex-col justify-between transition duration-150 ease-in-out ${sidebarVisible ? "" : "hidden"
                     }`}
             >
                 <button
@@ -99,7 +99,7 @@ const Nav = ({ children, auth }) => {
                     </svg>
                 </button>
 
-                <div className="px-8 ">
+                <div className="px-8 h-full">
                     <div className="h-20 w-full flex items-center justify-center pt-10 ">
                         <img
                             src="./assets/img/logo/logo_atenea.svg"
