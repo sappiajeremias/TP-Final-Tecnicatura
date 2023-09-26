@@ -66,9 +66,9 @@ class UserController extends Controller {
         // $roles = Role::all();
 
         if ($usuario->rol() && $usuario->rol()[0] != 'Administrador') {
-            dd($usuario->rol());
+        //   dd($usuario->rol()[0]);
             // foreach ($roles as $rol) {
-            $usuario->removeRole($usuario->rol);
+            $usuario->removeRole($usuario->rol()[0]);
             // }
         }
 

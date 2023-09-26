@@ -41,7 +41,7 @@ const Nav = ({ children, auth }) => {
             <button
                 aria-label="toggle sidebar"
                 id="openSideBar"
-                className={`sm:hidden h-10 w-10 bg-gray-800 absolute left-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 rounded focus:ring-gray-800 z-50 ${!sidebarVisible ? "" : "hidden"
+                className={`sm:hidden h-10 w-10 bg-gray-950 absolute left-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 rounded focus:ring-gray-800 z-50 ${!sidebarVisible ? "" : "hidden"
                     }`}
                 onClick={openSidebar}
             >
@@ -71,13 +71,13 @@ const Nav = ({ children, auth }) => {
             </button>
 
             <div
-                className={` w-64 z-40 fixed bg-gray-800 shadow h-full flex flex-col justify-between transition duration-150 ease-in-out ${sidebarVisible ? "" : "hidden"
+                className={` w-64 z-40 fixed bg-gray-950 shadow h-full flex flex-col justify-between transition duration-150 ease-in-out ${sidebarVisible ? "" : "hidden"
                     }`}
             >
                 <button
                     aria-label="Close sidebar"
                     id="closeSideBar"
-                    className={`sm:hidden h-10 w-10 bg-gray-800 absolute right-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer text-white ${sidebarVisible ? "" : "hidden"
+                    className={`sm:hidden h-10 w-10 bg-gray-950 absolute right-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer text-white ${sidebarVisible ? "" : "hidden"
                         }`}
                     onClick={closeSidebar}
                 >
@@ -474,7 +474,7 @@ const Nav = ({ children, auth }) => {
 
                 <div className="flex px-8 border-t border-gray-700 ">
                     {auth.user ? (
-                        <ul className=" flex items-center justify-between  bg-gray-800">
+                        <ul className=" flex items-center justify-between  bg-gray-950">
                             <li className="cursor-pointer text-white pb-3">
                                 <div className="flex items-center p-2 mt-12 space-x-4 justify-self-end">
                                     {/* <a href={route("profile.edit")}> */}{" "}
