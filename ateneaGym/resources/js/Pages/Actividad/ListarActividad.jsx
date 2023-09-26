@@ -1,8 +1,15 @@
 import Table from "@/Components/Table";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import React, { useEffect, useState } from "react";
+import ModalEditar from "@/Components/tabla/ModalEditar";
+import React, { useState } from "react";
+import Register from "../Auth/Register";
+import Thead from "@/Components/tabla/Thead";
+import TrBody from "@/Components/tabla/TrBody";
+import { TdBody } from "@/Components/tabla/TdBody";
+import BotonEliminar from "@/Components/tabla/BotonEliminar";
+import { router } from "@inertiajs/react";
+import CrearActividad from "./CrearActividad";
 
-export default function ListarActs({ actividades }) {
+export default function ListarActs({ actividades, profesores }) {
     const nombreColumnas = [
         "ID",
         "Dias Semana",
@@ -12,7 +19,6 @@ export default function ListarActs({ actividades }) {
         "Descripcion",
         "Acciones",
     ];
-    const nombreController = "actividad";
     const nombreProp = [
         "id",
         "dia_semana",
@@ -21,19 +27,58 @@ export default function ListarActs({ actividades }) {
         "duracion",
         "descripcion",
     ];
+
+const deleteHandler = (actividad) => {
+    router.delete(`/actividad/${actividad.id}`, {onBefore: () => confirm('Estas seguro?'), onSuccess: () => alert('Actividad Eliminada')})
+}
+
     return (
         <>
             <h1 className="text-red-600 text-center text-2xl pt-5">
                 Tabla Actividades
             </h1>
+            <ModalEditar isEdit={false}>
+                <CrearActividad isEdit={false} objeto={''} profesores={profesores}></CrearActividad>
+            </ModalEditar>
             <div className="container m-auto max-w-6xl p-5">
-                <Table
-                    nombreColumnas={nombreColumnas}
-                    coleccion={actividades}
-                    nombreProp={nombreProp}
-                    nombreController={nombreController}
-                ></Table>
-            </div>
+                <Table>
+                    <Thead nombreColumnas={nombreColumnas} />
+
+                    {actividades.map((act) => (
+                        <React.Fragment key={act.id}>
+
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={act.id}>
+
+
+                                {nombreProp.map((nombre, index) => (
+
+                                    <td className="px-6 py-4" key={index}>{act[nombre]}</td>
+                                    // <TdBody key={index}>{usuario[nombre]}</TdBody>
+                                ))}
+
+                                <td className="px-6 py-4">
+
+
+                                    <ModalEditar isEdit={true}>
+
+                                        <CrearActividad
+                                            isEdit={true} objeto={act} profesores={profesores}
+                                        />
+                                    </ModalEditar>
+                                    <BotonEliminar
+                                        click={() => deleteHandler(act)}
+                                    />
+
+
+                                </td >
+
+                            </tr>
+                        </React.Fragment>
+                    ))}
+
+
+                </Table >
+            </div >
         </>
     );
 }

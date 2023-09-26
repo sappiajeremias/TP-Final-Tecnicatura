@@ -1,17 +1,17 @@
-import React from "react";
-import CrearActividad from "./CrearActividad";
-import Authenticated from "@/Layouts/AuthenticatedLayout";
-import ListarActs from "./ListarActividad";
+import Table from "@/Components/Table";
 import ModalEditar from "@/Components/tabla/ModalEditar";
-function Index({ auth, actividades }) {
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import React, { useEffect, useState } from "react";
+import ListarActs from "./ListarActividad";
+import CrearActividad from "./CrearActividad";
+
+const Index = ({auth,actividades, profesores}) => {
+
     return (
-        <Authenticated auth={auth}>
-            <ModalEditar>
-                <CrearActividad></CrearActividad>
-            </ModalEditar>
-            <ListarActs actividades={actividades}></ListarActs>
-        </Authenticated>
+        <AuthenticatedLayout auth={auth}>
+            <ListarActs actividades={actividades} profesores={profesores}></ListarActs>
+        </AuthenticatedLayout>
     );
-}
+};
 
 export default Index;
