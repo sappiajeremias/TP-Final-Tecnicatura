@@ -36,7 +36,7 @@ const TablaUsuarios = ({ usuarios, roles }) => {
             <ModalEditar isEdit={false}>
                 <Register isEdit={false} objeto={""} roles={roles}></Register>
             </ModalEditar>
-            <div className="container m-auto max-w-6xl p-5">
+            <div className="container m-auto p-5 sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
                 <Table>
                     <Thead nombreColumnas={nombreColumnas} />
 

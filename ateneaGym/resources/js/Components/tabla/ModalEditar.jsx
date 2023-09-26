@@ -76,7 +76,7 @@ const ModalEditar = ({ children, isEdit }) => {
                                 </svg>
                                 <span className="sr-only">Close modal</span>
                             </button>
-                            <div className="px-6 py-6 lg:px-8">
+                            <div className="px-3 py-3 lg:px-4">
                                 {/* Contenido del modal */}
                                 {children}
                             </div>

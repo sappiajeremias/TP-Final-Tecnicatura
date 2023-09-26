@@ -28,13 +28,13 @@ export default function ListarActs({ actividades, profesores }) {
         "descripcion",
     ];
 
-const deleteHandler = (actividad) => {
-    router.delete(`/actividad/${actividad.id}`, {onBefore: () => confirm('Estas seguro?'), onSuccess: () => alert('Actividad Eliminada')})
-}
+    const deleteHandler = (actividad) => {
+        router.delete(`/actividad/${actividad.id}`, { onBefore: () => confirm('Estas seguro?'), onSuccess: () => alert('Actividad Eliminada') })
+    }
 
     return (
         <>
-            <h1 className="text-red-600 text-center text-2xl pt-5">
+            <h1 className="text-pink-500  text-center text-2xl pt-5">
                 Tabla Actividades
             </h1>
             <ModalEditar isEdit={false}>
@@ -56,7 +56,7 @@ const deleteHandler = (actividad) => {
                                     // <TdBody key={index}>{usuario[nombre]}</TdBody>
                                 ))}
 
-                                <td className="px-6 py-4">
+                                <td className="px-6 py-4 flex">
 
 
                                     <ModalEditar isEdit={true}>

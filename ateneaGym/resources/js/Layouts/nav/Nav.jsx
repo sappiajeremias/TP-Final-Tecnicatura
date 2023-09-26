@@ -37,13 +37,12 @@ const Nav = ({ children, auth }) => {
 
     return (
         // ALTO DEL NAVBAR
-        <div className="flex flex-no-wrap h-screen">
+        <div className="relative flex flex-no-wrap h-full">
             <button
                 aria-label="toggle sidebar"
                 id="openSideBar"
-                className={`sm:hidden h-10 w-10 bg-gray-800 absolute left-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 rounded focus:ring-gray-800 z-50 ${
-                    !sidebarVisible ? "" : "hidden"
-                }`}
+                className={`sm:hidden h-10 w-10 bg-gray-800 absolute left-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 rounded focus:ring-gray-800 z-50 ${!sidebarVisible ? "" : "hidden"
+                    }`}
                 onClick={openSidebar}
             >
                 <svg
@@ -72,16 +71,14 @@ const Nav = ({ children, auth }) => {
             </button>
 
             <div
-                className={` w-64 z-40 absolute bg-gray-800 shadow h-full flex flex-col justify-between transition duration-150 ease-in-out ${
-                    sidebarVisible ? "" : "hidden"
-                }`}
+                className={` w-64 z-40 absolute bg-gray-800 shadow h-full flex flex-col justify-between transition duration-150 ease-in-out ${sidebarVisible ? "" : "hidden"
+                    }`}
             >
                 <button
                     aria-label="Close sidebar"
                     id="closeSideBar"
-                    className={`sm:hidden h-10 w-10 bg-gray-800 absolute right-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer text-white ${
-                        sidebarVisible ? "" : "hidden"
-                    }`}
+                    className={`sm:hidden h-10 w-10 bg-gray-800 absolute right-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer text-white ${sidebarVisible ? "" : "hidden"
+                        }`}
                     onClick={closeSidebar}
                 >
                     <svg
@@ -101,7 +98,8 @@ const Nav = ({ children, auth }) => {
                         <line x1="6" y1="6" x2="18" y2="18" />
                     </svg>
                 </button>
-                <div className="px-8">
+
+                <div className="px-8 ">
                     <div className="h-20 w-full flex items-center justify-center pt-10 ">
                         <img
                             src="./assets/img/logo/logo_atenea.svg"
@@ -474,7 +472,7 @@ const Nav = ({ children, auth }) => {
                     </div> */}
                 </div>
 
-                <div className="flex px-8 border-t border-gray-700">
+                <div className="flex px-8 border-t border-gray-700 ">
                     {auth.user ? (
                         <ul className=" flex items-center justify-between  bg-gray-800">
                             <li className="cursor-pointer text-white pb-3">
@@ -538,9 +536,8 @@ const Nav = ({ children, auth }) => {
                 </div>
             </div>
             <main
-                className={`w-full h-full ${
-                    sidebarVisible ? "ps-[256px]" : "pe-0"
-                }`}
+                className={`w-full h-full ${sidebarVisible ? "ps-[256px]" : "pe-0"
+                    }`}
             >
                 {children}
             </main>

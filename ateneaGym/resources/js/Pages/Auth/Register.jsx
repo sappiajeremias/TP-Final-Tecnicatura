@@ -43,8 +43,8 @@ export default function Register({ isEdit, objeto, roles }) {
         <>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
-                <div>
+            <form onSubmit={submit}  >
+                <div className="mt-2">
                     <InputLabel htmlFor="name" value="Name" />
 
                     <TextInput
@@ -60,7 +60,7 @@ export default function Register({ isEdit, objeto, roles }) {
 
                     <InputError message={errors.name} className="mt-2" />
                 </div>
-                <div>
+                <div className="mt-2">
                     <InputLabel htmlFor="apellido" value="Apellido" />
 
                     <TextInput
@@ -76,7 +76,7 @@ export default function Register({ isEdit, objeto, roles }) {
 
                     <InputError message={errors.apellido} className="mt-2" />
                 </div>
-                <div>
+                <div className="mt-2">
                     <InputLabel htmlFor="dni" value="Dni" />
 
                     <TextInput
@@ -92,7 +92,7 @@ export default function Register({ isEdit, objeto, roles }) {
 
                     <InputError message={errors.dni} className="mt-2" />
                 </div>
-                <div>
+                <div className="mt-2">
                     <InputLabel
                         htmlFor="fecha_nac"
                         value="Fecha de Nacimiento"
@@ -113,7 +113,7 @@ export default function Register({ isEdit, objeto, roles }) {
                     <InputError message={errors.fecha_nac} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-2">
                     <InputLabel htmlFor="email" value="Email" />
 
                     <TextInput
@@ -129,7 +129,7 @@ export default function Register({ isEdit, objeto, roles }) {
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
-                <div className="mt-4">
+                <div className="mt-2">
                     <InputLabel htmlFor="rol" value="Rol" />
 
                     <select
@@ -153,7 +153,7 @@ export default function Register({ isEdit, objeto, roles }) {
                 </div>
                 {!isEdit ? (
                     <>
-                        <div className="mt-4">
+                        <div className="mt-2">
                             <InputLabel htmlFor="password" value="Contraseña" />
 
                             <TextInput
@@ -175,7 +175,7 @@ export default function Register({ isEdit, objeto, roles }) {
                             />
                         </div>
 
-                        <div className="mt-4">
+                        <div className="mt-2">
                             <InputLabel
                                 htmlFor="password_confirmation"
                                 value="Confirmar Contraseña"
@@ -206,7 +206,7 @@ export default function Register({ isEdit, objeto, roles }) {
                 ) : (
                     ""
                 )}
-                <div className="flex items-center justify-end mt-4">
+                <div className="flex items-center justify-end mt-2">
                     {/* <Link
                         href={route("login")}
                         className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -219,6 +219,7 @@ export default function Register({ isEdit, objeto, roles }) {
                     </PrimaryButton>
                 </div>
             </form>
+
         </>
     );
 }
