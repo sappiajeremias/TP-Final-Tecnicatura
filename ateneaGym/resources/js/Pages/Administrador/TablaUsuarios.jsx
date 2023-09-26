@@ -30,7 +30,7 @@ const TablaUsuarios = ({ usuarios, roles }) => {
 
     return (
         <>
-            <h1 className="text-red-600 text-center text-2xl pt-5">
+            <h1 className="text-pink-500 text-center text-2xl pt-5">
                 Tabla Usuarios
             </h1>
             <ModalEditar isEdit={false}>
