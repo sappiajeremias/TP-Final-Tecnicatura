@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Termwind\Components\Dd;
+
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller {
     /**
@@ -16,13 +18,15 @@ class UserController extends Controller {
      */
     public function index() {
         $usuarios = User::all();
-        return Inertia::render('Administrador/Index', ['usuarios' => $usuarios]);
+        $roles = Role::all();
+        return Inertia::render('Administrador/Index', ['usuarios' => $usuarios, 'roles' => $roles]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:' . User::class,
@@ -40,7 +44,7 @@ class UserController extends Controller {
             'fecha_nac' => $request->fecha_nac,
             'password' => Hash::make($request->password),
         ]);
-
+        $user->assignRole($request->rol);
         // event(new Registered($user));
 
         // Auth::login($user);
@@ -52,14 +56,24 @@ class UserController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(Request $request, String $id) {
+
         $usuario = User::find($id);
         $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->apellido = $request->apellido;
         $usuario->dni = $request->dni;
         $usuario->fecha_nac = $request->fecha_nac;
+        // $roles = Role::all();
+
+        if ($usuario->rol() && $usuario->rol()[0] != 'Administrador') {
+            dd($usuario->rol());
+            // foreach ($roles as $rol) {
+            $usuario->removeRole($usuario->rol);
+            // }
+        }
+
+        $usuario->assignRole($request->rol);
         $usuario->save();
-        
     }
 
     /**

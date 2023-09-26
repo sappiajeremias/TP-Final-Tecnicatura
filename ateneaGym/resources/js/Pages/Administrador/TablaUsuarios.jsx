@@ -8,7 +8,7 @@ import { TdBody } from "@/Components/tabla/TdBody";
 import BotonEliminar from "@/Components/tabla/BotonEliminar";
 import { router } from "@inertiajs/react";
 
-const TablaUsuarios = ({ usuarios }) => {
+const TablaUsuarios = ({ usuarios, roles }) => {
     const nombreColumnas = [
         "Nombre",
         "Apellido",
@@ -22,56 +22,54 @@ const TablaUsuarios = ({ usuarios }) => {
     // const [usuario, setusuario] = useState('');
     const handleDelete = (usuario) => {
         // Lógica para eliminar el recurso
-        router.delete(`/usuarios/${usuario.id}`, { onBefore: () => confirm('Estas seguro?'), onSuccess: () => alert('Usuario Eliminado') });
-
+        router.delete(`/usuarios/${usuario.id}`, {
+            onBefore: () => confirm("Estas seguro?"),
+            onSuccess: () => alert("Usuario Eliminado"),
+        });
     };
-
-
 
     return (
         <>
             <h1 className="text-red-600 text-center text-2xl pt-5">
                 Tabla Usuarios
             </h1>
+            <ModalEditar isEdit={false}>
+                <Register isEdit={false} objeto={""} roles={roles}></Register>
+            </ModalEditar>
             <div className="container m-auto max-w-6xl p-5">
                 <Table>
                     <Thead nombreColumnas={nombreColumnas} />
 
                     {usuarios.map((usuario) => (
                         <React.Fragment key={usuario.id}>
-
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={usuario.id}>
-
-
+                            <tr
+                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                key={usuario.id}
+                            >
                                 {nombreProp.map((nombre, index) => (
-
-                                    <td className="px-6 py-4" key={index}>{usuario[nombre]}</td>
+                                    <td className="px-6 py-4" key={index}>
+                                        {usuario[nombre]}
+                                    </td>
                                     // <TdBody key={index}>{usuario[nombre]}</TdBody>
                                 ))}
 
-                                <td className="px-6 py-4">
-
-
+                                <td className="px-6 py-4 flex">
                                     <ModalEditar isEdit={true}>
-
                                         <Register
-                                            isEdit={true} objeto={usuario}
+                                            isEdit={true}
+                                            objeto={usuario}
+                                            roles={roles}
                                         />
                                     </ModalEditar>
                                     <BotonEliminar
                                         click={() => handleDelete(usuario)}
                                     />
-
-
-                                </td >
-
+                                </td>
                             </tr>
                         </React.Fragment>
                     ))}
-
-
-                </Table >
-            </div >
+                </Table>
+            </div>
         </>
     );
 };

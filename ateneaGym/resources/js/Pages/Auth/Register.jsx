@@ -5,19 +5,19 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, router, useForm } from "@inertiajs/react";
+import InputSelect from "@/Components/InputSelect";
 
-export default function Register({ isEdit, objeto }) {
-
+export default function Register({ isEdit, objeto, roles }) {
     const { data, setData, put, post, processing, errors, reset } = useForm({
         name: objeto.name || "",
         apellido: objeto.apellido || "",
         email: objeto.email || "",
         dni: objeto.dni || "",
         fecha_nac: objeto.fecha_nac || "",
+        rol: objeto.rol || "",
         password: objeto.password || "",
         password_confirmation: "",
     });
-
 
     useEffect(() => {
         return () => {
@@ -28,11 +28,15 @@ export default function Register({ isEdit, objeto }) {
     const submit = (e) => {
         e.preventDefault();
         if (isEdit) {
-            put(`/usuarios/${objeto.id}`, { onSuccess: () => { alert('Usuario Actualizado'); location.reload() } });
+            put(`/usuarios/${objeto.id}`, {
+                onSuccess: () => {
+                    alert("Usuario Actualizado");
+                    location.reload();
+                },
+            });
         } else {
             post(route("usuarios.store"));
         }
-
     };
 
     return (
@@ -125,10 +129,32 @@ export default function Register({ isEdit, objeto }) {
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
+                <div className="mt-4">
+                    <InputLabel htmlFor="rol" value="Rol" />
+
+                    <select
+                        name="rol"
+                        id="rol"
+                        className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
+                        value={data.rol}
+                        onChange={(e) => setData("rol", e.target.value)}
+                    >
+                        <option selected>Seleccione un rol</option>
+                        {roles.map((rol, index) =>
+                            rol.name === "Administrador" ? (
+                                ""
+                            ) : (
+                                <option key={index} value={rol.name}>
+                                    {rol.name}
+                                </option>
+                            )
+                        )}
+                    </select>
+                </div>
                 {!isEdit ? (
                     <>
                         <div className="mt-4">
-                            <InputLabel htmlFor="password" value="Password" />
+                            <InputLabel htmlFor="password" value="Contraseña" />
 
                             <TextInput
                                 id="password"
@@ -137,17 +163,22 @@ export default function Register({ isEdit, objeto }) {
                                 value={data.password}
                                 className="mt-1 block w-full"
                                 autoComplete="new-password"
-                                onChange={(e) => setData("password", e.target.value)}
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
+                                }
                                 required
                             />
 
-                            <InputError message={errors.password} className="mt-2" />
+                            <InputError
+                                message={errors.password}
+                                className="mt-2"
+                            />
                         </div>
 
                         <div className="mt-4">
                             <InputLabel
                                 htmlFor="password_confirmation"
-                                value="Confirm Password"
+                                value="Confirmar Contraseña"
                             />
 
                             <TextInput
@@ -158,7 +189,10 @@ export default function Register({ isEdit, objeto }) {
                                 className="mt-1 block w-full"
                                 autoComplete="new-password"
                                 onChange={(e) =>
-                                    setData("password_confirmation", e.target.value)
+                                    setData(
+                                        "password_confirmation",
+                                        e.target.value
+                                    )
                                 }
                                 required
                             />
@@ -169,20 +203,22 @@ export default function Register({ isEdit, objeto }) {
                             />
                         </div>
                     </>
-                ) : ('')}
-                < div className="flex items-center justify-end mt-4">
-                    <Link
+                ) : (
+                    ""
+                )}
+                <div className="flex items-center justify-end mt-4">
+                    {/* <Link
                         href={route("login")}
                         className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Already registered?
-                    </Link>
+                    </Link> */}
 
                     <PrimaryButton className="ml-4" disabled={processing}>
                         Confirmar
                     </PrimaryButton>
                 </div>
-            </form >
+            </form>
         </>
     );
 }

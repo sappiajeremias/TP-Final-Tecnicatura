@@ -5,14 +5,12 @@ import React, { useEffect, useState } from "react";
 import Register from "../Auth/Register";
 import TablaUsuarios from "./TablaUsuarios";
 
-const Index = ({ usuarios, auth }) => {
+const Index = ({ usuarios, auth,roles }) => {
 
     return (
         <AuthenticatedLayout auth={auth}>
-            <ModalEditar isEdit={false}>
-                <Register isEdit={false} objeto={''}></Register>
-            </ModalEditar>
-            <TablaUsuarios usuarios={usuarios} ></TablaUsuarios>
+           
+            <TablaUsuarios usuarios={usuarios} roles={roles}></TablaUsuarios>
         </AuthenticatedLayout>
     );
 };
