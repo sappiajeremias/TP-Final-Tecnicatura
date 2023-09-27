@@ -20,7 +20,7 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
     const submit = (e) => {
         e.preventDefault();
         if (isEdit) {
-            put(`/actividad/${objeto.id}`, { onSuccess: () => { alert('Actividad actualizada'); location.reload() } });
+            put(`/actividad/${objeto.id}`, { onSuccess: () => { alert('Actividad actualizada'); document.getElementById('cierreModal').click() } });
         } else {
             post(route("actividad.store"));
         }
@@ -163,11 +163,11 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                     >
                         <option selected>Seleccione el id del profesor</option>
                         {profesores.map((profe, index) =>
-                             (
-                                <option key={index} value={profe.id}>
-                                    {profe.id} 
-                                </option>
-                            )
+                        (
+                            <option key={index} value={profe.id}>
+                                {profe.id}
+                            </option>
+                        )
                         )}
                     </select>
                 </div>
