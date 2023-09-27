@@ -31,7 +31,7 @@ export default function Register({ isEdit, objeto, roles }) {
             put(`/usuarios/${objeto.id}`, {
                 onSuccess: () => {
                     alert("Usuario Actualizado");
-                    location.reload();
+                    document.getElementById('cierreModal').click();
                 },
             });
         } else {
@@ -139,7 +139,7 @@ export default function Register({ isEdit, objeto, roles }) {
                         value={data.rol}
                         onChange={(e) => setData("rol", e.target.value)}
                     >
-                        <option selected>Seleccione un rol</option>
+                        <option >Seleccione un rol</option>
                         {roles.map((rol, index) =>
                             rol.name === "Administrador" ? (
                                 ""

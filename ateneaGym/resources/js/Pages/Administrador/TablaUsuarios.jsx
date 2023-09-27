@@ -9,6 +9,7 @@ import BotonEliminar from "@/Components/tabla/BotonEliminar";
 import { router } from "@inertiajs/react";
 
 const TablaUsuarios = ({ usuarios, roles }) => {
+ console.log(usuarios);
     const nombreColumnas = [
         "Nombre",
         "Apellido",
@@ -30,6 +31,7 @@ const TablaUsuarios = ({ usuarios, roles }) => {
 
     return (
         <>
+
             <h1 className="text-pink-500 text-center text-2xl pt-5">
                 Tabla Usuarios
             </h1>

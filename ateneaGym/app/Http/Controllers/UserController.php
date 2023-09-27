@@ -17,7 +17,12 @@ class UserController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        $usuarios = User::all();
+
+        $usuarios = User::join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+            ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+            ->select('users.*', 'roles.name as rol')
+            ->get();
+        // $usuarios = User::with('roles')->get();
         $roles = Role::all();
         return Inertia::render('Administrador/Index', ['usuarios' => $usuarios, 'roles' => $roles]);
     }
@@ -58,6 +63,7 @@ class UserController extends Controller {
     public function update(Request $request, String $id) {
 
         $usuario = User::find($id);
+       
         $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->apellido = $request->apellido;
@@ -66,7 +72,7 @@ class UserController extends Controller {
         // $roles = Role::all();
 
         if ($usuario->rol() && $usuario->rol()[0] != 'Administrador') {
-        //   dd($usuario->rol()[0]);
+            //   dd($usuario->rol()[0]);
             // foreach ($roles as $rol) {
             $usuario->removeRole($usuario->rol()[0]);
             // }

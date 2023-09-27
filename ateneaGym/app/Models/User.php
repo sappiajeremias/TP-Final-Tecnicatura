@@ -57,4 +57,5 @@ class User extends Authenticatable {
         $roles = $this->getRoleNames()->toArray();
         return $roles;
     }
+
 }
