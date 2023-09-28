@@ -5,8 +5,15 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\EjercicioController;
+use App\Http\Controllers\EspecialidadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfesorController;
+use App\Http\Controllers\RutinaController;
+use App\Http\Controllers\TurnoController;
+use App\Models\Alumno;
+use App\Models\Especialidad;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +50,33 @@ Route::middleware('auth')->group(function () {
 Route::resource('actividad', ActividadController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
-   
 
 
 Route::resource('usuarios', UserController::class)
+    ->only(['store', 'index', 'update', 'destroy'])
+    ->middleware(['auth']);
+
+Route::resource('turnos', TurnoController::class)
+    ->only(['store', 'index', 'update', 'destroy'])
+    ->middleware(['auth']);
+
+Route::resource('especialidad', EspecialidadController::class)
+    ->only(['store', 'index', 'update', 'destroy'])
+    ->middleware(['auth']);
+
+Route::resource('alumno', AlumnoController::class)
+    ->only(['store', 'index', 'update', 'destroy'])
+    ->middleware(['auth']);
+
+Route::resource('profesor', ProfesorController::class)
+    ->only(['store', 'index', 'update', 'destroy'])
+    ->middleware(['auth']);
+
+Route::resource('rutina', RutinaController::class)
+    ->only(['store', 'index', 'update', 'destroy'])
+    ->middleware(['auth']);
+
+Route::resource('ejercicio', EjercicioController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
