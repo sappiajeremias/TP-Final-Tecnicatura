@@ -41,8 +41,9 @@ const Nav = ({ children, auth }) => {
             <button
                 aria-label="toggle sidebar"
                 id="openSideBar"
-                className={`sm:hidden h-10 w-10 bg-gray-950 absolute left-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 rounded focus:ring-gray-800 z-50 ${!sidebarVisible ? "" : "hidden"
-                    }`}
+                className={`sm:hidden h-10 w-10 bg-gray-950 absolute left-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 rounded focus:ring-gray-800 z-50 ${
+                    !sidebarVisible ? "" : "hidden"
+                }`}
                 onClick={openSidebar}
             >
                 <svg
@@ -71,14 +72,16 @@ const Nav = ({ children, auth }) => {
             </button>
 
             <div
-                className={` w-64 z-40 fixed bg-gray-950 shadow h-full flex flex-col justify-between transition duration-150 ease-in-out ${sidebarVisible ? "" : "hidden"
-                    }`}
+                className={` w-64 z-40 fixed bg-gray-950 shadow h-full flex flex-col justify-between transition duration-150 ease-in-out ${
+                    sidebarVisible ? "" : "hidden"
+                }`}
             >
                 <button
                     aria-label="Close sidebar"
                     id="closeSideBar"
-                    className={`sm:hidden h-10 w-10 bg-gray-950 absolute right-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer text-white ${sidebarVisible ? "" : "hidden"
-                        }`}
+                    className={`sm:hidden h-10 w-10 bg-gray-950 absolute right-0 mt-5 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer text-white ${
+                        sidebarVisible ? "" : "hidden"
+                    }`}
                     onClick={closeSidebar}
                 >
                     <svg
@@ -375,63 +378,6 @@ const Nav = ({ children, auth }) => {
                                         </NavLink>
                                     </div>
                                 </li>
-                                <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                    <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white justify-between">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="icon icon-tabler icon-tabler-grid"
-                                            width="18"
-                                            height="18"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="1.5"
-                                            stroke="currentColor"
-                                            fill="none"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path
-                                                stroke="none"
-                                                d="M0 0h24v24H0z"
-                                            ></path>
-                                            <rect
-                                                x="4"
-                                                y="4"
-                                                width="6"
-                                                height="6"
-                                                rx="1"
-                                            ></rect>
-                                            <rect
-                                                x="14"
-                                                y="4"
-                                                width="6"
-                                                height="6"
-                                                rx="1"
-                                            ></rect>
-                                            <rect
-                                                x="4"
-                                                y="14"
-                                                width="6"
-                                                height="6"
-                                                rx="1"
-                                            ></rect>
-                                            <rect
-                                                x="14"
-                                                y="14"
-                                                width="6"
-                                                height="6"
-                                                rx="1"
-                                            ></rect>
-                                        </svg>
-
-                                        <NavLink
-                                            className="ps-3"
-                                            href={route("register")}
-                                            active={route().current("register")}
-                                        >
-                                            Register
-                                        </NavLink>
-                                    </div>
-                                </li>
                             </ul>
                         </>
                     )}
@@ -536,8 +482,9 @@ const Nav = ({ children, auth }) => {
                 </div>
             </div>
             <main
-                className={`w-full h-full ${sidebarVisible ? "ps-[256px]" : "pe-0"
-                    }`}
+                className={`w-full h-full ${
+                    sidebarVisible ? "ps-[256px]" : "pe-0"
+                }`}
             >
                 {children}
             </main>
