@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
@@ -7,7 +7,7 @@ import TextInput from "@/Components/TextInput";
 import { Head, Link, router, useForm } from "@inertiajs/react";
 export default function CrearActividad({ isEdit, objeto, profesores }) {
     const { data, setData, put, post, processing, errors, reset } = useForm({
-        dia_semana: objeto.dia_semana || "",
+        dia_semana: [],
         hora_inicio: objeto.hora_inicio || "",
         hora_fin: objeto.hora_fin || "",
         duracion: objeto.duracion || "",
@@ -15,23 +15,71 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
         profesor_id: objeto.profesor_id || "",
     });
 
+    const dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
+
+    //const [diasSelected, setDiasSelected] = useState(objeto.dia_semana.split(",")); // Inicializa con los valores desde el objeto
 
 
-    const submit = (e) => {
-        e.preventDefault();
-        if (isEdit) {
-            put(`/actividad/${objeto.id}`, { onSuccess: () => { alert('Actividad actualizada'); document.getElementById('cierreModal').click() } });
+    const handleCheckboxChange = (e) => {
+        const value = e.target.value;
+        const isChecked = e.target.checked;
+        let updatedDiaSemana;
+
+        if (isChecked) {
+            // Agrega el día seleccionado solo si no está en la lista
+            if (!data.dia_semana.includes(value)) {
+                updatedDiaSemana = [...data.dia_semana, value];
+            } else {
+                updatedDiaSemana = data.dia_semana;
+            }
         } else {
-            post(route("actividad.store"));
+            // Elimina el día deseleccionado de la lista
+            updatedDiaSemana = data.dia_semana.filter((dia) => dia !== value);
+        }
+
+        // Actualiza el estado data con los nuevos valores seleccionados
+        setData("dia_semana", updatedDiaSemana);
+    };
+
+
+
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(data.dia_semana)
+        if (isEdit) {
+            put(`/actividad/${objeto.id}`, {
+                dia_semana: data.dia_semana, // Envia solo los días seleccionados
+                hora_inicio: data.hora_inicio,
+                hora_fin: data.hora_fin,
+                duracion: data.duracion,
+                descripcion: data.descripcion,
+                profesor_id: data.profesor_id,
+                onSuccess: () => {
+                    alert('Actividad actualizada');
+                    document.getElementById('cierreModal').click();
+                },
+            });
+        } else {
+            post(route('actividad.store'), {
+                dia_semana: data.dia_semana, // Envia solo los días seleccionados
+                hora_inicio: data.hora_inicio,
+                hora_fin: data.hora_fin,
+                duracion: data.duracion,
+                descripcion: data.descripcion,
+                profesor_id: data.profesor_id,
+            });
         }
     };
+
 
     return (
         <>
 
             <Head title="Actividades" />
 
-            <form onSubmit={submit}>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <InputLabel htmlFor="descripcion" value="Descripcion" />
 
@@ -45,7 +93,7 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                         onChange={(e) =>
                             setData("descripcion", e.target.value)
                         }
-                        required
+                        
                     />
 
                     <InputError
@@ -56,21 +104,24 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                 <div>
                     <InputLabel
                         htmlFor="dia_semana"
-                        value="Dias de la semana(Separados por comas)"
+                        value="Dias de la semana"
                     />
 
-                    <TextInput
-                        id="dia_semana"
-                        name="dia_semana"
-                        value={data.dia_semana}
-                        className="mt-1 block w-full"
-                        autoComplete="dia_semana"
-                        isFocused={true}
-                        onChange={(e) =>
-                            setData("dia_semana", e.target.value)
-                        }
-                        required
-                    />
+                    <div className="mt-2 space-y-2">
+                        {dias.map((dia) => (
+                            <label key={dia} className="inline-flex items-center">
+                                <input
+                                    type="checkbox"
+                                    id={dia.toLowerCase()}
+                                    name="dia_semana[]"
+                                    value={dia.toLowerCase()}
+                                    checked={data.dia_semana.includes(dia.toLowerCase())}
+                                    onChange={handleCheckboxChange}
+                                />
+                                <span className="ml-2">{dia}</span>
+                            </label>
+                        ))}
+                    </div>
 
                     <InputError
                         message={errors.dia_semana}
@@ -80,21 +131,29 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                 <div>
                     <InputLabel
                         htmlFor="hora_inicio"
-                        value="Hora de inicio (Formato: 09:00)"
+                        value="Hora de inicio"
                     />
 
-                    <TextInput
+                    <select
                         id="hora_inicio"
                         name="hora_inicio"
                         value={data.hora_inicio}
                         className="mt-1 block w-full"
                         autoComplete="hora_inicio"
-                        isFocused={true}
-                        onChange={(e) =>
-                            setData("hora_inicio", e.target.value)
-                        }
-                        required
-                    />
+                        onChange={(e) => setData("hora_inicio", e.target.value)}
+                        
+                    >
+                        <option value="">Selecciona una hora</option>
+                        {Array.from({ length: 14 }, (_, index) => {
+                            const hour = index + 8; // Empieza en 8:00 AM y suma cada hora
+                            const formattedHour = `${hour.toString().padStart(2, "0")}:00`; // Formatea la hora a "HH:00"
+                            return (
+                                <option key={formattedHour} value={formattedHour}>
+                                    {formattedHour}
+                                </option>
+                            );
+                        })}
+                    </select>
 
                     <InputError
                         message={errors.hora_inicio}
@@ -104,21 +163,29 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                 <div>
                     <InputLabel
                         htmlFor="hora_fin"
-                        value="Hora de finalizacion (Formato: 09:00)"
+                        value="Hora de finalizacion"
                     />
 
-                    <TextInput
+                    <select
                         id="hora_fin"
                         name="hora_fin"
                         value={data.hora_fin}
                         className="mt-1 block w-full"
                         autoComplete="hora_fin"
-                        isFocused={true}
-                        onChange={(e) =>
-                            setData("hora_fin", e.target.value)
-                        }
-                        required
-                    />
+                        onChange={(e) => setData("hora_fin", e.target.value)}
+                        
+                    >
+                        <option value="">Seleccione una hora</option>
+                        {Array.from({ length: 14 }, (_, index) => {
+                            const hour = index + 9; // Empieza en 9:00 AM y suma cada hora
+                            const formattedHour = `${hour.toString().padStart(2, "0")}:00`; // Formatea la hora a "HH:00"
+                            return (
+                                <option key={formattedHour} value={formattedHour}>
+                                    {formattedHour}
+                                </option>
+                            );
+                        })}
+                    </select>
 
                     <InputError
                         message={errors.hora_fin}
@@ -142,7 +209,7 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                         onChange={(e) =>
                             setData("duracion", e.target.value)
                         }
-                        required
+                        
                     />
 
                     <InputError
@@ -165,7 +232,7 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                         {profesores.map((profe, index) =>
                         (
                             <option key={index} value={profe.id}>
-                                {profe.id}
+                                {profe.nombre_apellido}
                             </option>
                         )
                         )}

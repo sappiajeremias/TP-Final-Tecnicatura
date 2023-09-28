@@ -33,12 +33,28 @@ class UserController extends Controller {
     public function store(Request $request) {
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:' . User::class,
-            'apellido' => 'required|string|max:255',
-            'fecha_nac' => 'required|date|max:255',
-            'dni' => 'required|integer|unique:' . User::class,
+            'name' => ['required','string','max:255'],
+            'email' => ['required','string','email','max:255','unique:' . User::class],
+            'apellido' => ['required','string','max:255'],
+            'fecha_nac' => ['required','date','before_or_equal:' . now()->subYears(13)->format('Y-m-d')],
+            'dni' => ['required','integer','unique:' . User::class, 'max:8', 'min:8'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ],[
+            'name.required' => 'Por favor, ingrese un nombre.',
+            'name.max' => 'El nombre debe tener menos de 255 caracteres.',
+            'email.required' => 'Por favor, ingrese un email.',
+            'email.email' => 'Ingrese un email válido.',
+            'email.unique' => 'Ya existe un usuario registrado con el mail ingresado.',
+            'apellido.required' => 'Por favor, ingrese un apellido.',
+            'apellido.max' => 'El apellido debe tener menos de 255 caracteres.',
+            'fecha_nac.required' => 'Por favor, ingrese una fecha.',
+            'fecha_nac.before_or_equal' => 'La fecha de nacimiento ingresada debe ser mayor de 13 años.',
+            'dni.required' => 'Por favor, ingrese un DNI.',
+            'dni.unique' => 'Ya existe un usuario registrado con el DNI ingresado.',
+            'dni.integer' => 'El DNI ingresado debe ser numerico.',
+            'dni.max' => 'Debe contener 8 caracteres.',
+            'dni.min' => 'Debe contener 8 caracteres.',
+            'password.required' => 'Por favor, ingrese una contraseña.'
         ]);
 
         $user = User::create([

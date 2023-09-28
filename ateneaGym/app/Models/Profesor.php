@@ -12,4 +12,9 @@ class Profesor extends Model
         'user_id',
         'matricula'
     ];
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -55,7 +55,7 @@ export default function Register({ isEdit, objeto, roles }) {
                         autoComplete="name"
                         isFocused={true}
                         onChange={(e) => setData("name", e.target.value)}
-                        required
+                        
                     />
 
                     <InputError message={errors.name} className="mt-2" />
@@ -71,7 +71,7 @@ export default function Register({ isEdit, objeto, roles }) {
                         autoComplete="apellido"
                         isFocused={true}
                         onChange={(e) => setData("apellido", e.target.value)}
-                        required
+                        
                     />
 
                     <InputError message={errors.apellido} className="mt-2" />
@@ -87,7 +87,7 @@ export default function Register({ isEdit, objeto, roles }) {
                         autoComplete="dni"
                         isFocused={true}
                         onChange={(e) => setData("dni", e.target.value)}
-                        required
+                        
                     />
 
                     <InputError message={errors.dni} className="mt-2" />
@@ -107,7 +107,7 @@ export default function Register({ isEdit, objeto, roles }) {
                         autoComplete="fecha_nac"
                         isFocused={true}
                         onChange={(e) => setData("fecha_nac", e.target.value)}
-                        required
+                        
                     />
 
                     <InputError message={errors.fecha_nac} className="mt-2" />
@@ -124,7 +124,7 @@ export default function Register({ isEdit, objeto, roles }) {
                         className="mt-1 block w-full"
                         autoComplete="username"
                         onChange={(e) => setData("email", e.target.value)}
-                        required
+                        
                     />
 
                     <InputError message={errors.email} className="mt-2" />
@@ -166,7 +166,7 @@ export default function Register({ isEdit, objeto, roles }) {
                                 onChange={(e) =>
                                     setData("password", e.target.value)
                                 }
-                                required
+                                
                             />
 
                             <InputError
@@ -194,7 +194,7 @@ export default function Register({ isEdit, objeto, roles }) {
                                         e.target.value
                                     )
                                 }
-                                required
+                                
                             />
 
                             <InputError
