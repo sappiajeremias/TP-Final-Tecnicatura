@@ -325,50 +325,18 @@ const Nav = ({ children, auth }) => {
                                     <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white justify-between">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
-                                            className="icon icon-tabler icon-tabler-grid"
-                                            width="18"
-                                            height="18"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="1.5"
-                                            stroke="currentColor"
-                                            fill="none"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            class="bi bi-person-circle"
+                                            viewBox="0 0 16 16"
                                         >
+                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                                             <path
-                                                stroke="none"
-                                                d="M0 0h24v24H0z"
-                                            ></path>
-                                            <rect
-                                                x="4"
-                                                y="4"
-                                                width="6"
-                                                height="6"
-                                                rx="1"
-                                            ></rect>
-                                            <rect
-                                                x="14"
-                                                y="4"
-                                                width="6"
-                                                height="6"
-                                                rx="1"
-                                            ></rect>
-                                            <rect
-                                                x="4"
-                                                y="14"
-                                                width="6"
-                                                height="6"
-                                                rx="1"
-                                            ></rect>
-                                            <rect
-                                                x="14"
-                                                y="14"
-                                                width="6"
-                                                height="6"
-                                                rx="1"
-                                            ></rect>
+                                                fill-rule="evenodd"
+                                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                                            />
                                         </svg>
-
                                         <NavLink
                                             className="ps-3"
                                             href={route("login")}
