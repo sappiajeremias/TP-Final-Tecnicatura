@@ -39,14 +39,6 @@ const PaginaWelcome = () => {
                                         href="#"
                                         className="text-white text-sm uppercase font-semibold"
                                     >
-                                        Home
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="text-white text-sm uppercase font-semibold"
-                                    >
                                         About Us
                                     </a>
                                 </li>
@@ -61,11 +53,11 @@ const PaginaWelcome = () => {
                                 <li id="header-logo" className="top-gym-logo">
                                     <a
                                         href="#"
-                                        className="text-white text-2xl font-bold"
+                                        className="text-white text-2xl font-bold flex-nowrap justify-center"
                                     >
-                                        Top
+                                        <span className="text-pink-500 ">Atenea</span>
                                         <br />
-                                        Gym
+                                        <span className="ps-3">Gym</span>
                                     </a>
                                 </li>
                                 <li>
@@ -76,14 +68,7 @@ const PaginaWelcome = () => {
                                         Instructors
                                     </a>
                                 </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="text-white text-sm uppercase font-semibold"
-                                    >
-                                        News
-                                    </a>
-                                </li>
+
                                 <li>
                                     <a
                                         href="#"

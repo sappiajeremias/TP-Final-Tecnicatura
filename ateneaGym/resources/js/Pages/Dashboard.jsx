@@ -1,11 +1,12 @@
 import Table from "@/Components/Table";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import PaginaWelcome from "./PaginaWelcome";
 
 export default function Dashboard({ auth }) {
     return (
-        <Nav auth={auth}>
+        <AuthenticatedLayout auth={auth}>
             <PaginaWelcome></PaginaWelcome>
-        </Nav>
+        </AuthenticatedLayout>
     );
 }

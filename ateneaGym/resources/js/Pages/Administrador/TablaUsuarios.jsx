@@ -7,6 +7,7 @@ import TrBody from "@/Components/tabla/TrBody";
 import { TdBody } from "@/Components/tabla/TdBody";
 import BotonEliminar from "@/Components/tabla/BotonEliminar";
 import { router } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
 const TablaUsuarios = ({ usuarios, roles }) => {
     console.log(usuarios);
@@ -25,10 +26,14 @@ const TablaUsuarios = ({ usuarios, roles }) => {
         // Lógica para eliminar el recurso
         router.delete(`/usuarios/${usuario.id}`, {
             onBefore: () => confirm("Estas seguro?"),
-            onSuccess: () => alert("Usuario Eliminado"),
+            onSuccess: () =>
+                Swal.fire({
+                    icon: "success",
+                    text: "Usuario Eliminado!",
+                }),
         });
     };
-
+    
     return (
         <>
             <h1 className="text-pink-500 text-center text-2xl pt-5">
