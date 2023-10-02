@@ -12,4 +12,10 @@ class EspecialidadProfesor extends Model
         'profesor_id',
         'especialidad_id'
     ];
+
+    public function profesor()
+    {
+        return $this->belongsTo(Profesor::class, 'profesor_id');
+    }
+
 }
