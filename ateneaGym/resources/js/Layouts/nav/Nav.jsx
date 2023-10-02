@@ -201,7 +201,7 @@ const Nav = ({ children, auth }) => {
                                     </NavLink>
                                 </div>
                             </li>
-                            
+
                             <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                 <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
                                     <svg
@@ -235,6 +235,40 @@ const Nav = ({ children, auth }) => {
                                 25
                             </div> */}
                             </li>
+                            <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
+                                    <svg
+                                        className=" text-gray-100 dark:text-white"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 20 18"
+                                        width="18"
+                                        height="18"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
+                                        />
+                                    </svg>
+                                    <NavLink
+                                        className="ps-3"
+                                        href={route("especialidad.index")}
+                                        active={route().current(
+                                            "especialidad.index"
+                                        )}
+                                    >
+                                        Especialidades
+                                    </NavLink>
+                                </div>
+                                {/* <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
+                                25
+                            </div> */}
+                            </li>
+
                             <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                 <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
                                     <svg

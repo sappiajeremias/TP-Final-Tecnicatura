@@ -10,21 +10,15 @@ import { router } from "@inertiajs/react";
 import CrearEspecialidad from "./CrearEspecialidad";
 
 export default function ListarEspecialidades({ especialidadesProfesores }) {
-    const nombreColumnas = [
-        "ID",
-        "Nombre Profesor",
-        "Descripcion",
-        "Acciones"
-    ];
-    const nombreProp = [
-        "id",
-        "nombre",
-        "descripcion",
-    ];
+    const nombreColumnas = ["ID", "Nombre Profesor", "Descripcion", "Acciones"];
+    const nombreProp = ["id", "nombre", "descripcion"];
 
     const deleteHandler = (especialidad) => {
-        router.delete(`/especialidad/${especialidad.id}`, { onBefore: () => confirm('Estas seguro?'), onSuccess: () => alert('Relacion de especialidad eliminada') })
-    }
+        router.delete(`/especialidad/${especialidad.id}`, {
+            onBefore: () => confirm("Estas seguro?"),
+            onSuccess: () => alert("Relacion de especialidad eliminada"),
+        });
+    };
 
     return (
         <>
@@ -32,7 +26,11 @@ export default function ListarEspecialidades({ especialidadesProfesores }) {
                 Tabla especialidades
             </h1>
             <ModalEditar isEdit={false}>
-                <CrearEspecialidad isEdit={false} objeto={''} especialidadesProfesores={especialidadesProfesores}></CrearEspecialidad>
+                <CrearEspecialidad
+                    isEdit={false}
+                    objeto={""}
+                    especialidadesProfesores={especialidadesProfesores}
+                ></CrearEspecialidad>
             </ModalEditar>
             <div className="container m-auto max-w-6xl p-5">
                 <Table>
@@ -40,39 +38,36 @@ export default function ListarEspecialidades({ especialidadesProfesores }) {
 
                     {especialidadesProfesores.map((esp) => (
                         <React.Fragment key={esp.id}>
-
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={esp.id}>
-
-
+                            <tr
+                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                key={esp.id}
+                            >
                                 {nombreProp.map((nombre, index) => (
-
-                                    <td className="px-6 py-4" key={index}>{esp[nombre]}</td>
+                                    <td className="px-6 py-4" key={index}>
+                                        {esp[nombre]}
+                                    </td>
                                     // <TdBody key={index}>{usuario[nombre]}</TdBody>
                                 ))}
 
                                 <td className="px-6 py-4 flex">
-
-
                                     <ModalEditar isEdit={true}>
-
                                         <CrearEspecialidad
-                                            isEdit={true} objeto={esp} especialidadesProfesores={especialidadesProfesores}
+                                            isEdit={true}
+                                            objeto={esp}
+                                            especialidadesProfesores={
+                                                especialidadesProfesores
+                                            }
                                         />
                                     </ModalEditar>
                                     <BotonEliminar
                                         click={() => deleteHandler(esp)}
                                     />
-
-
-                                </td >
-
+                                </td>
                             </tr>
                         </React.Fragment>
                     ))}
-
-
-                </Table >
-            </div >
+                </Table>
+            </div>
         </>
     );
 }
