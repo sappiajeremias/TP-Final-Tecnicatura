@@ -237,6 +237,10 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                         )
                         )}
                     </select>
+                    <InputError
+                        message={errors.profesor_id}
+                        className="mt-2"
+                    />
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
@@ -244,6 +248,7 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                         Editar
                     </PrimaryButton>
                 </div>
+                
             </form>
 
         </>

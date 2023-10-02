@@ -201,6 +201,7 @@ const Nav = ({ children, auth }) => {
                                     </NavLink>
                                 </div>
                             </li>
+                            
                             <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                 <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
                                     <svg

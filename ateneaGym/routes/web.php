@@ -7,7 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\EjercicioController;
-use App\Http\Controllers\EspecialidadController;
+use App\Http\Controllers\EspecialidadProfesorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\RutinaController;
@@ -60,7 +60,7 @@ Route::resource('turnos', TurnoController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
-Route::resource('especialidad', EspecialidadController::class)
+Route::resource('especialidad', EspecialidadProfesorController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
