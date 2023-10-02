@@ -105,9 +105,9 @@ const Nav = ({ children, auth }) => {
                 <div className="px-8 h-full">
                     <div className="h-20 w-full flex items-center justify-center pt-10 ">
                         <img
-                            src="./assets/img/logo/logo_atenea.svg"
+                            src="./assets/img/logo/logo_atenea_blanco.svg"
                             alt=""
-                            className="bg-white h-24 rounded-lg"
+                            className=" h-24 rounded-lg"
                         />
                     </div>
                     {auth.user ? (
