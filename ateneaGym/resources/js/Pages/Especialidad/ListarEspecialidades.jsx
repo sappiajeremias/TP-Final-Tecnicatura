@@ -7,9 +7,10 @@ import TrBody from "@/Components/tabla/TrBody";
 import { TdBody } from "@/Components/tabla/TdBody";
 import BotonEliminar from "@/Components/tabla/BotonEliminar";
 import { router } from "@inertiajs/react";
+import CrearRelacion from "./CrearRelacion";
 import CrearEspecialidad from "./CrearEspecialidad";
 
-export default function ListarEspecialidades({ especialidadesProfesores }) {
+export default function ListarEspecialidades({ especialidadesProfesores, especialidades }) {
     const nombreColumnas = ["ID", "Nombre Profesor", "Descripcion", "Acciones"];
     const nombreProp = ["id", "nombre", "descripcion"];
 
@@ -26,11 +27,16 @@ export default function ListarEspecialidades({ especialidadesProfesores }) {
                 Tabla especialidades
             </h1>
             <ModalEditar isEdit={false}>
-                <CrearEspecialidad
+                <CrearRelacion
                     isEdit={false}
                     objeto={""}
                     especialidadesProfesores={especialidadesProfesores}
-                ></CrearEspecialidad>
+                    especialidades={especialidades}
+                ></CrearRelacion>
+            </ModalEditar>
+            <ModalEditar isEdit={false}>
+                <CrearEspecialidad objeto={""}>
+                </CrearEspecialidad>
             </ModalEditar>
             <div className="container m-auto max-w-6xl p-5">
                 <Table>
@@ -51,12 +57,13 @@ export default function ListarEspecialidades({ especialidadesProfesores }) {
 
                                 <td className="px-6 py-4 flex">
                                     <ModalEditar isEdit={true}>
-                                        <CrearEspecialidad
+                                        <CrearRelacion
                                             isEdit={true}
                                             objeto={esp}
                                             especialidadesProfesores={
                                                 especialidadesProfesores
                                             }
+                                            especialidades={especialidades}
                                         />
                                     </ModalEditar>
                                     <BotonEliminar

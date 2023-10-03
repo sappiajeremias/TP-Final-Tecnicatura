@@ -13,6 +13,7 @@ class EspecialidadProfesorController extends Controller
     public function index()
     {
         $relaciones = EspecialidadProfesor::all();
+        $especialidades = Especialidad::all();
         $arreglo = [];
 
         foreach($relaciones as $relacion) {
@@ -28,7 +29,7 @@ class EspecialidadProfesorController extends Controller
                 'profesor_id' => $profesor->id
             ];
         }
-        return Inertia::render('Especialidad/Index', ['especialidadesProfesores' => $arreglo]);
+        return Inertia::render('Especialidad/Index', ['especialidadesProfesores' => $arreglo, 'especialidades'=>$especialidades]);
     }
     public function store(Request $request)
     {

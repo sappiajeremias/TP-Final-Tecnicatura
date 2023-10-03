@@ -4,11 +4,11 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import React, { useEffect, useState } from "react";
 import ListarEspecialidades from "./ListarEspecialidades";
 
-const Index = ({ auth, especialidadesProfesores }) => {
+const Index = ({ auth, especialidadesProfesores, especialidades }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <ListarEspecialidades
-                especialidadesProfesores={especialidadesProfesores}
+                especialidadesProfesores={especialidadesProfesores} especialidades={especialidades}
             ></ListarEspecialidades>
         </AuthenticatedLayout>
     );
