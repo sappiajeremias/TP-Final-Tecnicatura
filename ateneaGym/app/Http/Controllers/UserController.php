@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profesor;
 use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -33,28 +34,28 @@ class UserController extends Controller {
     public function store(Request $request) {
 
         $request->validate([
-            'name' => ['required','string','max:255'],
-            'email' => ['required','string','email','max:255','unique:' . User::class],
-            'apellido' => ['required','string','max:255'],
-            'fecha_nac' => ['required','date','before_or_equal:' . now()->subYears(13)->format('Y-m-d')],
-            'dni' => ['required','integer','unique:' . User::class, 'max:8', 'min:8'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'apellido' => ['required', 'string', 'max:255'],
+            'fecha_nac' => ['required', 'date', 'before_or_equal:' . now()->subYears(13)->format('Y-m-d')],
+            'dni' => ['required', 'numeric', 'digits:8', 'unique:' . User::class,],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ],[
-            'name.required' => 'Por favor, ingrese un nombre.',
-            'name.max' => 'El nombre debe tener menos de 255 caracteres.',
-            'email.required' => 'Por favor, ingrese un email.',
-            'email.email' => 'Ingrese un email válido.',
-            'email.unique' => 'Ya existe un usuario registrado con el mail ingresado.',
-            'apellido.required' => 'Por favor, ingrese un apellido.',
-            'apellido.max' => 'El apellido debe tener menos de 255 caracteres.',
-            'fecha_nac.required' => 'Por favor, ingrese una fecha.',
+        ], [
+            // 'name.required' => 'Por favor, ingrese un nombre.',
+            // 'name.max' => 'El nombre debe tener menos de 255 caracteres.',
+            // 'email.required' => 'Por favor, ingrese un email.',
+            // 'email.email' => 'Ingrese un email válido.',
+            // 'email.unique' => 'Ya existe un usuario registrado con el mail ingresado.',
+            // 'apellido.required' => 'Por favor, ingrese un apellido.',
+            // 'apellido.max' => 'El apellido debe tener menos de 255 caracteres.',
+            // 'fecha_nac.required' => 'Por favor, ingrese una fecha.',
             'fecha_nac.before_or_equal' => 'La fecha de nacimiento ingresada debe ser mayor de 13 años.',
-            'dni.required' => 'Por favor, ingrese un DNI.',
-            'dni.unique' => 'Ya existe un usuario registrado con el DNI ingresado.',
-            'dni.integer' => 'El DNI ingresado debe ser numerico.',
-            'dni.max' => 'Debe contener 8 caracteres.',
-            'dni.min' => 'Debe contener 8 caracteres.',
-            'password.required' => 'Por favor, ingrese una contraseña.'
+            // 'dni.required' => 'Por favor, ingrese un DNI.',
+            // 'dni.unique' => 'Ya existe un usuario registrado con el DNI ingresado.',
+            // 'dni.integer' => 'El DNI ingresado debe ser numerico.',
+            // 'dni.max' => 'Debe contener 8 caracteres.',
+            // 'dni.min' => 'Debe contener 8 caracteres.',
+            // 'password.required' => 'Por favor, ingrese una contraseña.'
         ]);
 
         $user = User::create([
@@ -65,7 +66,14 @@ class UserController extends Controller {
             'fecha_nac' => $request->fecha_nac,
             'password' => Hash::make($request->password),
         ]);
+        
         $user->assignRole($request->rol);
+        if ($request->rol == 'Profesor') {
+            Profesor::create([
+                'user_id' => $user->id,
+                'matricula' => $request->matricula
+            ]);
+        }
         // event(new Registered($user));
 
         // Auth::login($user);
@@ -79,7 +87,7 @@ class UserController extends Controller {
     public function update(Request $request, String $id) {
 
         $usuario = User::find($id);
-       
+
         $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->apellido = $request->apellido;

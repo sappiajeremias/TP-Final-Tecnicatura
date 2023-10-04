@@ -15,6 +15,7 @@ export default function Register({ isEdit, objeto, roles }) {
         dni: objeto.dni || "",
         fecha_nac: objeto.fecha_nac || "",
         rol: objeto.rol || "",
+        matricula: "",
         password: objeto.password || "",
         password_confirmation: "",
     });
@@ -31,7 +32,7 @@ export default function Register({ isEdit, objeto, roles }) {
             put(`/usuarios/${objeto.id}`, {
                 onSuccess: () => {
                     alert("Usuario Actualizado");
-                    document.getElementById('cierreModal').click();
+                    document.getElementById("cierreModal").click();
                 },
             });
         } else {
@@ -43,9 +44,9 @@ export default function Register({ isEdit, objeto, roles }) {
         <>
             <Head title="Register" />
 
-            <form onSubmit={submit}  >
+            <form onSubmit={submit}>
                 <div className="mt-2">
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value="Nombre" />
 
                     <TextInput
                         id="name"
@@ -55,7 +56,6 @@ export default function Register({ isEdit, objeto, roles }) {
                         autoComplete="name"
                         isFocused={true}
                         onChange={(e) => setData("name", e.target.value)}
-                        
                     />
 
                     <InputError message={errors.name} className="mt-2" />
@@ -71,7 +71,6 @@ export default function Register({ isEdit, objeto, roles }) {
                         autoComplete="apellido"
                         isFocused={true}
                         onChange={(e) => setData("apellido", e.target.value)}
-                        
                     />
 
                     <InputError message={errors.apellido} className="mt-2" />
@@ -82,12 +81,12 @@ export default function Register({ isEdit, objeto, roles }) {
                     <TextInput
                         id="dni"
                         name="dni"
+                        type="number"
                         value={data.dni}
                         className="mt-1 block w-full"
                         autoComplete="dni"
                         isFocused={true}
                         onChange={(e) => setData("dni", e.target.value)}
-                        
                     />
 
                     <InputError message={errors.dni} className="mt-2" />
@@ -107,7 +106,6 @@ export default function Register({ isEdit, objeto, roles }) {
                         autoComplete="fecha_nac"
                         isFocused={true}
                         onChange={(e) => setData("fecha_nac", e.target.value)}
-                        
                     />
 
                     <InputError message={errors.fecha_nac} className="mt-2" />
@@ -124,7 +122,6 @@ export default function Register({ isEdit, objeto, roles }) {
                         className="mt-1 block w-full"
                         autoComplete="username"
                         onChange={(e) => setData("email", e.target.value)}
-                        
                     />
 
                     <InputError message={errors.email} className="mt-2" />
@@ -139,7 +136,7 @@ export default function Register({ isEdit, objeto, roles }) {
                         value={data.rol}
                         onChange={(e) => setData("rol", e.target.value)}
                     >
-                        <option >Seleccione un rol</option>
+                        <option>Seleccione un rol</option>
                         {roles.map((rol, index) =>
                             rol.name === "Administrador" ? (
                                 ""
@@ -151,6 +148,32 @@ export default function Register({ isEdit, objeto, roles }) {
                         )}
                     </select>
                 </div>
+                {data.rol === "Profesor" ? (
+                    <div className="mt-2">
+                        <InputLabel
+                            htmlFor="matricula"
+                            value="Matricula Profesor"
+                        />
+
+                        <TextInput
+                            id="matricula"
+                            type="text"
+                            name="matricula"
+                            value={data.matricula}
+                            className="mt-1 block w-full"
+                            onChange={(e) =>
+                                setData("matricula", e.target.value)
+                            }
+                        />
+
+                        <InputError
+                            message={errors.matricula}
+                            className="mt-2"
+                        />
+                    </div>
+                ) : (
+                    ""
+                )}
                 {!isEdit ? (
                     <>
                         <div className="mt-2">
@@ -166,7 +189,6 @@ export default function Register({ isEdit, objeto, roles }) {
                                 onChange={(e) =>
                                     setData("password", e.target.value)
                                 }
-                                
                             />
 
                             <InputError
@@ -194,7 +216,6 @@ export default function Register({ isEdit, objeto, roles }) {
                                         e.target.value
                                     )
                                 }
-                                
                             />
 
                             <InputError
@@ -219,7 +240,6 @@ export default function Register({ isEdit, objeto, roles }) {
                     </PrimaryButton>
                 </div>
             </form>
-
         </>
     );
 }
