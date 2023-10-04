@@ -10,7 +10,10 @@ import { router } from "@inertiajs/react";
 import CrearRelacion from "./CrearRelacion";
 import CrearEspecialidad from "./CrearEspecialidad";
 
-export default function ListarEspecialidades({ especialidadesProfesores, especialidades }) {
+export default function ListarEspecialidades({
+    especialidadesProfesores,
+    especialidades,
+}) {
     const nombreColumnas = ["ID", "Nombre Profesor", "Descripcion", "Acciones"];
     const nombreProp = ["id", "nombre", "descripcion"];
 
@@ -26,7 +29,7 @@ export default function ListarEspecialidades({ especialidadesProfesores, especia
             <h1 className="text-pink-500  text-center text-2xl pt-5">
                 Tabla especialidades
             </h1>
-            <ModalEditar isEdit={false}>
+            <ModalEditar isEdit={false} title={"ASIGNAR PROFESOR"}>
                 <CrearRelacion
                     isEdit={false}
                     objeto={""}
@@ -34,9 +37,8 @@ export default function ListarEspecialidades({ especialidadesProfesores, especia
                     especialidades={especialidades}
                 ></CrearRelacion>
             </ModalEditar>
-            <ModalEditar isEdit={false}>
-                <CrearEspecialidad objeto={""}>
-                </CrearEspecialidad>
+            <ModalEditar isEdit={false} title={"NUEVA ESPECIALIDAD"}>
+                <CrearEspecialidad objeto={""} ></CrearEspecialidad>
             </ModalEditar>
             <div className="container m-auto max-w-6xl p-5">
                 <Table>
