@@ -5,13 +5,14 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, router, useForm } from "@inertiajs/react";
-export default function CrearActividad({ isEdit, objeto, profesores }) {
+export default function CrearActividad({ isEdit, objeto, profesores, especialidades }) {
     const { data, setData, put, post, processing, errors, reset } = useForm({
         dia_semana: [],
         hora_inicio: objeto.hora_inicio || "",
         hora_fin: objeto.hora_fin || "",
         duracion: objeto.duracion || "",
-        descripcion: objeto.descripcion || "",
+        especialidad_id: objeto.especialidad_id || "",
+        cupos: objeto.cupos || "",
         profesor_id: objeto.profesor_id || "",
     });
 
@@ -20,25 +21,11 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
     //const [diasSelected, setDiasSelected] = useState(objeto.dia_semana.split(",")); // Inicializa con los valores desde el objeto
 
 
-    const handleCheckboxChange = (e) => {
+    const handleRadioChange = (e) => {
         const value = e.target.value;
-        const isChecked = e.target.checked;
-        let updatedDiaSemana;
 
-        if (isChecked) {
-            // Agrega el día seleccionado solo si no está en la lista
-            if (!data.dia_semana.includes(value)) {
-                updatedDiaSemana = [...data.dia_semana, value];
-            } else {
-                updatedDiaSemana = data.dia_semana;
-            }
-        } else {
-            // Elimina el día deseleccionado de la lista
-            updatedDiaSemana = data.dia_semana.filter((dia) => dia !== value);
-        }
-
-        // Actualiza el estado data con los nuevos valores seleccionados
-        setData("dia_semana", updatedDiaSemana);
+        // Actualiza el estado data con el valor seleccionado
+        setData("dia_semana", value);
     };
 
 
@@ -54,7 +41,8 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                 hora_inicio: data.hora_inicio,
                 hora_fin: data.hora_fin,
                 duracion: data.duracion,
-                descripcion: data.descripcion,
+                especialidad_id: data.especialidad_id,
+                cupos: data.cupos,
                 profesor_id: data.profesor_id,
                 onSuccess: () => {
                     alert('Actividad actualizada');
@@ -67,7 +55,8 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                 hora_inicio: data.hora_inicio,
                 hora_fin: data.hora_fin,
                 duracion: data.duracion,
-                descripcion: data.descripcion,
+                especialidad_id: data.especialidad_id,
+                cupos: data.cupos,
                 profesor_id: data.profesor_id,
             });
         }
@@ -80,24 +69,27 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
             <Head title="Actividades" />
 
             <form onSubmit={handleSubmit}>
-                <div>
-                    <InputLabel htmlFor="descripcion" value="Descripcion" />
+                <div className="mt-4">
+                    <InputLabel htmlFor="especialidad_id" value="Descripcion" />
 
-                    <TextInput
-                        id="descripcion"
-                        name="descripcion"
-                        value={data.descripcion}
-                        className="mt-1 block w-full"
-                        autoComplete="Descripcion"
-                        isFocused={true}
-                        onChange={(e) =>
-                            setData("descripcion", e.target.value)
-                        }
-                        
-                    />
-
+                    <select
+                        name="especialidad_id"
+                        id="especialidad_id"
+                        className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
+                        value={data.especialidad_id}
+                        onChange={(e) => setData("especialidad_id", e.target.value)}
+                    >
+                        <option selected>Seleccione la descripcion de la actividad</option>
+                        {especialidades.map((esp, index) =>
+                        (
+                            <option key={index} value={esp.id}>
+                                {esp.descripcion}
+                            </option>
+                        )
+                        )}
+                    </select>
                     <InputError
-                        message={errors.descripcion}
+                        message={errors.especialidad_id}
                         className="mt-2"
                     />
                 </div>
@@ -111,12 +103,12 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                         {dias.map((dia) => (
                             <label key={dia} className="inline-flex items-center">
                                 <input
-                                    type="checkbox"
+                                    type="radio"
                                     id={dia.toLowerCase()}
-                                    name="dia_semana[]"
+                                    name="dia_semana"
                                     value={dia.toLowerCase()}
-                                    checked={data.dia_semana.includes(dia.toLowerCase())}
-                                    onChange={handleCheckboxChange}
+                                    checked={data.dia_semana === dia.toLowerCase()}
+                                    onChange={handleRadioChange}
                                 />
                                 <span className="ml-2">{dia}</span>
                             </label>
@@ -141,7 +133,7 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                         className="mt-1 block w-full"
                         autoComplete="hora_inicio"
                         onChange={(e) => setData("hora_inicio", e.target.value)}
-                        
+
                     >
                         <option value="">Selecciona una hora</option>
                         {Array.from({ length: 14 }, (_, index) => {
@@ -173,7 +165,7 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                         className="mt-1 block w-full"
                         autoComplete="hora_fin"
                         onChange={(e) => setData("hora_fin", e.target.value)}
-                        
+
                     >
                         <option value="">Seleccione una hora</option>
                         {Array.from({ length: 14 }, (_, index) => {
@@ -209,7 +201,7 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                         onChange={(e) =>
                             setData("duracion", e.target.value)
                         }
-                        
+
                     />
 
                     <InputError
@@ -243,12 +235,37 @@ export default function CrearActividad({ isEdit, objeto, profesores }) {
                     />
                 </div>
 
+                <div className="mt-4">
+                    <InputLabel
+                        htmlFor="cupos"
+                        value="Cupos"
+                    />
+
+                    <TextInput
+                        id="cupos"
+                        type="number"
+                        name="cupos"
+                        value={data.cupos}
+                        className="mt-1 block w-full"
+                        autoComplete="cupos"
+                        onChange={(e) =>
+                            setData("cupos", e.target.value)
+                        }
+
+                    />
+
+                    <InputError
+                        message={errors.cupos}
+                        className="mt-2"
+                    />
+                </div>
+
                 <div className="flex items-center justify-end mt-4">
                     <PrimaryButton className="ml-4" disabled={processing}>
-                        Editar
+                        Confirmar
                     </PrimaryButton>
                 </div>
-                
+
             </form>
 
         </>

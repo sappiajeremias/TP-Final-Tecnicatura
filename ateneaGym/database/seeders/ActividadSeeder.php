@@ -18,7 +18,7 @@ class ActividadSeeder extends Seeder {
             'hora_fin' => '10:00',
             'duracion' => 60,
             'cupos' => 10,
-            'descripcion' => 'Funcional',
+            'especialidad_id' => 1,
             'profesor_id' => 1,
         ]);
         // Set the 'dia_semana' attribute separately as an array
@@ -29,7 +29,7 @@ class ActividadSeeder extends Seeder {
             'hora_fin' => '11:00',
             'duracion' => 60,
             'cupos' => 10,
-            'descripcion' => 'GAP',
+            'especialidad_id' => 2,
             'profesor_id' => 1,
         ]);
 
@@ -40,7 +40,7 @@ class ActividadSeeder extends Seeder {
             'hora_fin' => '12:00',
             'duracion' => 60,
             'cupos' => 10,
-            'descripcion' => 'Yoga',
+            'especialidad_id' => 3,
             'profesor_id' => 2,
         ]);
     }

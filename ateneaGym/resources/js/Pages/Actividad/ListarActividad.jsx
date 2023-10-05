@@ -9,7 +9,7 @@ import BotonEliminar from "@/Components/tabla/BotonEliminar";
 import { router } from "@inertiajs/react";
 import CrearActividad from "./CrearActividad";
 
-export default function ListarActs({ actividades, profesores }) {
+export default function ListarActs({ actividades, profesores, especialidades }) {
     const nombreColumnas = [
         "ID",
         "Dias Semana",
@@ -17,6 +17,7 @@ export default function ListarActs({ actividades, profesores }) {
         "Hora Fin",
         "Duracion",
         "Descripcion",
+        "Cupos",
         "Acciones",
     ];
     const nombreProp = [
@@ -25,7 +26,8 @@ export default function ListarActs({ actividades, profesores }) {
         "hora_inicio",
         "hora_fin",
         "duracion",
-        "descripcion",
+        "especialidad_id",
+        "cupos"
     ];
 
     const deleteHandler = (actividad) => {
@@ -38,7 +40,7 @@ export default function ListarActs({ actividades, profesores }) {
                 Tabla Actividades
             </h1>
             <ModalEditar isEdit={false}>
-                <CrearActividad isEdit={false} objeto={''} profesores={profesores}></CrearActividad>
+                <CrearActividad isEdit={false} objeto={''} profesores={profesores} especialidades={especialidades}></CrearActividad>
             </ModalEditar>
             <div className="container m-auto max-w-6xl p-5">
                 <Table>
@@ -46,14 +48,16 @@ export default function ListarActs({ actividades, profesores }) {
 
                     {actividades.map((act) => (
                         <React.Fragment key={act.id}>
-
                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={act.id}>
-
-
                                 {nombreProp.map((nombre, index) => (
-
-                                    <td className="px-6 py-4" key={index}>{act[nombre]}</td>
-                                    // <TdBody key={index}>{usuario[nombre]}</TdBody>
+                                    <td className="px-6 py-4" key={index}>
+                                        {nombre === 'especialidad_id' ? (
+                                            // Buscar la descripción de la especialidad correspondiente
+                                            especialidades.find((esp) => esp.id === act.especialidad_id)?.descripcion || ''
+                                        ) : (
+                                            act[nombre]
+                                        )}
+                                    </td>
                                 ))}
 
                                 <td className="px-6 py-4 flex">
@@ -62,7 +66,7 @@ export default function ListarActs({ actividades, profesores }) {
                                     <ModalEditar isEdit={true}>
 
                                         <CrearActividad
-                                            isEdit={true} objeto={act} profesores={profesores}
+                                            isEdit={true} objeto={act} profesores={profesores} especialidades={especialidades}
                                         />
                                     </ModalEditar>
                                     <BotonEliminar
