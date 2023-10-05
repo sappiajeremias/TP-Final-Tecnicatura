@@ -14,6 +14,8 @@ class Actividad extends Model
         'hora_fin',
         'duracion',
         'descripcion',
-        'profesor_id'
+        'especialidad_id',
+        'cupos',
+        'profesor_id',
     ];
 }

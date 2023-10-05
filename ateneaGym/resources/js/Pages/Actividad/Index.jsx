@@ -5,11 +5,11 @@ import React, { useEffect, useState } from "react";
 import ListarActs from "./ListarActividad";
 import CrearActividad from "./CrearActividad";
 
-const Index = ({auth,actividades, profesores}) => {
+const Index = ({auth,actividades, profesores, especialidades}) => {
 
     return (
         <AuthenticatedLayout auth={auth}>
-            <ListarActs actividades={actividades} profesores={profesores}></ListarActs>
+            <ListarActs actividades={actividades} profesores={profesores} especialidades={especialidades}></ListarActs>
         </AuthenticatedLayout>
     );
 };
