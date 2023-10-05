@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Turno extends Model
-{
+class Turno extends Model {
     use HasFactory;
     protected $fillable = [
         'alumno_id',
@@ -14,4 +13,7 @@ class Turno extends Model
         'fecha',
         'hora'
     ];
+    public function actividad() {
+        return $this->belongsTo(Actividad::class);
+    }
 }

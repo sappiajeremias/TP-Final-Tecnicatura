@@ -5,15 +5,18 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, router, useForm } from "@inertiajs/react";
-export default function CrearRelacion({ isEdit, objeto, especialidadesProfesores, especialidades }) {
+export default function CrearRelacion({
+    isEdit,
+    objeto,
+    especialidadesProfesores,
+    especialidades,
+}) {
     const { data, setData, put, post, processing, errors, reset } = useForm({
         descripcion: objeto.descripcion || "",
         nombre: objeto.nombre || "",
         profesor_id: objeto.profesor_id || "",
-        especialidad_id: objeto.especialidad_id || ""
+        especialidad_id: objeto.especialidad_id || "",
     });
-
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,7 +24,7 @@ export default function CrearRelacion({ isEdit, objeto, especialidadesProfesores
             put(`/especialidad/${objeto.id}`, {
                 onSuccess: () => {
                     alert("Relacion Actualizada");
-                    document.getElementById('cierreModal').click();
+                    document.getElementById("cierreModal").click();
                 },
             });
         } else {
@@ -29,14 +32,11 @@ export default function CrearRelacion({ isEdit, objeto, especialidadesProfesores
         }
     };
 
-
     return (
         <>
-
             <Head title="Especialidades" />
 
             <form onSubmit={handleSubmit}>
-
                 <div className="mt-4">
                     <InputLabel htmlFor="descripcion" value="Descripcion" />
 
@@ -47,7 +47,9 @@ export default function CrearRelacion({ isEdit, objeto, especialidadesProfesores
                         value={data.descripcion}
                         onChange={(e) => setData("descripcion", e.target.value)}
                     >
-                        <option value="">Seleccione la descripción de la especialidad</option>
+                        <option value="">
+                            Seleccione la descripción de la especialidad
+                        </option>
                         {especialidades.map((especialidad, index) => (
                             <option key={index} value={especialidad.id}>
                                 {especialidad.descripcion}
@@ -55,10 +57,7 @@ export default function CrearRelacion({ isEdit, objeto, especialidadesProfesores
                         ))}
                     </select>
 
-                    <InputError
-                        message={errors.descripcion}
-                        className="mt-2"
-                    />
+                    <InputError message={errors.descripcion} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
@@ -70,9 +69,20 @@ export default function CrearRelacion({ isEdit, objeto, especialidadesProfesores
                         value={data.profesor_id}
                         onChange={(e) => setData("profesor_id", e.target.value)}
                     >
-                        <option value="">Seleccione el nombre del profesor</option>
-                        {Array.from(new Set(especialidadesProfesores.map((profe) => profe.profesor_id))).map((profesor_id, index) => {
-                            const nombreProfesor = especialidadesProfesores.find((profe) => profe.profesor_id === profesor_id).nombre;
+                        <option value="">
+                            Seleccione el nombre del profesor
+                        </option>
+                        {Array.from(
+                            new Set(
+                                especialidadesProfesores.map(
+                                    (profe) => profe.profesor_id
+                                )
+                            )
+                        ).map((profesor_id, index) => {
+                            const nombreProfesor =
+                                especialidadesProfesores.find(
+                                    (profe) => profe.profesor_id === profesor_id
+                                ).nombre;
                             return (
                                 <option key={index} value={profesor_id}>
                                     {nombreProfesor}
@@ -81,10 +91,7 @@ export default function CrearRelacion({ isEdit, objeto, especialidadesProfesores
                         })}
                     </select>
 
-                    <InputError
-                        message={errors.profesor_id}
-                        className="mt-2"
-                    />
+                    <InputError message={errors.profesor_id} className="mt-2" />
                 </div>
                 <div className="flex items-center justify-end mt-4">
                     <PrimaryButton className="ml-4" disabled={processing}>
@@ -92,7 +99,6 @@ export default function CrearRelacion({ isEdit, objeto, especialidadesProfesores
                     </PrimaryButton>
                 </div>
             </form>
-
         </>
     );
 }
