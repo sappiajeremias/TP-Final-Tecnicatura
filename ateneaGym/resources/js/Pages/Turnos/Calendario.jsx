@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Calendar from "react-calendar";
-
+import "react-calendar/dist/Calendar.css";
 import React from "react";
 
 const Calendario = ({ turnos }) => {
     const [fecha, setFecha] = useState(new Date());
-    function abrirTurnos(params) {}
+    function abrirTurnos(params) { }
     return (
         <div className="container w-50">
             <Calendar
