@@ -1,32 +1,5 @@
-// import React, { useState } from "react";
-
-// const TablaTurnos = ({ turnos, actividades }) => {
-//     const [actividadSeleccionada, setActividadSeleccionada] = useState([]);
-
-//     return (
-//         <div className="mt-2">
-//             {/* <InputLabel htmlFor="actividad" value="actividad" /> */}
-//             <label htmlFor="actividad">Seleccione una actividad</label>
-//             <select
-//                 name="actividad"
-//                 id="actividad"
-//                 className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
-//                 onChange={(e) => setActividadSeleccionada(e.target.value)}
-//             >
-//                 <option>Seleccione un actividad</option>
-//                 {actividades.map((actividad, index) => (
-//                     <option key={index} value={actividad.id}>
-//                         {actividad.descripcion}
-//                     </option>
-//                 ))}
-//             </select>
-
-//         </div>
-//     );
-// };
-
-// export default TablaTurnos;
 import React, { useState } from "react";
+import Calendario from "./Calendario";
 
 const TablaTurnos = ({ turnos, actividades }) => {
     const [actividadSeleccionada, setActividadSeleccionada] = useState(""); // Estado para almacenar la actividad seleccionada
@@ -58,37 +31,13 @@ const TablaTurnos = ({ turnos, actividades }) => {
                 <option value="">Seleccione una actividad</option>
                 {actividades.map((actividad, index) => (
                     <option key={index} value={actividad.id}>
-                        {actividad.descripcion}
+                        {actividad.id}
                     </option>
                 ))}
             </select>
 
             {/* Mostrar la tabla de turnos filtrados */}
-            {actividadSeleccionada && (
-                <div>
-                    <h2>Turnos para la actividad seleccionada</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                {/* Otros encabezados de la tabla */}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {turnosFiltrados.map((turno) => (
-                                <tr key={turno.id}>
-                                    <td>{turno.id}</td>
-                                    <td>{turno.fecha}</td>
-                                    <td>{turno.hora}</td>
-                                    {/* Otros datos de turno */}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+            {actividadSeleccionada && <Calendario turnos={"hola"} />}
         </div>
     );
 };
