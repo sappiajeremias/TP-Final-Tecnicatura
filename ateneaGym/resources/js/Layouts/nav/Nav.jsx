@@ -103,15 +103,15 @@ const Nav = ({ children, auth }) => {
                 </button>
 
                 <div className="px-8 h-full">
-                    <div className="h-20 w-full flex items-center justify-center pt-10 ">
+                    <div className="w-full flex items-center justify-center pt-5 ">
                         <img
-                            src="./assets/img/logo/logo_atenea_blanco.svg"
+                            src="./assets/img/logo/atenea_gym.svg"
                             alt=""
-                            className=" h-24 rounded-lg"
+                            className=" max-h-32 md:max-h-40"
                         />
                     </div>
                     {auth.user ? (
-                        <ul className="mt-12 pt-6">
+                        <ul className="mt-12 pt-3">
                             <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                 <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white justify-between gap-3">
                                     <svg
