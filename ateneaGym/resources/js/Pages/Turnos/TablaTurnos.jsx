@@ -5,16 +5,17 @@ const TablaTurnos = ({ turnos, actividades }) => {
     const [actividadSeleccionada, setActividadSeleccionada] = useState(""); // Estado para almacenar la actividad seleccionada
     const [turnosFiltrados, setTurnosFiltrados] = useState([]); // Estado para almacenar los turnos filtrados
     const [listaTurnos, setListaTurnos] = useState([]);
+    const [diaSeleccionado, setdiaSeleccionado] = useState('');
     // Función para manejar el cambio de la actividad seleccionada
     const handleActividadChange = (e) => {
         const actividadId = e.target.value;
         setActividadSeleccionada(actividadId);
-
+        setListaTurnos(turnos.map((turno) => turno.fecha));
         // Filtrar los turnos por la actividad seleccionada
         const turnosFiltrados = turnos.filter(
             (turno) => turno.actividad.id == actividadId
         );
-        setListaTurnos(turnos.map((turno) => turno.fecha));
+
         setTurnosFiltrados(turnosFiltrados);
     };
 
@@ -37,7 +38,13 @@ const TablaTurnos = ({ turnos, actividades }) => {
             </select>
 
             {/* Mostrar la tabla de turnos filtrados */}
-            {actividadSeleccionada && <Calendario turnos={listaTurnos} />}
+            {actividadSeleccionada && (
+                <Calendario
+                    turnos={listaTurnos}
+                    setdiaSeleccionado={setdiaSeleccionado}
+                />
+            )}
+            {console.log(diaSeleccionado)}
         </div>
     );
 };

@@ -1,17 +1,17 @@
 import { useState } from "react";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import "../../../css/Calendario.css";
 import React from "react";
 
-const Calendario = ({ turnos }) => {
+const Calendario = ({ turnos, setdiaSeleccionado }) => {
     const [fecha, setFecha] = useState(new Date());
-    function abrirTurnos(params) { }
+    // setDiaSeleccionado(23);
     return (
         <div className="container w-50">
             <Calendar
                 onChange={setFecha}
                 value={fecha}
-                onClickDay={(date, event) => console.log(date)}
+                onClickDay={(date) => setdiaSeleccionado(date)}
                 tileContent={({ activeStartDate, date, view }) => {
                     if (
                         view === "month" &&
@@ -25,8 +25,6 @@ const Calendario = ({ turnos }) => {
                     }
                 }}
             />
-
-            {/* {fecha} */}
         </div>
     );
 };
