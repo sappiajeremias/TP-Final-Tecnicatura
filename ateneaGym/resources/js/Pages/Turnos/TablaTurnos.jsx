@@ -4,17 +4,17 @@ import Calendario from "./Calendario";
 const TablaTurnos = ({ turnos, actividades }) => {
     const [actividadSeleccionada, setActividadSeleccionada] = useState(""); // Estado para almacenar la actividad seleccionada
     const [turnosFiltrados, setTurnosFiltrados] = useState([]); // Estado para almacenar los turnos filtrados
-
+    const [listaTurnos, setListaTurnos] = useState([]);
     // Función para manejar el cambio de la actividad seleccionada
     const handleActividadChange = (e) => {
         const actividadId = e.target.value;
         setActividadSeleccionada(actividadId);
-        console.log("turnos filtrados");
+
         // Filtrar los turnos por la actividad seleccionada
         const turnosFiltrados = turnos.filter(
             (turno) => turno.actividad.id == actividadId
         );
-        console.log(turnosFiltrados);
+        setListaTurnos(turnos.map((turno) => turno.fecha));
         setTurnosFiltrados(turnosFiltrados);
     };
 
@@ -37,7 +37,7 @@ const TablaTurnos = ({ turnos, actividades }) => {
             </select>
 
             {/* Mostrar la tabla de turnos filtrados */}
-            {actividadSeleccionada && <Calendario turnos={"hola"} />}
+            {actividadSeleccionada && <Calendario turnos={listaTurnos} />}
         </div>
     );
 };
