@@ -65,7 +65,7 @@ Route::resource('especialidad', EspecialidadProfesorController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
-    Route::resource('esp', EspecialidadController::class)
+Route::resource('esp', EspecialidadController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
@@ -85,5 +85,5 @@ Route::resource('ejercicio', EjercicioController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
-
+// Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('misTurnos');
 require __DIR__ . '/auth.php';

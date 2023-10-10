@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Actividad extends Model
-{
+class Actividad extends Model {
     use HasFactory;
     protected $fillable = [
         'dia_semana',
@@ -18,4 +17,7 @@ class Actividad extends Model
         'cupos',
         'profesor_id',
     ];
+    public function especialidad() {
+        return $this->belongsTo(Especialidad::class);
+    }
 }

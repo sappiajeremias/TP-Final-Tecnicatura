@@ -5,7 +5,7 @@ import React from "react";
 
 const Calendario = ({ turnos, setdiaSeleccionado }) => {
     const [fecha, setFecha] = useState(new Date());
-    // setDiaSeleccionado(23);
+
     return (
         <div className="container w-50">
             <Calendar

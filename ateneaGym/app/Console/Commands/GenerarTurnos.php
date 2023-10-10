@@ -25,6 +25,7 @@ class GenerarTurnos extends Command {
         // Definimos un arreglo con los días de la semana
         $diasSemana = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
 
+
         // Bucle para generar turnos para cada día del mes
         while ($fechaActual <= $ultimoDiaMes) {
             // devuelve el día en escrito
@@ -36,7 +37,7 @@ class GenerarTurnos extends Command {
             foreach ($actividades as $actividad) {
                 $horaInicio = Carbon::parse($fechaActual->toDateString() . ' ' . $actividad->hora_inicio);
                 $horaFin = Carbon::parse($fechaActual->toDateString() . ' ' . $actividad->hora_fin);
-
+                $horaFin->subMinutes($actividad->duracion);
                 while ($horaInicio->lte($horaFin)) {
                     // crea cada turno con el id de actividad la fecha y la hora 
                     for ($i = 0; $i < $actividad->cupos; $i++) {
@@ -46,8 +47,9 @@ class GenerarTurnos extends Command {
                         $turno->hora = $horaInicio->format('H:i');
                         $turno->save();
                         // le suma los minutos de la duración para avanzar
-                        $horaInicio->addMinutes($actividad->duracion);
+
                     }
+                    $horaInicio->addMinutes($actividad->duracion);
                 }
             }
 

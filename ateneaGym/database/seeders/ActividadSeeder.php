@@ -13,22 +13,22 @@ class ActividadSeeder extends Seeder {
     public function run(): void {
         //
         $actividad1 = Actividad::create([
-            'dia_semana' => 'lunes,miercoles,viernes',
+            'dia_semana' => 'lunes',
             'hora_inicio' => '09:00',
             'hora_fin' => '10:00',
             'duracion' => 60,
-            'cupos' => 10,
+            'cupos' => 3,
             'especialidad_id' => 1,
             'profesor_id' => 1,
         ]);
         // Set the 'dia_semana' attribute separately as an array
 
         $actividad2 = Actividad::create([
-            'dia_semana' => 'martes,jueves',
+            'dia_semana' => 'martes',
             'hora_inicio' => '09:00',
             'hora_fin' => '11:00',
             'duracion' => 60,
-            'cupos' => 10,
+            'cupos' => 3,
             'especialidad_id' => 2,
             'profesor_id' => 1,
         ]);
@@ -39,7 +39,7 @@ class ActividadSeeder extends Seeder {
             'hora_inicio' => '11:00',
             'hora_fin' => '12:00',
             'duracion' => 60,
-            'cupos' => 10,
+            'cupos' => 3,
             'especialidad_id' => 3,
             'profesor_id' => 2,
         ]);

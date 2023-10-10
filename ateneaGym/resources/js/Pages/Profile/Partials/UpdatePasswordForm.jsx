@@ -42,7 +42,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 <h2 className="text-lg font-medium text-gray-900">Actualizar Contraseña</h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    EAsegúrate de que tu cuenta esté utilizando una contraseña larga y aleatoria para mantenerla segura.
+                    Asegúrate de que tu cuenta esté utilizando una contraseña larga y aleatoria para mantenerla segura.
                 </p>
             </header>
 
