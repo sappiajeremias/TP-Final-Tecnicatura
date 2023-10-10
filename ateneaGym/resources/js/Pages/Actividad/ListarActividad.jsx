@@ -9,7 +9,11 @@ import BotonEliminar from "@/Components/tabla/BotonEliminar";
 import { router } from "@inertiajs/react";
 import CrearActividad from "./CrearActividad";
 
-export default function ListarActs({ actividades, profesores, especialidades }) {
+export default function ListarActs({
+    actividades,
+    profesores,
+    especialidades,
+}) {
     const nombreColumnas = [
         "ID",
         "Dias Semana",
@@ -27,62 +31,71 @@ export default function ListarActs({ actividades, profesores, especialidades }) 
         "hora_fin",
         "duracion",
         "especialidad_id",
-        "cupos"
+        "cupos",
     ];
 
     const deleteHandler = (actividad) => {
-        router.delete(`/actividad/${actividad.id}`, { onBefore: () => confirm('Estas seguro?'), onSuccess: () => alert('Actividad Eliminada') })
-    }
+        router.delete(`/actividad/${actividad.id}`, {
+            onBefore: () => confirm("Estas seguro?"),
+            onSuccess: () => alert("Actividad Eliminada"),
+        });
+    };
 
     return (
         <>
-            <h1 className="text-pink-500  text-center text-2xl pt-5">
-                Tabla Actividades
-            </h1>
-            <ModalEditar isEdit={false}>
-                <CrearActividad isEdit={false} objeto={''} profesores={profesores} especialidades={especialidades}></CrearActividad>
-            </ModalEditar>
             <div className="container m-auto max-w-6xl p-5">
-                <Table>
+                <Table
+                    titulo={"Tabla Actividades"}
+                    boton={
+                        <ModalEditar isEdit={false}>
+                            <CrearActividad
+                                isEdit={false}
+                                objeto={""}
+                                profesores={profesores}
+                                especialidades={especialidades}
+                            ></CrearActividad>
+                        </ModalEditar>
+                    }
+                >
                     <Thead nombreColumnas={nombreColumnas} />
 
                     {actividades.map((act) => (
                         <React.Fragment key={act.id}>
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={act.id}>
+                            <tr
+                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                key={act.id}
+                            >
                                 {nombreProp.map((nombre, index) => (
                                     <td className="px-6 py-4" key={index}>
-                                        {nombre === 'especialidad_id' ? (
-                                            // Buscar la descripción de la especialidad correspondiente
-                                            especialidades.find((esp) => esp.id === act.especialidad_id)?.descripcion || ''
-                                        ) : (
-                                            act[nombre]
-                                        )}
+                                        {nombre === "especialidad_id"
+                                            ? // Buscar la descripción de la especialidad correspondiente
+                                              especialidades.find(
+                                                  (esp) =>
+                                                      esp.id ===
+                                                      act.especialidad_id
+                                              )?.descripcion || ""
+                                            : act[nombre]}
                                     </td>
                                 ))}
 
                                 <td className="px-6 py-4 flex">
-
-
                                     <ModalEditar isEdit={true}>
-
                                         <CrearActividad
-                                            isEdit={true} objeto={act} profesores={profesores} especialidades={especialidades}
+                                            isEdit={true}
+                                            objeto={act}
+                                            profesores={profesores}
+                                            especialidades={especialidades}
                                         />
                                     </ModalEditar>
                                     <BotonEliminar
                                         click={() => deleteHandler(act)}
                                     />
-
-
-                                </td >
-
+                                </td>
                             </tr>
                         </React.Fragment>
                     ))}
-
-
-                </Table >
-            </div >
+                </Table>
+            </div>
         </>
     );
 }

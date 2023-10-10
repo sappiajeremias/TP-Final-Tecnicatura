@@ -13,7 +13,7 @@ const ModalEditar = ({ children, isEdit, title = "NUEVO" }) => {
     };
 
     return (
-        <div>
+        <>
             {/* Botón para abrir el modal */}
             {isEdit ? (
                 <button onClick={openModal} type="button">
@@ -31,7 +31,6 @@ const ModalEditar = ({ children, isEdit, title = "NUEVO" }) => {
                     </svg>
                 </button>
             ) : (
-                <div className="flex justify-end me-8">
                     <button
                         onClick={openModal}
                         className=" text-white bg-pink-400 hover:bg-pink-500 focus:ring-4 focus:outline-none focus:ring-pink-300  dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 text-center "
@@ -39,7 +38,7 @@ const ModalEditar = ({ children, isEdit, title = "NUEVO" }) => {
                     >
                         {title}
                     </button>
-                </div>
+                
             )}
 
             {/* Modal */}
@@ -85,7 +84,7 @@ const ModalEditar = ({ children, isEdit, title = "NUEVO" }) => {
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 };
 
