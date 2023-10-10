@@ -27,7 +27,7 @@ const ConfirmarTurno = ({ auth, turno, actividad, setModalOpen }) => {
                     text: "Turno sacado con exito!",
                 }).then(() => {
                     setModalOpen(false);
-                    window.location.href = "Turnos/MisTurnos";
+                  
                 });
             },
         });

@@ -11,6 +11,7 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
     const [diaSeleccionado, setdiaSeleccionado] = useState("");
     const [idTurno, setIdTurno] = useState([]);
     // Función para manejar el cambio de la actividad seleccionada
+    
     const handleActividadChange = (e) => {
         const actividadId = e.target.value;
         setActividadSeleccionada(actividadId);

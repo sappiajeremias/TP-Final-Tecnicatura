@@ -29,10 +29,24 @@ class TurnoController extends Controller {
         $t = Turno::find($turno);
         $t->alumno_id = $alumno->id;
         $t->save();
+        return redirect()->route('turnoAlumno');
     }
     public function destroy(Turno $turno) {
     }
     public function turnoAlumno() {
-        return auth();
+        $alumno = Alumno::where('user_id', auth()->user()->id)->first();
+        $turnos = Turno::where('alumno_id', $alumno->id)
+            ->with(['actividad', 'actividad.especialidad']) // Cargar la relación 'actividad' y luego 'especialidad'
+            ->get();
+
+
+        return Inertia::render('Turnos/MisTurnos', [
+            'turnos' => $turnos
+        ]);
+    }
+    public function cancelarTurno(String $id) {
+        $turno = Turno::findOrFail($id);
+        $turno->alumno_id = null;
+        $turno->save();
     }
 }
