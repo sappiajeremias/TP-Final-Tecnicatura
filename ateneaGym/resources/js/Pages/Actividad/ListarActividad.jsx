@@ -14,6 +14,7 @@ export default function ListarActs({
     profesores,
     especialidades,
 }) {
+   
     const nombreColumnas = [
         "ID",
         "Dias Semana",
@@ -56,44 +57,46 @@ export default function ListarActs({
                             ></CrearActividad>
                         </ModalEditar>
                     }
+                   
                 >
                     <Thead nombreColumnas={nombreColumnas} />
+                    <tbody>
+                        {actividades.map((act) => (
+                            <React.Fragment key={act.id}>
+                                <tr
+                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                    key={act.id}
+                                >
+                                    {nombreProp.map((nombre, index) => (
+                                        <td className="px-6 py-4" key={index}>
+                                            {nombre === "especialidad_id"
+                                                ? // Buscar la descripción de la especialidad correspondiente
+                                                  especialidades.find(
+                                                      (esp) =>
+                                                          esp.id ===
+                                                          act.especialidad_id
+                                                  )?.descripcion || ""
+                                                : act[nombre]}
+                                        </td>
+                                    ))}
 
-                    {actividades.map((act) => (
-                        <React.Fragment key={act.id}>
-                            <tr
-                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                key={act.id}
-                            >
-                                {nombreProp.map((nombre, index) => (
-                                    <td className="px-6 py-4" key={index}>
-                                        {nombre === "especialidad_id"
-                                            ? // Buscar la descripción de la especialidad correspondiente
-                                              especialidades.find(
-                                                  (esp) =>
-                                                      esp.id ===
-                                                      act.especialidad_id
-                                              )?.descripcion || ""
-                                            : act[nombre]}
-                                    </td>
-                                ))}
-
-                                <td className="px-6 py-4 flex">
-                                    <ModalEditar isEdit={true}>
-                                        <CrearActividad
-                                            isEdit={true}
-                                            objeto={act}
-                                            profesores={profesores}
-                                            especialidades={especialidades}
+                                    <td className="px-6 py-4 flex">
+                                        <ModalEditar isEdit={true}>
+                                            <CrearActividad
+                                                isEdit={true}
+                                                objeto={act}
+                                                profesores={profesores}
+                                                especialidades={especialidades}
+                                            />
+                                        </ModalEditar>
+                                        <BotonEliminar
+                                            click={() => deleteHandler(act)}
                                         />
-                                    </ModalEditar>
-                                    <BotonEliminar
-                                        click={() => deleteHandler(act)}
-                                    />
-                                </td>
-                            </tr>
-                        </React.Fragment>
-                    ))}
+                                    </td>
+                                </tr>
+                            </React.Fragment>
+                        ))}
+                    </tbody>
                 </Table>
             </div>
         </>

@@ -50,35 +50,36 @@ const TablaUsuarios = ({ usuarios, roles }) => {
                     }
                 >
                     <Thead nombreColumnas={nombreColumnas} />
+                    <tbody>
+                        {usuarios.map((usuario) => (
+                            <React.Fragment key={usuario.id}>
+                                <tr
+                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                    key={usuario.id}
+                                >
+                                    {nombreProp.map((nombre, index) => (
+                                        <td className="px-6 py-4" key={index}>
+                                            {usuario[nombre]}
+                                        </td>
+                                        // <TdBody key={index}>{usuario[nombre]}</TdBody>
+                                    ))}
 
-                    {usuarios.map((usuario) => (
-                        <React.Fragment key={usuario.id}>
-                            <tr
-                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                key={usuario.id}
-                            >
-                                {nombreProp.map((nombre, index) => (
-                                    <td className="px-6 py-4" key={index}>
-                                        {usuario[nombre]}
-                                    </td>
-                                    // <TdBody key={index}>{usuario[nombre]}</TdBody>
-                                ))}
-
-                                <td className="px-6 py-4 flex">
-                                    <ModalEditar isEdit={true}>
-                                        <Register
-                                            isEdit={true}
-                                            objeto={usuario}
-                                            roles={roles}
+                                    <td className="px-6 py-4 flex">
+                                        <ModalEditar isEdit={true}>
+                                            <Register
+                                                isEdit={true}
+                                                objeto={usuario}
+                                                roles={roles}
+                                            />
+                                        </ModalEditar>
+                                        <BotonEliminar
+                                            click={() => handleDelete(usuario)}
                                         />
-                                    </ModalEditar>
-                                    <BotonEliminar
-                                        click={() => handleDelete(usuario)}
-                                    />
-                                </td>
-                            </tr>
-                        </React.Fragment>
-                    ))}
+                                    </td>
+                                </tr>
+                            </React.Fragment>
+                        ))}
+                    </tbody>
                 </Table>
             </div>
         </>

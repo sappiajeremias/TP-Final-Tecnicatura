@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import TituloTabla from "./tabla/TituloTabla";
 
 const Table = ({ children, titulo, boton }) => {
-    // const columnas = ["nombre", "dni"];
+ 
 
     return (
         <div className="relative overflow-x-auto shadow-lg sm:rounded-lg border-solid border-pink-400 border-2 bg-white">
@@ -35,7 +35,7 @@ const Table = ({ children, titulo, boton }) => {
                                 id="simple-search"
                                 className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Search"
-                                required
+                              
                             />
                         </div>
                     </form>

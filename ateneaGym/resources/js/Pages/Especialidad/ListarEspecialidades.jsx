@@ -49,38 +49,39 @@ export default function ListarEspecialidades({
                     ]}
                 >
                     <Thead nombreColumnas={nombreColumnas} />
+                    <tbody>
+                        {especialidadesProfesores.map((esp) => (
+                            <React.Fragment key={esp.id}>
+                                <tr
+                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                    key={esp.id}
+                                >
+                                    {nombreProp.map((nombre, index) => (
+                                        <td className="px-6 py-4" key={index}>
+                                            {esp[nombre]}
+                                        </td>
+                                        // <TdBody key={index}>{usuario[nombre]}</TdBody>
+                                    ))}
 
-                    {especialidadesProfesores.map((esp) => (
-                        <React.Fragment key={esp.id}>
-                            <tr
-                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                key={esp.id}
-                            >
-                                {nombreProp.map((nombre, index) => (
-                                    <td className="px-6 py-4" key={index}>
-                                        {esp[nombre]}
-                                    </td>
-                                    // <TdBody key={index}>{usuario[nombre]}</TdBody>
-                                ))}
-
-                                <td className="px-6 py-4 flex">
-                                    <ModalEditar isEdit={true}>
-                                        <CrearRelacion
-                                            isEdit={true}
-                                            objeto={esp}
-                                            especialidadesProfesores={
-                                                especialidadesProfesores
-                                            }
-                                            especialidades={especialidades}
+                                    <td className="px-6 py-4 flex">
+                                        <ModalEditar isEdit={true}>
+                                            <CrearRelacion
+                                                isEdit={true}
+                                                objeto={esp}
+                                                especialidadesProfesores={
+                                                    especialidadesProfesores
+                                                }
+                                                especialidades={especialidades}
+                                            />
+                                        </ModalEditar>
+                                        <BotonEliminar
+                                            click={() => deleteHandler(esp)}
                                         />
-                                    </ModalEditar>
-                                    <BotonEliminar
-                                        click={() => deleteHandler(esp)}
-                                    />
-                                </td>
-                            </tr>
-                        </React.Fragment>
-                    ))}
+                                    </td>
+                                </tr>
+                            </React.Fragment>
+                        ))}
+                    </tbody>
                 </Table>
             </div>
         </>

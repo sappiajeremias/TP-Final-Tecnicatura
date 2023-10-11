@@ -31,14 +31,13 @@ const ModalEditar = ({ children, isEdit, title = "NUEVO" }) => {
                     </svg>
                 </button>
             ) : (
-                    <button
-                        onClick={openModal}
-                        className=" text-white bg-pink-400 hover:bg-pink-500 focus:ring-4 focus:outline-none focus:ring-pink-300  dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 text-center "
-                        type="button"
-                    >
-                        {title}
-                    </button>
-                
+                <button
+                    onClick={openModal}
+                    className=" text-white bg-pink-400 hover:bg-pink-500 focus:ring-4 focus:outline-none focus:ring-pink-300  dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 text-center "
+                    type="button"
+                >
+                    {title}
+                </button>
             )}
 
             {/* Modal */}
