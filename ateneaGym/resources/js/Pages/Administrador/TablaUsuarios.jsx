@@ -36,14 +36,19 @@ const TablaUsuarios = ({ usuarios, roles }) => {
 
     return (
         <>
-            <h1 className="text-pink-500 text-center text-2xl pt-5">
-                Tabla Usuarios
-            </h1>
-            <ModalEditar isEdit={false}>
-                <Register isEdit={false} objeto={""} roles={roles}></Register>
-            </ModalEditar>
             <div className="container m-auto p-5 sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
-                <Table>
+                <Table
+                    titulo={"  Tabla Usuarios"}
+                    boton={
+                        <ModalEditar isEdit={false}>
+                            <Register
+                                isEdit={false}
+                                objeto={""}
+                                roles={roles}
+                            ></Register>
+                        </ModalEditar>
+                    }
+                >
                     <Thead nombreColumnas={nombreColumnas} />
 
                     {usuarios.map((usuario) => (

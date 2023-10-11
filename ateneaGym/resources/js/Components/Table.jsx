@@ -1,6 +1,5 @@
 import React from "react";
-import Thead from "./tabla/Thead";
-import TrBody from "./tabla/TrBody";
+
 import TituloTabla from "./tabla/TituloTabla";
 
 const Table = ({ children, titulo, boton }) => {

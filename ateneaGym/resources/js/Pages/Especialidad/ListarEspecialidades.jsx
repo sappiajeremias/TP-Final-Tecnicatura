@@ -26,22 +26,28 @@ export default function ListarEspecialidades({
 
     return (
         <>
-            <h1 className="text-pink-500  text-center text-2xl pt-5">
-                Tabla especialidades
-            </h1>
-            <ModalEditar isEdit={false} title={"ASIGNAR PROFESOR"}>
-                <CrearRelacion
-                    isEdit={false}
-                    objeto={""}
-                    especialidadesProfesores={especialidadesProfesores}
-                    especialidades={especialidades}
-                ></CrearRelacion>
-            </ModalEditar>
-            <ModalEditar isEdit={false} title={"NUEVA ESPECIALIDAD"}>
-                <CrearEspecialidad objeto={""} ></CrearEspecialidad>
-            </ModalEditar>
             <div className="container m-auto max-w-6xl p-5">
-                <Table>
+                <Table
+                    titulo={"Tabla especialidades"}
+                    boton={[
+                        <ModalEditar isEdit={false} title={"ASIGNAR PROFESOR"}>
+                            <CrearRelacion
+                                isEdit={false}
+                                objeto={""}
+                                especialidadesProfesores={
+                                    especialidadesProfesores
+                                }
+                                especialidades={especialidades}
+                            ></CrearRelacion>
+                        </ModalEditar>,
+                        <ModalEditar
+                            isEdit={false}
+                            title={"NUEVA ESPECIALIDAD"}
+                        >
+                            <CrearEspecialidad objeto={""}></CrearEspecialidad>
+                        </ModalEditar>,
+                    ]}
+                >
                     <Thead nombreColumnas={nombreColumnas} />
 
                     {especialidadesProfesores.map((esp) => (
