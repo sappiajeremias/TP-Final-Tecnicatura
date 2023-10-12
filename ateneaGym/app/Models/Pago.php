@@ -12,6 +12,7 @@ class Pago extends Model
         'user_id',
         'membresia_id',
         'fecha_vencimiento',
-        'medio_pago'
+        'medio_pago',
+        'dias_disponibles'
     ];
 }

@@ -13,6 +13,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\RutinaController;
 use App\Http\Controllers\TurnoController;
+use App\Http\Controllers\MembresiaController;
+use App\Http\Controllers\PagoController;
 use App\Models\Alumno;
 use App\Models\Especialidad;
 
@@ -36,7 +38,12 @@ Route::get('/', function () {
     ]);
 });
 
-
+/*Route::get('/mostrarMembresias/{membresia_id}', function ($membresia_id) {
+    return Inertia::render('Pago/Index', [
+        'membresia_id' => $membresia_id
+    ]);
+})->name('mostrarMembresias');*/
+Route::put('/mostrarMembresias/{membresia_id}', [PagoController::class, 'confirmarPago'])->name('mostrarMembresias');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -72,6 +79,11 @@ Route::resource('esp', EspecialidadController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
+    Route::resource('pago', PagoController::class)
+    ->only(['store', 'index', 'update', 'destroy'])
+    ->middleware(['auth']);
+
+
 Route::resource('alumno', AlumnoController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
@@ -85,6 +97,10 @@ Route::resource('rutina', RutinaController::class)
     ->middleware(['auth']);
 
 Route::resource('ejercicio', EjercicioController::class)
+    ->only(['store', 'index', 'update', 'destroy'])
+    ->middleware(['auth']);
+
+    Route::resource('membresia', MembresiaController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
