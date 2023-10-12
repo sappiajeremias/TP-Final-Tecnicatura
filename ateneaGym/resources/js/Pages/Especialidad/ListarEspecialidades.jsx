@@ -9,6 +9,7 @@ import BotonEliminar from "@/Components/tabla/BotonEliminar";
 import { router } from "@inertiajs/react";
 import CrearRelacion from "./CrearRelacion";
 import CrearEspecialidad from "./CrearEspecialidad";
+import Busqueda from "@/Components/tabla/Busqueda";
 
 export default function ListarEspecialidades({
     especialidadesProfesores,
@@ -23,7 +24,24 @@ export default function ListarEspecialidades({
             onSuccess: () => alert("Relacion de especialidad eliminada"),
         });
     };
+    const [especialidadesFiltradas, setEspecialidadesFiltradas] = useState(
+        especialidadesProfesores
+    );
+    const [searchValue, setSearchValue] = useState("");
 
+    const handleSearch = (newValue) => {
+        // Filtrar las actividades según el nuevo valor de búsqueda
+        const filteredEspecialidad = especialidadesProfesores.filter((esp) => {
+            return nombreProp.some((nombre) => {
+                return esp[nombre]
+                    .toString()
+                    .toLowerCase()
+                    .includes(newValue.toLowerCase());
+            });
+        });
+
+        setEspecialidadesFiltradas(filteredEspecialidad);
+    };
     return (
         <>
             <div className="container m-auto max-w-6xl p-5">
@@ -47,10 +65,17 @@ export default function ListarEspecialidades({
                             <CrearEspecialidad objeto={""}></CrearEspecialidad>
                         </ModalEditar>,
                     ]}
+                    busqueda={
+                        <Busqueda
+                            searchValue={searchValue}
+                            setSearchValue={setSearchValue}
+                            onSearch={handleSearch}
+                        />
+                    }
                 >
                     <Thead nombreColumnas={nombreColumnas} />
                     <tbody>
-                        {especialidadesProfesores.map((esp) => (
+                        {especialidadesFiltradas.map((esp) => (
                             <React.Fragment key={esp.id}>
                                 <tr
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

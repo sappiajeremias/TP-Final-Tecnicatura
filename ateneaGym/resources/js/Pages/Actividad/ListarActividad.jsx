@@ -1,20 +1,46 @@
 import Table from "@/Components/Table";
 import ModalEditar from "@/Components/tabla/ModalEditar";
 import React, { useState } from "react";
-import Register from "../Auth/Register";
+
 import Thead from "@/Components/tabla/Thead";
-import TrBody from "@/Components/tabla/TrBody";
-import { TdBody } from "@/Components/tabla/TdBody";
+
 import BotonEliminar from "@/Components/tabla/BotonEliminar";
 import { router } from "@inertiajs/react";
 import CrearActividad from "./CrearActividad";
+import Busqueda from "@/Components/tabla/Busqueda";
 
 export default function ListarActs({
     actividades,
     profesores,
     especialidades,
 }) {
-   
+    const [actividadesFiltradas, setActividadesFiltradas] =
+        useState(actividades);
+    const [searchValue, setSearchValue] = useState("");
+
+    const handleSearch = (newValue) => {
+        // Filtrar las actividades según el nuevo valor de búsqueda
+        const filteredActivities = actividades.filter((act) => {
+            return nombreProp.some((nombre) => {
+                if (nombre === "especialidad_id") {
+                    const especialidadDescripcion =
+                        especialidades.find(
+                            (esp) => esp.id === act.especialidad_id
+                        )?.descripcion || "";
+                    return especialidadDescripcion
+                        .toLowerCase()
+                        .includes(newValue.toLowerCase());
+                }
+                return act[nombre]
+                    .toString()
+                    .toLowerCase()
+                    .includes(newValue.toLowerCase());
+            });
+        });
+
+        setActividadesFiltradas(filteredActivities);
+    };
+  
     const nombreColumnas = [
         "ID",
         "Dias Semana",
@@ -57,11 +83,17 @@ export default function ListarActs({
                             ></CrearActividad>
                         </ModalEditar>
                     }
-                   
+                    busqueda={
+                        <Busqueda
+                            searchValue={searchValue}
+                            setSearchValue={setSearchValue}
+                            onSearch={handleSearch}
+                        />
+                    }
                 >
                     <Thead nombreColumnas={nombreColumnas} />
                     <tbody>
-                        {actividades.map((act) => (
+                        {actividadesFiltradas.map((act) => (
                             <React.Fragment key={act.id}>
                                 <tr
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

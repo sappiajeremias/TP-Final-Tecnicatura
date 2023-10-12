@@ -8,9 +8,26 @@ import { TdBody } from "@/Components/tabla/TdBody";
 import BotonEliminar from "@/Components/tabla/BotonEliminar";
 import { router } from "@inertiajs/react";
 import Swal from "sweetalert2";
+import Busqueda from "@/Components/tabla/Busqueda";
 
 const TablaUsuarios = ({ usuarios, roles }) => {
-    console.log(usuarios);
+    const [usuariosFiltrados, setUsuariosFiltrados] = useState(usuarios);
+    const [searchValue, setSearchValue] = useState("");
+
+    const handleSearch = (newValue) => {
+        // Filtrar las actividades según el nuevo valor de búsqueda
+        const filteredUsuarios = usuarios.filter((user) => {
+            return nombreProp.some((nombre) => {
+                return user[nombre]
+                    .toString()
+                    .toLowerCase()
+                    .includes(newValue.toLowerCase());
+            });
+        });
+
+        setUsuariosFiltrados(filteredUsuarios);
+    };
+
     const nombreColumnas = [
         "Nombre",
         "Apellido",
@@ -48,10 +65,17 @@ const TablaUsuarios = ({ usuarios, roles }) => {
                             ></Register>
                         </ModalEditar>
                     }
+                    busqueda={
+                        <Busqueda
+                            searchValue={searchValue}
+                            setSearchValue={setSearchValue}
+                            onSearch={handleSearch}
+                        />
+                    }
                 >
                     <Thead nombreColumnas={nombreColumnas} />
                     <tbody>
-                        {usuarios.map((usuario) => (
+                        {usuariosFiltrados.map((usuario) => (
                             <React.Fragment key={usuario.id}>
                                 <tr
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
