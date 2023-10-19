@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Busqueda = ({ searchValue, setSearchValue, onSearch }) => {
+const Busqueda = ({ onSearch }) => {
+    const [busqueda, setBusqueda] = useState("");
     const handleInputChange = (event) => {
         const newValue = event.target.value;
-        setSearchValue(newValue);
+        setBusqueda(newValue);
         onSearch(newValue); // Llama a la función onSearch con el nuevo valor
     };
     return (
@@ -34,7 +35,7 @@ const Busqueda = ({ searchValue, setSearchValue, onSearch }) => {
                             id="simple-search"
                             className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Search"
-                            value={searchValue}
+                            value={busqueda}
                             onChange={handleInputChange}
                         />
                     </div>

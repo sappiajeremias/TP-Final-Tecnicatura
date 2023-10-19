@@ -85,8 +85,7 @@ export default function ListarActs({
                     }
                     busqueda={
                         <Busqueda
-                            searchValue={searchValue}
-                            setSearchValue={setSearchValue}
+                           
                             onSearch={handleSearch}
                         />
                     }
