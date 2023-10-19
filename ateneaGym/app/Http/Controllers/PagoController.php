@@ -17,7 +17,7 @@ class PagoController extends Controller
             'medio_pago' => 'required',
             'fecha_vencimiento' => ['required', 'fecha_vencimiento_posterior'],
             'numero_tarjeta' => ['required', 'max:16', 'min:16'],
-            'cod_seguridad' => ['required', 'max:16', 'min:16'],
+            'cod_seguridad' => ['required', 'max:4', 'min:3'],
         ], [
             'medio_pago.required' => 'Debe seleccionar el medio de pago.',
             'numero_tarjeta.required' => 'Debe ingresar el número de la tarjeta.',

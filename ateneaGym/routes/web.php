@@ -44,6 +44,7 @@ Route::get('/', function () {
     ]);
 })->name('mostrarMembresias');*/
 Route::put('/mostrarMembresias/{membresia_id}', [PagoController::class, 'confirmarPago'])->name('mostrarMembresias');
+// Route::get('/mostrarMembresias', [PagoController::class, 'index'])->name('mostrarMembresias');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -101,7 +102,7 @@ Route::resource('ejercicio', EjercicioController::class)
     ->middleware(['auth']);
 
     Route::resource('membresia', MembresiaController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
+    ->only(['store', 'index', 'update', 'destroy', 'show'])
     ->middleware(['auth']);
 
 // Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('misTurnos');
