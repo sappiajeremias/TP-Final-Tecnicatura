@@ -32,26 +32,71 @@ use App\Models\Especialidad;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::group(['middleware' => ['role:Administrador']], function () {
 
+    Route::resource('actividad', ActividadController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
+
+    Route::resource('usuarios', UserController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
+
+    Route::resource('especialidad', EspecialidadProfesorController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
+
+    Route::resource('esp', EspecialidadController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
+
+    Route::resource('pago', PagoController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
+
+
+    Route::group(['middleware' => ['role:Alumno']], function () {
+        Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('turnoAlumno');
+        Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->name('cancelar.turnoAlumno');
+
+
+        Route::resource('membresia', MembresiaController::class)
+            ->only(['store', 'index', 'update', 'destroy', 'show'])
+            ->middleware(['auth']);
+
+        Route::put('/mostrarMembresias/{membresia_id}', [PagoController::class, 'confirmarPago'])->name('mostrarMembresias');
+
+        Route::resource('turnos', TurnoController::class)
+            ->only(['store', 'index', 'update', 'destroy'])
+            ->middleware(['auth']);
+    });
+    Route::group(['middleware' => ['role:Profesor']], function () {
+        Route::resource('rutina', RutinaController::class)
+            ->only(['store', 'index', 'update', 'destroy'])
+            ->middleware(['auth']);
+
+        Route::resource('ejercicio', EjercicioController::class)
+            ->only(['store', 'index', 'update', 'destroy'])
+            ->middleware(['auth']);
+    });
+});
 /*Route::get('/mostrarMembresias/{membresia_id}', function ($membresia_id) {
     return Inertia::render('Pago/Index', [
         'membresia_id' => $membresia_id
     ]);
 })->name('mostrarMembresias');*/
-Route::put('/mostrarMembresias/{membresia_id}', [PagoController::class, 'confirmarPago'])->name('mostrarMembresias');
+
 // Route::get('/mostrarMembresias', [PagoController::class, 'index'])->name('mostrarMembresias');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('turnoAlumno');
-Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->name('cancelar.turnoAlumno');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -59,30 +104,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('actividad', ActividadController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
-    ->middleware(['auth']);
 
 
-Route::resource('usuarios', UserController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
-    ->middleware(['auth']);
 
-Route::resource('turnos', TurnoController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
-    ->middleware(['auth']);
 
-Route::resource('especialidad', EspecialidadProfesorController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
-    ->middleware(['auth']);
 
-Route::resource('esp', EspecialidadController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
-    ->middleware(['auth']);
-
-    Route::resource('pago', PagoController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
-    ->middleware(['auth']);
 
 
 Route::resource('alumno', AlumnoController::class)
@@ -93,17 +119,9 @@ Route::resource('profesor', ProfesorController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
-Route::resource('rutina', RutinaController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
-    ->middleware(['auth']);
 
-Route::resource('ejercicio', EjercicioController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
-    ->middleware(['auth']);
 
-    Route::resource('membresia', MembresiaController::class)
-    ->only(['store', 'index', 'update', 'destroy', 'show'])
-    ->middleware(['auth']);
+
 
 // Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('misTurnos');
 require __DIR__ . '/auth.php';
