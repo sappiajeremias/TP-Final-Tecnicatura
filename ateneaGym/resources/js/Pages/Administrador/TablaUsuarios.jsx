@@ -34,10 +34,11 @@ const TablaUsuarios = ({ usuarios, roles }) => {
         "Dni",
         "Fecha De Nacimiento",
         "Email",
+        "Rol",
         "Acciones",
     ];
 
-    const nombreProp = ["name", "apellido", "dni", "fecha_nac", "email"];
+    const nombreProp = ["name", "apellido", "dni", "fecha_nac", "email", "rol"];
     // const [usuario, setusuario] = useState('');
     const handleDelete = (usuario) => {
         // Lógica para eliminar el recurso

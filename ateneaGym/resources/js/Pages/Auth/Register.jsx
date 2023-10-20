@@ -136,7 +136,8 @@ export default function Register({ isEdit, objeto, roles }) {
                         value={data.rol}
                         onChange={(e) => setData("rol", e.target.value)}
                     >
-                        <option>Seleccione un rol</option>
+                        {" "}
+                        {data.rol ? "" : <option>Seleccione un rol</option>}
                         {roles.map((rol, index) =>
                             rol.name === "Administrador" ? (
                                 ""
