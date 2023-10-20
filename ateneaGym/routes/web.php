@@ -17,7 +17,7 @@ use App\Http\Controllers\MembresiaController;
 use App\Http\Controllers\PagoController;
 use App\Models\Alumno;
 use App\Models\Especialidad;
-
+use Spatie\Permission\Traits\HasRoles;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +37,7 @@ Route::get('/', function () {
     ]);
 });
 Route::group(['middleware' => ['role:Administrador']], function () {
-
+});
     Route::resource('actividad', ActividadController::class)
         ->only(['store', 'index', 'update', 'destroy'])
         ->middleware(['auth']);
@@ -59,31 +59,32 @@ Route::group(['middleware' => ['role:Administrador']], function () {
         ->middleware(['auth']);
 
 
-    Route::group(['middleware' => ['role:Alumno']], function () {
-        Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('turnoAlumno');
-        Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->name('cancelar.turnoAlumno');
+Route::group(['middleware' => ['role:Alumno|Administrador']], function () {});
+    Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('turnoAlumno');
+    Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->name('cancelar.turnoAlumno');
 
 
-        Route::resource('membresia', MembresiaController::class)
-            ->only(['store', 'index', 'update', 'destroy', 'show'])
-            ->middleware(['auth']);
+    Route::resource('membresia', MembresiaController::class)
+        ->only(['store', 'index', 'update', 'destroy', 'show'])
+        ->middleware(['auth']);
 
-        Route::put('/mostrarMembresias/{membresia_id}', [PagoController::class, 'confirmarPago'])->name('mostrarMembresias');
+    Route::put('/mostrarMembresias/{membresia_id}', [PagoController::class, 'confirmarPago'])->name('mostrarMembresias');
 
-        Route::resource('turnos', TurnoController::class)
-            ->only(['store', 'index', 'update', 'destroy'])
-            ->middleware(['auth']);
-    });
-    Route::group(['middleware' => ['role:Profesor']], function () {
-        Route::resource('rutina', RutinaController::class)
-            ->only(['store', 'index', 'update', 'destroy'])
-            ->middleware(['auth']);
+    Route::resource('turnos', TurnoController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
 
-        Route::resource('ejercicio', EjercicioController::class)
-            ->only(['store', 'index', 'update', 'destroy'])
-            ->middleware(['auth']);
-    });
-});
+
+Route::group(['middleware' => ['role:Profesor']], function () {});
+    Route::resource('rutina', RutinaController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
+
+    Route::resource('ejercicio', EjercicioController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
+
+
 /*Route::get('/mostrarMembresias/{membresia_id}', function ($membresia_id) {
     return Inertia::render('Pago/Index', [
         'membresia_id' => $membresia_id
@@ -119,7 +120,10 @@ Route::resource('profesor', ProfesorController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
+Route::get('/user-role', function () {
 
+    return auth()->user()->getRoles();
+});
 
 
 

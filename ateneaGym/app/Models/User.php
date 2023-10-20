@@ -57,8 +57,9 @@ class User extends Authenticatable {
         $roles = $this->getRoleNames()->toArray();
         return $roles;
     }
-    public function alumno(){
-        
+    public function getRoles() {
+        return $this->getRoleNames();
     }
-
+    public function alumno() {
+    }
 }

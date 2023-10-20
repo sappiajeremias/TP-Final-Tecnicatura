@@ -1,4 +1,5 @@
 import NavLink from "@/Components/NavLink";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 // import { Sidebar } from 'flowbite-react';
@@ -11,6 +12,18 @@ const Nav = ({ children, auth }) => {
         setSidebarVisible(true);
     };
 
+    const [userRoles, setUserRoles] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get("/user-role")
+            .then((response) => {
+                setUserRoles(response.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching user roles:", error);
+            });
+    }, []);
     const closeSidebar = () => {
         setSidebarVisible(false);
     };
@@ -169,160 +182,168 @@ const Nav = ({ children, auth }) => {
                                     </NavLink>
                                 </div>
                             </li>
+                            {userRoles.includes("Administrador") ? (
+                                ""
+                            ) : (
+                                <>
+                                    <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className="icon icon-tabler icon-tabler-puzzle"
+                                                width="18"
+                                                height="18"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth="1.5"
+                                                stroke="currentColor"
+                                                fill="none"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            >
+                                                <path
+                                                    stroke="none"
+                                                    d="M0 0h24v24H0z"
+                                                ></path>
+                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
+                                            </svg>
+                                            <NavLink
+                                                href={route("actividad.index")}
+                                                active={route().current(
+                                                    "actividad.index"
+                                                )}
+                                            >
+                                                Registrar Actividad
+                                            </NavLink>
+                                        </div>
+                                    </li>
+                                    <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className="icon icon-tabler icon-tabler-puzzle"
+                                                width="18"
+                                                height="18"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth="1.5"
+                                                stroke="currentColor"
+                                                fill="none"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            >
+                                                <path
+                                                    stroke="none"
+                                                    d="M0 0h24v24H0z"
+                                                ></path>
+                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
+                                            </svg>
+                                            <NavLink
+                                                href={route("membresia.index")}
+                                                active={route().current(
+                                                    "membresia.index"
+                                                )}
+                                            >
+                                                Membresias
+                                            </NavLink>
+                                        </div>
+                                    </li>
 
-                            <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="icon icon-tabler icon-tabler-puzzle"
-                                        width="18"
-                                        height="18"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        fill="none"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                        ></path>
-                                        <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                    </svg>
-                                    <NavLink
-                                        href={route("actividad.index")}
-                                        active={route().current(
-                                            "actividad.index"
-                                        )}
-                                    >
-                                        Registrar Actividad
-                                    </NavLink>
-                                </div>
-                            </li>
-                            <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="icon icon-tabler icon-tabler-puzzle"
-                                        width="18"
-                                        height="18"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        fill="none"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                        ></path>
-                                        <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                    </svg>
-                                    <NavLink
-                                        href={route("membresia.index")}
-                                        active={route().current(
-                                            "membresia.index"
-                                        )}
-                                    >
-                                        Membresias
-                                    </NavLink>
-                                </div>
-                            </li>
-
-                            <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                    <svg
-                                        className=" text-gray-100 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 20 18"
-                                        width="18"
-                                        height="18"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
-                                        />
-                                    </svg>
-                                    <NavLink
-                                        href={route("usuarios.index")}
-                                        active={route().current(
-                                            "registrarUsuarios.index"
-                                        )}
-                                    >
-                                        Registrar Usuarios
-                                    </NavLink>
-                                </div>
-                                {/* <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
+                                    <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                            <svg
+                                                className=" text-gray-100 dark:text-white"
+                                                aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 20 18"
+                                                width="18"
+                                                height="18"
+                                            >
+                                                <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="2"
+                                                    d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
+                                                />
+                                            </svg>
+                                            <NavLink
+                                                href={route("usuarios.index")}
+                                                active={route().current(
+                                                    "registrarUsuarios.index"
+                                                )}
+                                            >
+                                                Registrar Usuarios
+                                            </NavLink>
+                                        </div>
+                                        {/* <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
                                 25
                             </div> */}
-                            </li>
-                            <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                    <svg
-                                        className=" text-gray-100 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 20 18"
-                                        width="18"
-                                        height="18"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
-                                        />
-                                    </svg>
-                                    <NavLink
-                                        href={route("especialidad.index")}
-                                        active={route().current(
-                                            "especialidad.index"
-                                        )}
-                                    >
-                                        Especialidades
-                                    </NavLink>
-                                </div>
-                                {/* <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
+                                    </li>
+                                    <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                            <svg
+                                                className=" text-gray-100 dark:text-white"
+                                                aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 20 18"
+                                                width="18"
+                                                height="18"
+                                            >
+                                                <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="2"
+                                                    d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
+                                                />
+                                            </svg>
+                                            <NavLink
+                                                href={route(
+                                                    "especialidad.index"
+                                                )}
+                                                active={route().current(
+                                                    "especialidad.index"
+                                                )}
+                                            >
+                                                Especialidades
+                                            </NavLink>
+                                        </div>
+                                        {/* <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
                                 25
                             </div> */}
-                            </li>
-                            <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                    <svg
-                                        className=" text-gray-100 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 20 18"
-                                        width="18"
-                                        height="18"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
-                                        />
-                                    </svg>
-                                    <NavLink
-                                        href={route("turnos.index")}
-                                        active={route().current("turnos.index")}
-                                    >
-                                        Sacar Turno
-                                    </NavLink>
-                                </div>
-                            </li>
-
+                                    </li>
+                                    <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                            <svg
+                                                className=" text-gray-100 dark:text-white"
+                                                aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 20 18"
+                                                width="18"
+                                                height="18"
+                                            >
+                                                <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="2"
+                                                    d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
+                                                />
+                                            </svg>
+                                            <NavLink
+                                                href={route("turnos.index")}
+                                                active={route().current(
+                                                    "turnos.index"
+                                                )}
+                                            >
+                                                Sacar Turno
+                                            </NavLink>
+                                        </div>
+                                    </li>
+                                </>
+                            )}{" "}
                             <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                 <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
                                     <svg
