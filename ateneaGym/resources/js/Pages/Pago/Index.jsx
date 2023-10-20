@@ -6,38 +6,26 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-const Index = ({ membresia_id, auth, }) => {
-
+const Index = ({ membresia_id, auth }) => {
+    const obtenerFechaActual = () => {
+        const fechaActual = new Date();
+        const anio = fechaActual.getFullYear();
+        const mes = (fechaActual.getMonth() + 1).toString().padStart(2, "0");
+        return `${anio}-${mes}`;
+    };
     const { data, setData, put, post, processing, errors, reset } = useForm({
         user_id: auth.user.id,
         membresia_id: membresia_id || "",
         medio_pago: "",
         numero_tarjeta: "",
-        fecha_vencimiento: "",
+        fecha_vencimiento: obtenerFechaActual(),
         cod_seguridad: "",
-        nombre_completo: ""
+        nombre_completo: "",
     });
     const medios = ["Debito", "Credito"];
 
-    const [fechaVencimiento, setFechaVencimiento] = useState('');
-
     const handleFechaChange = (e) => {
-        let input = e.target.value;
-
-        // Elimina caracteres no numéricos
-        input = input.replace(/\D/g, '');
-
-        // Divide la fecha en mes y año
-        if (input.length > 2) {
-            const mes = input.slice(0, 2);
-            const año = input.slice(2, 6);
-
-            // Formatea la fecha como "MM/YY"
-            input = `${mes}/${año}`;
-        }
-
-        setFechaVencimiento(input);
-        setData("fecha_vencimiento", fechaVencimiento);
+        setData("fecha_vencimiento", e.target.value);
     };
 
     const handleSubmit = (e) => {
@@ -72,7 +60,10 @@ const Index = ({ membresia_id, auth, }) => {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="numero_tarjeta" value="Número de tarjeta" />
+                    <InputLabel
+                        htmlFor="numero_tarjeta"
+                        value="Número de tarjeta"
+                    />
 
                     <TextInput
                         id="numero_tarjeta"
@@ -81,13 +72,21 @@ const Index = ({ membresia_id, auth, }) => {
                         value={data.numero_tarjeta}
                         className="mt-1  "
                         autoComplete="numero_tarjeta"
-                        onChange={(e) => setData("numero_tarjeta", e.target.value)}
+                        onChange={(e) =>
+                            setData("numero_tarjeta", e.target.value)
+                        }
                     />
 
-                    <InputError message={errors.numero_tarjeta} className="mt-2" />
+                    <InputError
+                        message={errors.numero_tarjeta}
+                        className="mt-2"
+                    />
                 </div>
                 <div className="mt-4">
-                    <InputLabel htmlFor="cod_seguridad" value="Código de Seguridad" />
+                    <InputLabel
+                        htmlFor="cod_seguridad"
+                        value="Código de Seguridad"
+                    />
 
                     <TextInput
                         id="cod_seguridad"
@@ -96,13 +95,21 @@ const Index = ({ membresia_id, auth, }) => {
                         value={data.cod_seguridad}
                         className="mt-1  "
                         autoComplete="cod_seguridad"
-                        onChange={(e) => setData("cod_seguridad", e.target.value)}
+                        onChange={(e) =>
+                            setData("cod_seguridad", e.target.value)
+                        }
                     />
 
-                    <InputError message={errors.cod_seguridad} className="mt-2" />
+                    <InputError
+                        message={errors.cod_seguridad}
+                        className="mt-2"
+                    />
                 </div>
                 <div className="mt-4">
-                    <InputLabel htmlFor="nombre_completo" value="Nombre Completo" />
+                    <InputLabel
+                        htmlFor="nombre_completo"
+                        value="Nombre Completo"
+                    />
 
                     <TextInput
                         disabled
@@ -112,28 +119,38 @@ const Index = ({ membresia_id, auth, }) => {
                         value={auth.user.name + " " + auth.user.apellido}
                         className="mt-1  "
                         autoComplete="nombre_completo"
-                        onChange={(e) => setData("nombre_completo", e.target.value)}
+                        onChange={(e) =>
+                            setData("nombre_completo", e.target.value)
+                        }
                     />
 
-                    <InputError message={errors.nombre_completo} className="mt-2" />
+                    <InputError
+                        message={errors.nombre_completo}
+                        className="mt-2"
+                    />
                 </div>
                 <div className="mt-4">
-                    <InputLabel htmlFor="fecha_vencimiento" value="Fecha de Vencimiento" />
+                    <InputLabel
+                        htmlFor="fecha_vencimiento"
+                        value="Fecha de Vencimiento"
+                    />
 
                     <TextInput
                         id="fecha_vencimiento"
-                        type="text"
+                        type="month"
                         name="fecha_vencimiento"
-                        value={fechaVencimiento}
-                        className="mt-1  "
+                        value={data.fecha_vencimiento}
+                        className="mt-1"
                         autoComplete="fecha_vencimiento"
                         onChange={handleFechaChange}
                     />
 
-                    <InputError message={errors.fecha_vencimiento} className="mt-2" />
+                    <InputError
+                        message={errors.fecha_vencimiento}
+                        className="mt-2"
+                    />
                 </div>
                 <div className="mt-4">
-                    
                     <TextInput
                         hidden
                         disabled
@@ -144,10 +161,8 @@ const Index = ({ membresia_id, auth, }) => {
                         className="mt-1  "
                         autoComplete="user_id"
                     />
-
                 </div>
                 <div className="mt-4">
-                    
                     <TextInput
                         hidden
                         disabled
@@ -158,7 +173,6 @@ const Index = ({ membresia_id, auth, }) => {
                         className="mt-1  "
                         autoComplete="membresia_id"
                     />
-
                 </div>
                 <div className="flex items-center justify-end mt-4">
                     <PrimaryButton className="ml-4" disabled={processing}>

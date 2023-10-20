@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Carbon\Carbon;
 
-class PagoController extends Controller
-{
-    public function index() {}
-    public function store(Request $request)
-    {
+class PagoController extends Controller {
+    public function index() {
+    }
+    public function store(Request $request) {
+      
         $request->validate([
             'medio_pago' => 'required',
             'fecha_vencimiento' => ['required', 'fecha_vencimiento_posterior'],
@@ -31,7 +31,7 @@ class PagoController extends Controller
         ]);
 
         $medio = "Credito";
-        if($request->medio_pago == 0) {
+        if ($request->medio_pago == 0) {
             $medio = "Debito";
         }
         $verif = false;
@@ -40,20 +40,21 @@ class PagoController extends Controller
         $membresia = Membresia::where('id', $request->membresia_id)->first();
 
         $pago = Pago::create([
-        'user_id' => $request->user_id,
-        'membresia_id' => $request->membresia_id,
-        'medio_pago' => $medio,
-        'dias_disponibles' => ($membresia->dias_disponibles) * 4,
-        'fecha_vencimiento' => $fecha,
+            'user_id' => $request->user_id,
+            'membresia_id' => $request->membresia_id,
+            'medio_pago' => $medio,
+            'dias_disponibles' => ($membresia->dias_disponibles) * 4,
+            'fecha_vencimiento' => $fecha,
         ]);
         $pago->save();
         return redirect()->route('dashboard');
     }
-    public function update(Request $request, Pago $pago) {}
-    public function destroy(Pago $pago) {}
+    public function update(Request $request, Pago $pago) {
+    }
+    public function destroy(Pago $pago) {
+    }
 
-    public function confirmarPago(Request $request)
-    {
+    public function confirmarPago(Request $request) {
         //dd($request->membresia_id);
         return Inertia::render('Pago/Index', [
             'membresia_id' => $request->membresia_id
