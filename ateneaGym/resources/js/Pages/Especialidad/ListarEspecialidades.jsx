@@ -65,13 +65,7 @@ export default function ListarEspecialidades({
                             <CrearEspecialidad objeto={""}></CrearEspecialidad>
                         </ModalEditar>,
                     ]}
-                    busqueda={
-                        <Busqueda
-                            searchValue={searchValue}
-                            setSearchValue={setSearchValue}
-                            onSearch={handleSearch}
-                        />
-                    }
+                    busqueda={<Busqueda onSearch={handleSearch} />}
                 >
                     <Thead nombreColumnas={nombreColumnas} />
                     <tbody>
