@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -66,7 +67,7 @@ class UserController extends Controller {
             'fecha_nac' => $request->fecha_nac,
             'password' => Hash::make($request->password),
         ]);
-        
+
         $user->assignRole($request->rol);
         if ($request->rol == 'Profesor') {
             Profesor::create([
@@ -117,4 +118,5 @@ class UserController extends Controller {
 
         // return redirect()->route('dashboard');
     }
+   
 }

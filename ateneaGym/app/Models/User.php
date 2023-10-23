@@ -60,6 +60,17 @@ class User extends Authenticatable {
     public function getRoles() {
         return $this->getRoleNames();
     }
+
+    public function pagos() {
+        return $this->hasMany(Pago::class);
+    }
+
+    public function membresiaActual() {
+        $pagosOrdenados = $this->pagos()->get()->sortByDesc('created_at');
+        $pagoReciente = $pagosOrdenados->first();
+        return $pagoReciente->membresia;
+    }
+
     public function alumno() {
     }
 }

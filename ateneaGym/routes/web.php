@@ -17,7 +17,10 @@ use App\Http\Controllers\MembresiaController;
 use App\Http\Controllers\PagoController;
 use App\Models\Alumno;
 use App\Models\Especialidad;
+use App\Models\Membresia;
 use Spatie\Permission\Traits\HasRoles;
+use Symfony\Component\HttpKernel\Profiler\Profile;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +40,7 @@ Route::get('/', function () {
     ]);
 });
 Route::group(['middleware' => ['role:Administrador']], function () {
-});
+
     Route::resource('actividad', ActividadController::class)
         ->only(['store', 'index', 'update', 'destroy'])
         ->middleware(['auth']);
@@ -57,9 +60,8 @@ Route::group(['middleware' => ['role:Administrador']], function () {
     Route::resource('pago', PagoController::class)
         ->only(['store', 'index', 'update', 'destroy'])
         ->middleware(['auth']);
-
-
-Route::group(['middleware' => ['role:Alumno|Administrador']], function () {});
+});
+Route::group(['middleware' => ['role:Alumno|Administrador']], function () {
     Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('turnoAlumno');
     Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->name('cancelar.turnoAlumno');
 
@@ -73,9 +75,9 @@ Route::group(['middleware' => ['role:Alumno|Administrador']], function () {});
     Route::resource('turnos', TurnoController::class)
         ->only(['store', 'index', 'update', 'destroy'])
         ->middleware(['auth']);
+});
 
-
-Route::group(['middleware' => ['role:Profesor']], function () {});
+Route::group(['middleware' => ['role:Profesor|Administrador']], function () {
     Route::resource('rutina', RutinaController::class)
         ->only(['store', 'index', 'update', 'destroy'])
         ->middleware(['auth']);
@@ -83,7 +85,7 @@ Route::group(['middleware' => ['role:Profesor']], function () {});
     Route::resource('ejercicio', EjercicioController::class)
         ->only(['store', 'index', 'update', 'destroy'])
         ->middleware(['auth']);
-
+});
 
 /*Route::get('/mostrarMembresias/{membresia_id}', function ($membresia_id) {
     return Inertia::render('Pago/Index', [
@@ -98,8 +100,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-
 Route::middleware('auth')->group(function () {
+    // Route::get('profile', [ProfileController::class, 'membresia'])->name('profile.membresia');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -126,6 +128,12 @@ Route::get('/user-role', function () {
 });
 
 
+// Route::get('/{any}', function () {
+//     return Inertia::render('Error404');
+// })->where('any', '.*');
 
+Route::get('/error-403', function () {
+    return Inertia::render('Error403');
+});
 // Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('misTurnos');
 require __DIR__ . '/auth.php';
