@@ -3,6 +3,8 @@ import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
+import Swal from 'sweetalert2';
+
 import TextInput from "@/Components/TextInput";
 import { Head, Link, router, useForm } from "@inertiajs/react";
 export default function CrearRelacion({
@@ -10,6 +12,7 @@ export default function CrearRelacion({
     objeto,
     especialidadesProfesores,
     especialidades,
+    profesores
 }) {
     const { data, setData, put, post, processing, errors, reset } = useForm({
         descripcion: objeto.descripcion || "",
@@ -18,17 +21,53 @@ export default function CrearRelacion({
         especialidad_id: objeto.especialidad_id || "",
     });
 
+    /* const handleSubmit = (e) => {
+         e.preventDefault();
+         if (isEdit) {
+             put(`/especialidad/${objeto.id}`, {
+                 onSuccess: () => {
+                     alert("Relacion Actualizada");
+                     document.getElementById("cierreModal").click();
+                 },
+             });
+         } else {
+             post(route("especialidad.store"));
+         }
+     };*/
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isEdit) {
             put(`/especialidad/${objeto.id}`, {
-                onSuccess: () => {
-                    alert("Relacion Actualizada");
-                    document.getElementById("cierreModal").click();
+                onSuccess: (response) => {
+                    console.log(response)
+                    if (response.status === 200) {
+                        
+                        console.log(response);
+                        document.getElementById("cierreModal").click();
+                        location.reload();
+                    } else {
+                        Swal.fire({
+                            title: "Error.",
+                            text: response.data.message,
+                            icon: "error"});
+                    }
                 },
             });
         } else {
-            post(route("especialidad.store"));
+            post(route("especialidad.store"), {
+                onSuccess: (response) => {
+                    if (response.status === 200) {
+                        console.log(response);
+                        document.getElementById("cierreModal").click();
+                        location.reload();
+                    } else {
+                        Swal.fire({
+                            title: "Error.",
+                            text: response.data.message,
+                            icon: "error"});
+                    }
+                },
+            });
         }
     };
 
@@ -38,14 +77,14 @@ export default function CrearRelacion({
 
             <form onSubmit={handleSubmit}>
                 <div className="mt-4">
-                    <InputLabel htmlFor="descripcion" value="Descripcion" />
+                    <InputLabel htmlFor="especialidad_id" value="Descripcion" />
 
                     <select
-                        name="descripcion"
-                        id="descripcion"
+                        name="especialidad_id"
+                        id="especialidad_id"
                         className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                        value={data.descripcion}
-                        onChange={(e) => setData("descripcion", e.target.value)}
+                        value={data.especialidad_id}
+                        onChange={(e) => setData("especialidad_id", e.target.value)}
                     >
                         <option value="">
                             Seleccione la descripción de la especialidad
@@ -65,31 +104,18 @@ export default function CrearRelacion({
                     <select
                         name="profesor_id"
                         id="profesor_id"
-                        className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                        className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
                         value={data.profesor_id}
                         onChange={(e) => setData("profesor_id", e.target.value)}
                     >
-                        <option value="">
-                            Seleccione el nombre del profesor
-                        </option>
-                        {Array.from(
-                            new Set(
-                                especialidadesProfesores.map(
-                                    (profe) => profe.profesor_id
-                                )
-                            )
-                        ).map((profesor_id, index) => {
-                            const nombreProfesor =
-                                especialidadesProfesores.find(
-                                    (profe) => profe.profesor_id === profesor_id
-                                ).nombre;
-                            return (
-                                <option key={index} value={profesor_id}>
-                                    {nombreProfesor}
-                                </option>
-                            );
-                        })}
+                        <option selected>Seleccione el id del profesor</option>
+                        {profesores.map((profe, index) => (
+                            <option key={index} value={profe.id}>
+                                {profe.nombre_apellido}
+                            </option>
+                        ))}
                     </select>
+
 
                     <InputError message={errors.profesor_id} className="mt-2" />
                 </div>

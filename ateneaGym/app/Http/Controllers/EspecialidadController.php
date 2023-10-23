@@ -24,7 +24,9 @@ class EspecialidadController extends Controller
     }
     public function update(Request $request, Especialidad $especialidad) {
     }
-    public function destroy(Especialidad $especialidad) {
+    public function destroy(String $id) {
+        $esp = Especialidad::find($id);
+        $esp->delete();
     }
 
 }
