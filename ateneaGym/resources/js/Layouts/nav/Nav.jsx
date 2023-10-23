@@ -118,7 +118,7 @@ const Nav = ({ children, auth }) => {
                 <div className="px-8 h-full">
                     <div className="w-full flex items-center justify-center pt-5 ">
                         <img
-                            src="./assets/img/logo/atenea_gym.svg"
+                            src="/assets/img/logo/atenea_gym.svg"
                             alt=""
                             className=" max-h-32 md:max-h-40"
                         />

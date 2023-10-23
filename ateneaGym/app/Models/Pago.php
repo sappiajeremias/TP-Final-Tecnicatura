@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pago extends Model
-{
+class Pago extends Model {
     use HasFactory;
     protected $fillable = [
         'user_id',
@@ -15,4 +14,8 @@ class Pago extends Model
         'medio_pago',
         'dias_disponibles'
     ];
+
+    public function membresia() {
+        return $this->belongsTo(Membresia::class);
+    }
 }
