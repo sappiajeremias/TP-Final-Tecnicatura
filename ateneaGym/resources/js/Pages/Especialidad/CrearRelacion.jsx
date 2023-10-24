@@ -3,17 +3,18 @@ import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 import TextInput from "@/Components/TextInput";
-import { Head, Link, router, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 export default function CrearRelacion({
     isEdit,
     objeto,
     especialidadesProfesores,
     especialidades,
-    profesores
+    profesores,
 }) {
+    const { props } = usePage();
     const { data, setData, put, post, processing, errors, reset } = useForm({
         descripcion: objeto.descripcion || "",
         nombre: objeto.nombre || "",
@@ -34,38 +35,56 @@ export default function CrearRelacion({
              post(route("especialidad.store"));
          }
      };*/
+    console.log(props);
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (isEdit) {
             put(`/especialidad/${objeto.id}`, {
-                onSuccess: (response) => {
-                    console.log(response)
-                    if (response.status === 200) {
-                        
-                        console.log(response);
-                        document.getElementById("cierreModal").click();
-                        location.reload();
-                    } else {
-                        Swal.fire({
-                            title: "Error.",
-                            text: response.data.message,
-                            icon: "error"});
-                    }
+                onSuccess: () => {
+                    console.log("success");
+                    // if (Object.keys(props.errors).length > 0) {
+                    Swal.fire({
+                        title: "Exito.",
+                        text: "Se modifico exitosamente",
+                        icon: "success",
+                    });
+                    // } else {
+                    //     //  console.log(response);
+                    document.getElementById("cierreModal").click();
+                    location.reload();
+                    // }
+                },
+                onError: (response) => {
+                    Swal.fire({
+                        title: "Error.",
+                        text: response.message,
+                        icon: "error",
+                    });
                 },
             });
         } else {
             post(route("especialidad.store"), {
-                onSuccess: (response) => {
-                    if (response.status === 200) {
-                        console.log(response);
-                        document.getElementById("cierreModal").click();
-                        location.reload();
-                    } else {
-                        Swal.fire({
-                            title: "Error.",
-                            text: response.data.message,
-                            icon: "error"});
-                    }
+                onSuccess: () => {
+                    console.log("success");
+                    // if (Object.keys(props.errors).length > 0) {
+                    Swal.fire({
+                        title: "Exito.",
+                        text: "Se asigno profe a la especialidad",
+                        icon: "success",
+                    });
+                    // } else {
+                    //     //  console.log(response);
+                    document.getElementById("cierreModal").click();
+                    location.reload();
+                    // }
+                },
+                onError: (response) => {
+                    Swal.fire({
+                        title: "Error.",
+                        text: response.message,
+                        icon: "error",
+                    });
                 },
             });
         }
@@ -84,7 +103,9 @@ export default function CrearRelacion({
                         id="especialidad_id"
                         className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         value={data.especialidad_id}
-                        onChange={(e) => setData("especialidad_id", e.target.value)}
+                        onChange={(e) =>
+                            setData("especialidad_id", e.target.value)
+                        }
                     >
                         <option value="">
                             Seleccione la descripción de la especialidad
@@ -115,7 +136,6 @@ export default function CrearRelacion({
                             </option>
                         ))}
                     </select>
-
 
                     <InputError message={errors.profesor_id} className="mt-2" />
                 </div>

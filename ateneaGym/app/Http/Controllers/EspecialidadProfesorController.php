@@ -8,10 +8,8 @@ use App\Models\Profesor;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class EspecialidadProfesorController extends Controller
-{
-    public function index()
-    {
+class EspecialidadProfesorController extends Controller {
+    public function index() {
         $relaciones = EspecialidadProfesor::all();
         $especialidades = Especialidad::all();
         $profesores = Profesor::with('usuario')->get()->map(function ($profesor) {
@@ -22,7 +20,7 @@ class EspecialidadProfesorController extends Controller
         });
         $arreglo = [];
 
-        foreach($relaciones as $relacion) {
+        foreach ($relaciones as $relacion) {
 
             $profesor = Profesor::where('id', $relacion->profesor_id)->first();
             //dd($profesor->usuario);
@@ -37,8 +35,7 @@ class EspecialidadProfesorController extends Controller
         }
         return Inertia::render('Especialidad/Index', ['especialidadesProfesores' => $arreglo, 'especialidades' => $especialidades, 'profesores' => $profesores]);
     }
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         // dd($request);
         $request->validate([
             'especialidad_id' => 'required',
@@ -49,47 +46,43 @@ class EspecialidadProfesorController extends Controller
         ]);
 
         $registroExistente = EspecialidadProfesor::where('especialidad_id', $request->especialidad_id)
-        ->where('profesor_id', $request->profesor_id)
-        ->first();
+            ->where('profesor_id', $request->profesor_id)
+            ->first();
         if ($registroExistente) {
             // Aquí puedes mostrar un mensaje de error o tomar otra acción apropiada
-            return response()->json(['message' => 'Error: El registro ya existe'], 422);
+            return back()->withErrors(['message' => 'No es posible, el registro ya existe']);
         } else {
             $especialidadProfesor = EspecialidadProfesor::create([
-            'especialidad_id' => $request->especialidad_id,
-            'profesor_id' => $request->profesor_id
-        ]);
+                'especialidad_id' => $request->especialidad_id,
+                'profesor_id' => $request->profesor_id
+            ]);
             $especialidadProfesor->save();
-            return redirect()->route('dashboard');
+            // return back()->with(['message' => 'Se creo con exito']);
         }
-
-        
     }
 
 
-    public function update(Request $request, String $id)
-    {
+    public function update(Request $request, String $id) {
         // Verifica si el registro existe
         $registroExistente = EspecialidadProfesor::where('especialidad_id', $request->especialidad_id)
             ->where('profesor_id', $request->profesor_id)
             ->first();
         if ($registroExistente) {
-            return response()->json(['message' => 'Error: El registro ya existe'], 422);
+            return back()->withErrors(['message' => 'El registro ya existe']);
         } else {
             $rela = EspecialidadProfesor::find($id);
             $rela->especialidad_id = $request->especialidad_id;
             $rela->profesor_id = $request->profesor_id;
             $rela->save();
 
-            return redirect()->route('dashboard');
+            // return redirect()->route('dashboard');
+            // return back()->with(['message' => 'Cambio exitoso']);
         }
     }
 
 
-    public function destroy(String $id)
-    {
+    public function destroy(String $id) {
         $rela = EspecialidadProfesor::find($id);
         $rela->delete();
     }
-
 }
