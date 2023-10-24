@@ -64,11 +64,17 @@ class User extends Authenticatable {
     public function pagos() {
         return $this->hasMany(Pago::class);
     }
+    public function ultimoPago() {
+        $pagosOrdenados = $this->pagos()->get()->sortByDesc('fecha_vencimiento');
 
-    public function membresiaActual() {
-        $pagosOrdenados = $this->pagos()->get()->sortByDesc('created_at');
         $pagoReciente = $pagosOrdenados->first();
-        return $pagoReciente->membresia;
+        return $pagoReciente;
+    }
+    public function membresiaActual() {
+
+        // $pagosOrdenados = $this->pagos()->get()->sortByDesc('fecha_vencimiento');
+        $pagoReciente = $this->ultimoPago();
+        return ['pago' => $pagoReciente, 'membresia' => $pagoReciente->membresia];
     }
 
     public function alumno() {

@@ -1,12 +1,14 @@
 import Table from "@/Components/Table";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import React, { useEffect, useState } from "react";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
+import Swal from "sweetalert2";
 const Index = ({ membresia_id, auth }) => {
+    const { props } = usePage();
     const obtenerFechaActual = () => {
         const fechaActual = new Date();
         const anio = fechaActual.getFullYear();
@@ -32,7 +34,16 @@ const Index = ({ membresia_id, auth }) => {
         e.preventDefault();
         post(route("pago.store"));
     };
-
+    useEffect(() => {
+        if (props.errors.message && Object.keys(props.errors).length > 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: props.errors.message, // Puedes ajustar esto según la estructura de tu objeto de errores
+            });
+        }
+    }, [props.errors.message]);
+    console.log(props.errors);
     return (
         <Authenticated auth={auth}>
             <div className="py-6 flex justify-center ">

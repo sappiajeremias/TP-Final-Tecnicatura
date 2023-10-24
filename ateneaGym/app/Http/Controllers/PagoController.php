@@ -7,47 +7,55 @@ use App\Models\Membresia;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PagoController extends Controller {
     public function index() {
     }
     public function store(Request $request) {
-      
-        $request->validate([
-            'medio_pago' => 'required',
-            'fecha_vencimiento' => ['required', 'fecha_vencimiento_posterior'],
-            'numero_tarjeta' => ['required', 'max:16', 'min:16'],
-            'cod_seguridad' => ['required', 'max:4', 'min:3'],
-        ], [
-            'medio_pago.required' => 'Debe seleccionar el medio de pago.',
-            'numero_tarjeta.required' => 'Debe ingresar el número de la tarjeta.',
-            'numero_tarjeta.max' => 'El número ingresado no es correcto.',
-            'numero_tarjeta.min' => 'El número ingresado no es correcto.',
-            'cod_seguridad.required' => 'Debe ingresar el código de seguridad.',
-            'cod_seguridad.max' => 'Debe ingresar un número.',
-            'cod_seguridad.min' => 'Debe ingresar un número múltiplo de 60.',
-            'fecha_vencimiento.required' => 'Debe ingresar una fecha de vencimiento.',
-            'fecha_vencimiento.fecha_vencimiento_posterior' => 'La fecha de vencimiento debe ser posterior a la actual.',
-        ]);
+        $ultimoPago =  Auth::user()->ultimoPago();
 
-        $medio = "Credito";
-        if ($request->medio_pago == 0) {
-            $medio = "Debito";
+        //  dd($ultimoPago && Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3);
+        if (($ultimoPago && Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3) == false) {
+            return back()->withErrors(['message' => 'Todavía no se ha vencido su membresía.']);
+        } else {
+            $request->validate([
+                'medio_pago' => 'required',
+                'fecha_vencimiento' => ['required', 'fecha_vencimiento_posterior'],
+                'numero_tarjeta' => ['required', 'max:16', 'min:16'],
+                'cod_seguridad' => ['required', 'max:4', 'min:3'],
+            ], [
+                'medio_pago.required' => 'Debe seleccionar el medio de pago.',
+                'numero_tarjeta.required' => 'Debe ingresar el número de la tarjeta.',
+                'numero_tarjeta.max' => 'El número ingresado no es correcto.',
+                'numero_tarjeta.min' => 'El número ingresado no es correcto.',
+                'cod_seguridad.required' => 'Debe ingresar el código de seguridad.',
+                'cod_seguridad.max' => 'Debe ingresar un número.',
+                'cod_seguridad.min' => 'Debe ingresar un número múltiplo de 60.',
+                'fecha_vencimiento.required' => 'Debe ingresar una fecha de vencimiento.',
+                'fecha_vencimiento.fecha_vencimiento_posterior' => 'La fecha de vencimiento debe ser posterior a la actual.',
+            ]);
+
+            $medio = "Credito";
+            if ($request->medio_pago == 0) {
+                $medio = "Debito";
+            }
+            $verif = false;
+            $fecha = Carbon::now();
+            $fecha->addDays(30);
+            $membresia = Membresia::where('id', $request->membresia_id)->first();
+
+            $pago = Pago::create([
+                'user_id' => $request->user_id,
+                'membresia_id' => $request->membresia_id,
+                'medio_pago' => $medio,
+                'dias_disponibles' => ($membresia->dias_disponibles) * 4,
+                'fecha_vencimiento' => $fecha,
+            ]);
+            $pago->save();
+            return redirect()->route('dashboard');
         }
-        $verif = false;
-        $fecha = Carbon::now();
-        $fecha->addDays(30);
-        $membresia = Membresia::where('id', $request->membresia_id)->first();
-
-        $pago = Pago::create([
-            'user_id' => $request->user_id,
-            'membresia_id' => $request->membresia_id,
-            'medio_pago' => $medio,
-            'dias_disponibles' => ($membresia->dias_disponibles) * 4,
-            'fecha_vencimiento' => $fecha,
-        ]);
-        $pago->save();
-        return redirect()->route('dashboard');
     }
     public function update(Request $request, Pago $pago) {
     }
