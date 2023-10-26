@@ -32,18 +32,28 @@ const Index = ({ membresia_id, auth }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route("pago.store"));
+        post(route("pago.store"), {
+            onSuccess: () => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Exito",
+                    text: "Se realizo el pago con exito", // Puedes ajustar esto según la estructura de tu objeto de errores
+                });
+            },
+            onError: (response) => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: response.message, // Puedes ajustar esto según la estructura de tu objeto de errores
+                });
+            },
+        });
     };
-    useEffect(() => {
-        if (props.errors.message && Object.keys(props.errors).length > 0) {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: props.errors.message, // Puedes ajustar esto según la estructura de tu objeto de errores
-            });
-        }
-    }, [props.errors.message]);
-    console.log(props.errors);
+    // useEffect(() => {
+    //     if (props.errors.message && Object.keys(props.errors).length > 0) {
+    //     }
+    // }, [props.errors.message]);
+    // console.log(props.errors);
     return (
         <Authenticated auth={auth}>
             <div className="py-6 flex justify-center ">

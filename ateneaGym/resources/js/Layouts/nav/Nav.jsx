@@ -123,227 +123,264 @@ const Nav = ({ children, auth }) => {
                             className=" max-h-32 md:max-h-40"
                         />
                     </div>
-                    {auth.user ? (
-                        <ul className="mt-12 pt-3">
-                            <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white justify-between gap-3">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="icon icon-tabler icon-tabler-grid"
-                                        width="18"
-                                        height="18"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        fill="none"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                        ></path>
-                                        <rect
-                                            x="4"
-                                            y="4"
-                                            width="6"
-                                            height="6"
-                                            rx="1"
-                                        ></rect>
-                                        <rect
-                                            x="14"
-                                            y="4"
-                                            width="6"
-                                            height="6"
-                                            rx="1"
-                                        ></rect>
-                                        <rect
-                                            x="4"
-                                            y="14"
-                                            width="6"
-                                            height="6"
-                                            rx="1"
-                                        ></rect>
-                                        <rect
-                                            x="14"
-                                            y="14"
-                                            width="6"
-                                            height="6"
-                                            rx="1"
-                                        ></rect>
-                                    </svg>
+                    <ul className="mt-12 pt-3">
+                        {auth.user ? (
+                            <>
+                                <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                    <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white justify-between gap-3">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="icon icon-tabler icon-tabler-grid"
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="1.5"
+                                            stroke="currentColor"
+                                            fill="none"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path
+                                                stroke="none"
+                                                d="M0 0h24v24H0z"
+                                            ></path>
+                                            <rect
+                                                x="4"
+                                                y="4"
+                                                width="6"
+                                                height="6"
+                                                rx="1"
+                                            ></rect>
+                                            <rect
+                                                x="14"
+                                                y="4"
+                                                width="6"
+                                                height="6"
+                                                rx="1"
+                                            ></rect>
+                                            <rect
+                                                x="4"
+                                                y="14"
+                                                width="6"
+                                                height="6"
+                                                rx="1"
+                                            ></rect>
+                                            <rect
+                                                x="14"
+                                                y="14"
+                                                width="6"
+                                                height="6"
+                                                rx="1"
+                                            ></rect>
+                                        </svg>
 
-                                    <NavLink
-                                        className=""
-                                        href={route("dashboard")}
-                                        active={route().current("dashboard")}
-                                    >
-                                        Dashboard
-                                    </NavLink>
-                                </div>
-                            </li>
-                            {userRoles.includes("Administrador") ? (
-                                ""
-                            ) : (
-                                <>
+                                        <NavLink
+                                            className=""
+                                            href={route("dashboard")}
+                                            active={route().current(
+                                                "dashboard"
+                                            )}
+                                        >
+                                            Dashboard
+                                        </NavLink>
+                                    </div>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <ul className="mt-12 pt-6">
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white justify-between gap-3">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
-                                                className="icon icon-tabler icon-tabler-puzzle"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
+                                                width="16"
+                                                height="16"
+                                                fill="currentColor"
+                                                class="bi bi-person-circle"
+                                                viewBox="0 0 16 16"
+                                            >
+                                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                                                />
+                                            </svg>
+                                            <NavLink
+                                                href={route("login")}
+                                                active={route().current(
+                                                    "login"
+                                                )}
+                                            >
+                                                Login
+                                            </NavLink>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </>
+                        )}
+                        {auth.user && userRoles.includes("Administrador") ? (
+                            <>
+                                <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                    <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="icon icon-tabler icon-tabler-puzzle"
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="1.5"
+                                            stroke="currentColor"
+                                            fill="none"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path
+                                                stroke="none"
+                                                d="M0 0h24v24H0z"
+                                            ></path>
+                                            <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
+                                        </svg>
+                                        <NavLink
+                                            href={route("actividad.index")}
+                                            active={route().current(
+                                                "actividad.index"
+                                            )}
+                                        >
+                                            Registrar Actividad
+                                        </NavLink>
+                                    </div>
+                                </li>
+
+                                <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                    <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                        <svg
+                                            className=" text-gray-100 dark:text-white"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 20 18"
+                                            width="18"
+                                            height="18"
+                                        >
+                                            <path
                                                 stroke="currentColor"
-                                                fill="none"
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                            </svg>
-                                            <NavLink
-                                                href={route("actividad.index")}
-                                                active={route().current(
-                                                    "actividad.index"
-                                                )}
-                                            >
-                                                Registrar Actividad
-                                            </NavLink>
-                                        </div>
-                                    </li>
-                                    <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="icon icon-tabler icon-tabler-puzzle"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
+                                                strokeWidth="2"
+                                                d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
+                                            />
+                                        </svg>
+                                        <NavLink
+                                            href={route("usuarios.index")}
+                                            active={route().current(
+                                                "registrarUsuarios.index"
+                                            )}
+                                        >
+                                            Registrar Usuarios
+                                        </NavLink>
+                                    </div>
+                                </li>
+
+                                <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                    <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                        <svg
+                                            className=" text-gray-100 dark:text-white"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 20 18"
+                                            width="18"
+                                            height="18"
+                                        >
+                                            <path
                                                 stroke="currentColor"
-                                                fill="none"
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                            </svg>
-                                            <NavLink
-                                                href={route("membresia.index")}
-                                                active={route().current(
-                                                    "membresia.index"
-                                                )}
-                                            >
-                                                Membresias
-                                            </NavLink>
-                                        </div>
-                                    </li>
-
-                                    <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                className=" text-gray-100 dark:text-white"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 20 18"
-                                                width="18"
-                                                height="18"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
-                                                />
-                                            </svg>
-                                            <NavLink
-                                                href={route("usuarios.index")}
-                                                active={route().current(
-                                                    "registrarUsuarios.index"
-                                                )}
-                                            >
-                                                Registrar Usuarios
-                                            </NavLink>
-                                        </div>
-                                        {/* <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
-                                25
-                            </div> */}
-                                    </li>
-                                    <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                className=" text-gray-100 dark:text-white"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 20 18"
-                                                width="18"
-                                                height="18"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
-                                                />
-                                            </svg>
-                                            <NavLink
-                                                href={route(
-                                                    "especialidad.index"
-                                                )}
-                                                active={route().current(
-                                                    "especialidad.index"
-                                                )}
-                                            >
-                                                Especialidades
-                                            </NavLink>
-                                        </div>
-                                        {/* <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
-                                25
-                            </div> */}
-                                    </li>
-                                    <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                className=" text-gray-100 dark:text-white"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 20 18"
-                                                width="18"
-                                                height="18"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
-                                                />
-                                            </svg>
-                                            <NavLink
-                                                href={route("turnos.index")}
-                                                active={route().current(
-                                                    "turnos.index"
-                                                )}
-                                            >
-                                                Sacar Turno
-                                            </NavLink>
-                                        </div>
-                                    </li>
-                                </>
-                            )}{" "}
+                                                strokeWidth="2"
+                                                d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
+                                            />
+                                        </svg>
+                                        <NavLink
+                                            href={route("especialidad.index")}
+                                            active={route().current(
+                                                "especialidad.index"
+                                            )}
+                                        >
+                                            Especialidades
+                                        </NavLink>
+                                    </div>
+                                </li>
+                            </>
+                        ) : (
+                            ""
+                        )}
+                        {auth.user && userRoles.includes("Alumno") ? (
+                            <>
+                                <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                    <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="icon icon-tabler icon-tabler-puzzle"
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="1.5"
+                                            stroke="currentColor"
+                                            fill="none"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path
+                                                stroke="none"
+                                                d="M0 0h24v24H0z"
+                                            ></path>
+                                            <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
+                                        </svg>
+                                        <NavLink
+                                            href={route("membresia.index")}
+                                            active={route().current(
+                                                "membresia.index"
+                                            )}
+                                        >
+                                            Membresias
+                                        </NavLink>
+                                    </div>
+                                </li>
+                                <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                    <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                        <svg
+                                            className=" text-gray-100 dark:text-white"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 20 18"
+                                            width="18"
+                                            height="18"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
+                                            />
+                                        </svg>
+                                        <NavLink
+                                            href={route("turnos.index")}
+                                            active={route().current(
+                                                "turnos.index"
+                                            )}
+                                        >
+                                            Sacar Turno
+                                        </NavLink>
+                                    </div>
+                                </li>
+                            </>
+                        ) : (
+                            ""
+                        )}
+                        {auth.user && userRoles.includes("Profesor") ? "" : ""}
+                        {auth.user ? (
                             <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                 <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
                                     <svg
@@ -373,72 +410,10 @@ const Nav = ({ children, auth }) => {
                                     </NavLink>
                                 </div>
                             </li>
-                        </ul>
-                    ) : (
-                        <>
-                            <ul className="mt-12 pt-6">
-                                <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                    <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white justify-between gap-3">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            fill="currentColor"
-                                            class="bi bi-person-circle"
-                                            viewBox="0 0 16 16"
-                                        >
-                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                                            />
-                                        </svg>
-                                        <NavLink
-                                            href={route("login")}
-                                            active={route().current("login")}
-                                        >
-                                            Login
-                                        </NavLink>
-                                    </div>
-                                </li>
-                            </ul>
-                        </>
-                    )}
-                    {/* <div className="flex justify-center mt-48 mb-4 w-full">
-                        <div className="relative">
-                            <div className="text-gray-300 absolute ml-4 inset-0 m-auto w-4 h-4">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="icon icon-tabler icon-tabler-search"
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    <path
-                                        stroke="none"
-                                        d="M0 0h24v24H0z"
-                                    ></path>
-                                    <circle cx="10" cy="10" r="7"></circle>
-                                    <line
-                                        x1="21"
-                                        y1="21"
-                                        x2="15"
-                                        y2="15"
-                                    ></line>
-                                </svg>
-                            </div>
-                            <input
-                                className="bg-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-100  rounded w-full text-sm text-gray-300 placeholder-gray-400 bg-gray-100 pl-10 py-2"
-                                type="text"
-                                placeholder="Search"
-                            />
-                        </div>
-                    </div> */}
+                        ) : (
+                            ""
+                        )}
+                    </ul>
                 </div>
 
                 <div className="flex px-8 border-t border-gray-700 ">
