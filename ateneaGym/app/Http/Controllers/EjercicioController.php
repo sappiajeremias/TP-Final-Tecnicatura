@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Ejercicio;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class EjercicioController extends Controller {
     public function index() {
+        return Inertia::render('Ejercicios/Index');
     }
     public function store(Request $request) {
     }
