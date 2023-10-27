@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import GuestLayout from "@/Layouts/GuestLayout";
+import Swal from "sweetalert2";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, router, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 export default function CrearActividad({
     isEdit,
     objeto,
     profesores,
     especialidades,
 }) {
+    const { props } = usePage();
     const { data, setData, put, post, processing, errors, reset } = useForm({
         dia_semana: [],
         hora_inicio: objeto.hora_inicio || "",
@@ -45,8 +47,26 @@ export default function CrearActividad({
                 cupos: data.cupos,
                 profesor_id: data.profesor_id,
                 onSuccess: () => {
-                    alert("Actividad actualizada");
+                    console.log("success");
+                    // if (Object.keys(props.errors).length > 0) {
+                    Swal.fire({
+                        title: "Exito.",
+                        text: "Se modifico exitosamente",
+                        icon: "success",
+                    });
+                    // } else {
+                    //     //  console.log(response);
                     document.getElementById("cierreModal").click();
+                    location.reload();
+                    // }
+                },
+                onError: (response) => {
+                    //console.log(response);
+                    Swal.fire({
+                        title: "Error.",
+                        text: response[1],
+                        icon: "error",
+                    });
                 },
             });
         } else {
@@ -58,6 +78,28 @@ export default function CrearActividad({
                 especialidad_id: data.especialidad_id,
                 cupos: data.cupos,
                 profesor_id: data.profesor_id,
+                onSuccess: () => {
+                    console.log("success");
+                    // if (Object.keys(props.errors).length > 0) {
+                    Swal.fire({
+                        title: "Exito.",
+                        text: "Se asigno profe a la especialidad",
+                        icon: "success",
+                    });
+                    // } else {
+                    //     //  console.log(response);
+                    document.getElementById("cierreModal").click();
+                    location.reload();
+                    // }
+                },
+                onError: (response) => {
+                    //console.log(response);
+                    Swal.fire({
+                        title: "Error.",
+                        text: response[1],
+                        icon: "error",
+                    });
+                },
             });
         }
     };
@@ -186,7 +228,7 @@ export default function CrearActividad({
                             className="mt-2"
                         />
                     </div>
-                    <div className="ms-5"> 
+                    <div className="ms-5">
                         <InputLabel
                             htmlFor="hora_fin"
                             value="Hora de finalizacion"

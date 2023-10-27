@@ -22,19 +22,6 @@ export default function CrearRelacion({
         especialidad_id: objeto.especialidad_id || "",
     });
 
-    /* const handleSubmit = (e) => {
-         e.preventDefault();
-         if (isEdit) {
-             put(`/especialidad/${objeto.id}`, {
-                 onSuccess: () => {
-                     alert("Relacion Actualizada");
-                     document.getElementById("cierreModal").click();
-                 },
-             });
-         } else {
-             post(route("especialidad.store"));
-         }
-     };*/
     console.log(props);
     const handleSubmit = (e) => {
         e.preventDefault();
