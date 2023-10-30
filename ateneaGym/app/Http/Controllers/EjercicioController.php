@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class EjercicioController extends Controller {
     public function index() {
+        $ejercicios = Ejercicio::all();
         return Inertia::render('Ejercicios/Index');
     }
     public function store(Request $request) {

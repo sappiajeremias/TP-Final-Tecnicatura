@@ -6,7 +6,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 const Index = ({ auth }) => {
     const [coleccionEjercicio, setColeccionEjercicio] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
-
+    // console.log(ejercicios);
     const itemsPerPage = 5;
     const pagesVisited = pageNumber * itemsPerPage;
 
@@ -17,6 +17,7 @@ const Index = ({ auth }) => {
 
             xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === this.DONE) {
+                    console.log(JSON.parse(this.responseText));
                     const exercises = JSON.parse(this.responseText);
                     setColeccionEjercicio(exercises);
                 }
@@ -24,7 +25,7 @@ const Index = ({ auth }) => {
 
             xhr.open(
                 "GET",
-                "https://exercisedb.p.rapidapi.com/exercises/bodyPart/back?limit=50"
+                "https://exercisedb.p.rapidapi.com/exercises?limit=600"
             );
             xhr.setRequestHeader(
                 "X-RapidAPI-Key",
