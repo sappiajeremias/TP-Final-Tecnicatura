@@ -8,8 +8,7 @@ const MostrarMembresia = ({ membresia }) => {
     const anio = fechaVencimiento.getFullYear();
     console.log(membresia);
     return (
-        <div>t
-            {" "}
+        <div>
             <h1 className="text-lg font-medium text-gray-900 pb-4">
                 Membresia Actual
             </h1>
