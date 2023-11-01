@@ -110,7 +110,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/procesar-pago', [PagoController::class, 'procesarPago'])->name('procesar.pago');
 
+Route::get('/procesar-respuesta-pago', [MembresiaController::class, 'procesarPago'])->name('procesar.respuesta.pago');
 
 
 

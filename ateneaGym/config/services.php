@@ -30,5 +30,11 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'mercadopago' => [
+        'token' => env('VITE_MP_ACCESS_TOKEN'),
+        'key' => env('VITE_MP_PUBLIC_KEY'),
+    ],
+
+
 
 ];

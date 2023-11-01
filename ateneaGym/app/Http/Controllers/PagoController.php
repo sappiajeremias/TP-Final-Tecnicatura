@@ -9,12 +9,24 @@ use Inertia\Inertia;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use MercadoPago;
+use MercadoPago\MercadoPagoConfig;
+use MercadoPago\Resources\Payment as ResourcesPayment;
+use MercadoPago\Resources\Payment;
+use MercadoPago\Resources\Payment\Payer;
+use MercadoPago\Resources\Preference;
+use MercadoPago\Resources\Preference\Item;
 
-class PagoController extends Controller {
-    public function index() {
+// require_once 'vendor/autoload.php';
+
+class PagoController extends Controller
+{
+    public function index()
+    {
     }
-    public function store(Request $request) {
-        $ultimoPago =  Auth::user()->ultimoPago();
+    public function store(Request $request)
+    {
+        $ultimoPago = Auth::user()->ultimoPago();
 
         //  dd($ultimoPago && Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3);
         if (($ultimoPago && Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3) == false) {
@@ -57,74 +69,43 @@ class PagoController extends Controller {
             return redirect()->route('dashboard');
         }
     }
-    public function update(Request $request, Pago $pago) {
+    public function update(Request $request, Pago $pago)
+    {
     }
-    public function destroy(Pago $pago) {
+    public function destroy(Pago $pago)
+    {
     }
-    public function mp() {
-  
-      // Cria um objeto de preferência
-      $preference = new MercadoPagoPreference();
+    public function procesarPago(Request $request)
+    {
 
-      // Cria um item na preferência
-      $item = new MercadoPagoItem();
-      $item->id = 'item-ID-1234';
-      $item->title = 'Meu produto';
-      $item->currency_id = 'BRL';
-      $item->picture_url = 'https://www.mercadopago.com/org-img/MP3/home/logomp3.gif';
-      $item->description = 'Descrição do Item';
-      $item->category_id = 'art';
-      $item->quantity = 1;
-      $item->unit_price = 75.76;
-      $preference->items = array($item);
-
-      // Informações do pagador
-      $payer = new MercadoPagoPayer();
-      $payer->name = 'João';
-      $payer->surname = 'Silva';
-      $payer->email = 'user@email.com';
-      $payer->phone = array(
-          'area_code' => '11',
-          'number' => '4444-4444'
-      );
-      $payer->identification = array(
-          'type' => 'CPF',
-          'number' => '19119119100'
-      );
-      $payer->address = array(
-          'street_name' => 'Street',
-          'street_number' => 123,
-          'zip_code' => '06233200'
-      );
-      $preference->payer = $payer;
-
-      // URLs de retorno
-      $back_urls = array(
-          'success' => 'https://www.success.com',
-          'failure' => 'http://www.failure.com',
-          'pending' => 'http://www.pending.com'
-      );
-      $preference->back_urls = $back_urls;
-
-      // Configurações de pagamento
-      $payment_methods = array({
-      excluded_payment_methods: [],
-      excluded_payment_types: [],
-      installments: 3
-});
-      $preference->payment_methods = $payment_methods;
-
-      $preference->notification_url = 'https://www.your-site.com/ipn';
-      $preference->statement_descriptor = 'MEUNEGOCIO';
-      $preference->external_reference = 'Reference_1234';
-      $preference->expires = true;
-      $preference->expiration_date_from = '2016-02-01T12:00:00.000-04:00';
-      $preference->expiration_date_to = '2016-02-28T12:00:00.000-04:00';
-
-      $preference->save();
+        $contents = json_decode(file_get_contents('php://input'), true);
         
+         MercadoPagoConfig::setAccessToken(config("services.mercadopago.token"));
+          
+        $payment = new Payment();
+        $payment->transaction_amount = $contents['transaction_amount'];
+        $payment->token = $contents['token'];
+        $payment->installments = $contents['installments'];
+        $payment->payment_method_id = $contents['payment_method_id'];
+        $payment->issuer_id = $contents['issuer_id'];
+        $payer = new Payer;
+        $payer->email = $contents['payer']['email'];
+        $payer->identification = array(
+            "type" => $contents['payer']['identification']['type'],
+            "number" => $contents['payer']['identification']['number']
+        );
+        $payment->payer = $payer;
+
+        $response = array(
+            'status' => $payment->status,
+            'status_detail' => $payment->status_detail,
+            'id' => $payment->id
+        );
+        echo json_encode($response);
     }
-    public function confirmarPago(Request $request) {
+
+    public function confirmarPago(Request $request)
+    {
         //dd($request->membresia_id);
         return Inertia::render('Pago/Index', [
             'membresia_id' => $request->membresia_id
