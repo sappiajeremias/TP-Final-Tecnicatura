@@ -1181,6 +1181,22 @@
     }
   };
 
+  // EvoCalendar.prototype.clearCalendarEvents = function () {
+  //   this.options.calendarEvents = [];
+  //   this.$active.events = [];
+  //   this.$elements.eventEl.find(".event-list").empty();
+  //   this.$elements.innerEl.find("span.event-indicator").remove();
+  // };
+
+  EvoCalendar.prototype.clearCalendarEvents = function () {
+    var self = this;
+    if (self.options.calendarEvents) {
+        self.options.calendarEvents = [];
+        self.$elements.innerEl.find(".event-indicator").empty();
+        self.$elements.eventEl.find(".event-list").empty();
+    }
+};
+
   $.fn.evoCalendar = function () {
     var _ = this,
       opt = arguments[0],
