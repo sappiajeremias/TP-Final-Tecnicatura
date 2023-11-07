@@ -14,15 +14,8 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
     // Función para manejar el cambio de la actividad seleccionada
 
     const handleActividadChange = (e) => {
-        // Destruir el calendario existente
-        $("#calendar").evoCalendar("destroy");
-
-        // Inicializar el calendario de nuevo
-        $("#calendar").evoCalendar({
-            language: "es",
-            sidebarDisplayDefault: false,
-            sidebarToggler: false,
-        });
+       
+        $("#calendar").evoCalendar("clearCalendarEvents");
 
         const actividadId = e.target.value;
         setActividadSeleccionada(actividadId);
@@ -38,20 +31,11 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
         setActividad(actividad);
         setTurnosFiltrados(turnosFiltrados);
         setListaTurnos(turnosFiltrados.map((turno) => turno.fecha));
-
-        // $("#calendar").evoCalendar({
-        //     language: "es",
-        //     sidebarDisplayDefault: false,
-        //     sidebarToggler: false,
-        // });
-
+        
         turnosFiltrados.map((turno) => {
-            console.log(turno.fecha);
             // console.log(actividad[0].especialidad.descripcion);
             const partesFecha = turno.fecha.split("-");
-            console.log(
-                `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`
-            );
+
             // const nuevasFechas = fecha.map((item) => {
             //     console.log(item);
             // });
@@ -77,6 +61,27 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
     }, []);
 
     useEffect(() => {
+        $("#calendar").on("selectDate", (event, newDate) => {
+            // Aquí puedes manejar la lógica para asignar un turno a la fecha seleccionada
+            // const fechaSeleccionada = `${newDate.getFullYear()}-${
+            //     newDate.getMonth() + 1
+            // }-${newDate.getDate()}`;
+            // console.log(event);
+            // console.log(newDate);
+            // ... (código para asignar el turno a la fecha seleccionada)
+        });
+
+        $("#calendar").on("selectEvent", (event, activeEvent) => {
+            // Aquí puedes manejar la lógica para capturar el evento seleccionado
+            const eventoSeleccionado = activeEvent;
+            // console.log(event);
+            console.log(activeEvent);
+            // ... (código para manejar el evento seleccionado, por ejemplo, asignar un turno)
+            // Por ejemplo, podrías utilizar el ID del evento para asignar un turno a ese evento específico
+
+            // setIdTurno(eventoSeleccionado.id); // Ejemplo de cómo podrías utilizar el ID del evento seleccionado
+        });
+
         if (diaSeleccionado && turnosFiltrados.length > 0) {
             // Convertir la fecha seleccionada y las fechas de los turnos a las zonas horarias adecuadas
             const fechaSeleccionada = new Date(
@@ -103,7 +108,7 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
             setTurnosPorFecha([]); // Si no hay fecha seleccionada, reiniciar la lista de turnos por fecha
         }
     }, [diaSeleccionado, turnosFiltrados]);
-    
+
     const [modalOpen, setModalOpen] = useState(false);
 
     const sacarTurno = (e) => {
