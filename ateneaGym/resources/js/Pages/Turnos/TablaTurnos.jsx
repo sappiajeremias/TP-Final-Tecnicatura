@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Calendario from "./Calendario";
 import Modal from "@/Components/Modal";
 import ConfirmarTurno from "./ConfirmarTurno";
-
+import "../../Evo Calendar/js/evo-calendar.js";
+import "../../Evo Calendar/css/evo-calendar.css";
 const TablaTurnos = ({ turnos, actividades, auth }) => {
     const [actividadSeleccionada, setActividadSeleccionada] = useState(""); // Estado para almacenar la actividad seleccionada
     const [actividad, setActividad] = useState([]); // Estado para almacenar la actividad seleccionada
@@ -11,8 +12,18 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
     const [diaSeleccionado, setdiaSeleccionado] = useState("");
     const [idTurno, setIdTurno] = useState([]);
     // Función para manejar el cambio de la actividad seleccionada
-    
+
     const handleActividadChange = (e) => {
+        // Destruir el calendario existente
+        $("#calendar").evoCalendar("destroy");
+
+        // Inicializar el calendario de nuevo
+        $("#calendar").evoCalendar({
+            language: "es",
+            sidebarDisplayDefault: false,
+            sidebarToggler: false,
+        });
+
         const actividadId = e.target.value;
         setActividadSeleccionada(actividadId);
 
@@ -27,9 +38,43 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
         setActividad(actividad);
         setTurnosFiltrados(turnosFiltrados);
         setListaTurnos(turnosFiltrados.map((turno) => turno.fecha));
+
+        // $("#calendar").evoCalendar({
+        //     language: "es",
+        //     sidebarDisplayDefault: false,
+        //     sidebarToggler: false,
+        // });
+
+        turnosFiltrados.map((turno) => {
+            console.log(turno.fecha);
+            // console.log(actividad[0].especialidad.descripcion);
+            const partesFecha = turno.fecha.split("-");
+            console.log(
+                `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`
+            );
+            // const nuevasFechas = fecha.map((item) => {
+            //     console.log(item);
+            // });
+            $("#calendar").evoCalendar("addCalendarEvent", {
+                id: turno.id,
+                name: actividad[0].especialidad.descripcion,
+                description: "Lorem ipsum dolor sit..",
+                date: `${partesFecha[0]}/${partesFecha[1]}/${partesFecha[2]}`,
+                type: "event",
+            });
+        });
     };
 
     const [turnosPorFecha, setTurnosPorFecha] = useState([]);
+
+    useEffect(() => {
+        // Inicializar el calendario al cargar el componente
+        $("#calendar").evoCalendar({
+            language: "es",
+            sidebarDisplayDefault: false,
+            sidebarToggler: false,
+        });
+    }, []);
 
     useEffect(() => {
         if (diaSeleccionado && turnosFiltrados.length > 0) {
@@ -58,19 +103,20 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
             setTurnosPorFecha([]); // Si no hay fecha seleccionada, reiniciar la lista de turnos por fecha
         }
     }, [diaSeleccionado, turnosFiltrados]);
+    
     const [modalOpen, setModalOpen] = useState(false);
 
     const sacarTurno = (e) => {
-        console.log(e);
-        console.log(auth.user.name);
+        // console.log(e);
+        // console.log(auth.user.name);
         setIdTurno(e);
         // Abre el modal cuando se hace clic en el botón de turno
         setModalOpen(true);
     };
-
+    // console.log(listaTurnos);
     return (
         <div className="">
-            <div className="p-5">
+            <div className="pt-5 flex justify-center items-center">
                 <label htmlFor="actividad" className="pe-5">
                     Seleccione una actividad
                 </label>
@@ -91,7 +137,7 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
             </div>
             {/* Mostrar la tabla de turnos filtrados */}
             <div className="flex justify-center gap-10 pt-10">
-                <div className="">
+                {/* <div className="">
                     {actividadSeleccionada && (
                         <Calendario
                             turnos={listaTurnos}
@@ -117,7 +163,7 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
                                             {turno.hora}
                                         </button>
 
-                                        {/* {new Date(turno.fecha).toLocaleTimeString()} */}
+                                       
                                     </li>
                                 ))}
                             </ul>
@@ -135,7 +181,10 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
                             </Modal>
                         </div>
                     )}
-                </div>
+                </div> */}
+            </div>
+            <div className="max-w-5xl m-auto pb-5">
+                <div id="calendar"></div>
             </div>
         </div>
     );
