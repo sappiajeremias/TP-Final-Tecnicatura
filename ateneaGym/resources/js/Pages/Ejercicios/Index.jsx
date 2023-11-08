@@ -25,11 +25,11 @@ const Index = ({ auth }) => {
 
             xhr.open(
                 "GET",
-                "https://exercisedb.p.rapidapi.com/exercises?limit=600"
+                "https://exercisedb.p.rapidapi.com/exercises?limit=1321"
             );
             xhr.setRequestHeader(
                 "X-RapidAPI-Key",
-                "cbb20f43f9msh0be57f335d40c8bp10f53djsne09b0a7c11ef"
+                "995097318amsh62fe983a31289bfp146e87jsn20167bed11a1"
             );
             xhr.setRequestHeader(
                 "X-RapidAPI-Host",
@@ -47,7 +47,7 @@ const Index = ({ auth }) => {
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
-
+console.log(coleccionEjercicio);
     return (
         <Authenticated auth={auth}>
             <div className="px-5">
