@@ -16,9 +16,9 @@ class EjercicioSeeder extends Seeder {
         {
             $jsonString = file_get_contents(database_path('seeders/ejercicios.json'));
             $ejercicios = json_decode($jsonString, true);
-            $contador = 1;
+            $contador = 0;
             foreach ($ejercicios as $ejercicio) {
-                if ($contador % 2 != 0) {
+                if ($contador < 5) {
                     DB::table('ejercicios')->insert([
                         'parte_cuerpo' => $ejercicio['bodyPart'],
                         'imagen' => $ejercicio['gifUrl'],
