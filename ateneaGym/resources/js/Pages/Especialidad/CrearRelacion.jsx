@@ -57,7 +57,7 @@ export default function CrearRelacion({
                     // if (Object.keys(props.errors).length > 0) {
                     Swal.fire({
                         title: "Exito.",
-                        text: "Se asigno profe a la especialidad",
+                        text: "Se asigno profesor a la especialidad",
                         icon: "success",
                     });
                     // } else {

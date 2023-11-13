@@ -371,7 +371,7 @@ const Nav = ({ children, auth }) => {
                                                 "turnos.index"
                                             )}
                                         >
-                                            Sacar Turno
+                                            Reservar Turno
                                         </NavLink>
                                     </div>
                                 </li>

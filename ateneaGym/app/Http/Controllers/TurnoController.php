@@ -8,16 +8,17 @@ use App\Models\Turno;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Symfony\Component\VarDumper\VarDumper;
 
-class TurnoController extends Controller {
-    public function index() {
+class TurnoController extends Controller
+{
+    public function index()
+    {
         $turnos = Turno::with('actividad')->get();
         // dd($turnos);
         $coleccionTurnos = [];
         $t = $turnos[0];
         foreach ($turnos as $turno) {
-            if ($turno->alumno_id == null &&  $turno->fecha == $t->fecha) {
+            if ($turno->alumno_id == null && $turno->fecha == $t->fecha) {
                 if ($coleccionTurnos == null) {
                     $coleccionTurnos[] = $turno;
                 }
@@ -39,10 +40,11 @@ class TurnoController extends Controller {
 
         return Inertia::render('Turnos/Index', [
             'turnos' => $coleccionTurnos,
-            'actividades' => $actividades
+            'actividades' => $actividades,
         ]);
     }
-    protected function filtrarTurnos(Turno $turnos) {
+    protected function filtrarTurnos(Turno $turnos)
+    {
         $t = $turnos[0];
         $coleccionTurnos = $t;
         foreach ($turnos as $turno) {
@@ -54,9 +56,11 @@ class TurnoController extends Controller {
         var_dump($coleccionTurnos);
         return $coleccionTurnos;
     }
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
     }
-    public function update(Request $request, String $turno) {
+    public function update(Request $request, String $turno)
+    {
         $usuario = User::where('dni', $request->dni)->first();
         $alumno = Alumno::where('user_id', $usuario->id)->first();
         // return print_r($alumno);
@@ -65,23 +69,26 @@ class TurnoController extends Controller {
         $t->save();
         return redirect()->route('turnoAlumno');
     }
-    public function destroy(Turno $turno) {
+    public function destroy(Turno $turno)
+    {
     }
-    public function turnoAlumno() {
+    public function turnoAlumno()
+    {
         $alumno = Alumno::where('user_id', auth()->user()->id)->first();
         $turnos = Turno::where('alumno_id', $alumno->id)
             ->with(['actividad', 'actividad.especialidad']) // Cargar la relación 'actividad' y luego 'especialidad'
             ->get();
-
+        $usuario = $alumno->usuario;
+        $pagos = $usuario->ultimoPago();
 
         return Inertia::render('Turnos/MisTurnos', [
-            'turnos' => $turnos
+            'turnos' => $turnos,
+            'pago' => $pagos
         ]);
     }
 
-
-
-    public function cancelarTurno(String $id) {
+    public function cancelarTurno(String $id)
+    {
         $turno = Turno::findOrFail($id);
         $turno->alumno_id = null;
         $turno->save();
