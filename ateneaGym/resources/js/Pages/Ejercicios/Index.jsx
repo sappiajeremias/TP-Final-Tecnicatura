@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import CardEjercicio from "./CardEjercicio";
 import ReactPaginate from "react-paginate";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
+import NuevoEjercicio from "./NuevoEjercicio";
+import Modal from "@/Components/Modal";
 
 const Index = ({ auth, ejercicios }) => {
     const [coleccionEjercicio, setColeccionEjercicio] = useState(ejercicios);
@@ -27,13 +29,19 @@ const Index = ({ auth, ejercicios }) => {
     console.log(ejercicios);
     const itemsPerPage = 3;
     const pagesVisited = pageNumber * itemsPerPage;
-
+    const [modalOpen, setModalOpen] = useState(false);
     const pageCount = Math.ceil(coleccionEjercicio.length / itemsPerPage);
 
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
-    console.log(coleccionEjercicio);
+
+    const cerrarModal = () => {
+        setModalOpen(false);
+    };
+    const abrirModal = () => {
+        setModalOpen(true);
+    };
     return (
         <Authenticated auth={auth}>
             <div className="px-5">
@@ -43,6 +51,7 @@ const Index = ({ auth, ejercicios }) => {
                 <div>
                     <div className="flex justify-end pe-3">
                         <button
+                            onClick={abrirModal}
                             type="button"
                             className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                         >
@@ -136,6 +145,9 @@ const Index = ({ auth, ejercicios }) => {
                         pageRangeDisplayed={5}
                     />
                 </div>
+                <Modal show={modalOpen} onClose={() => setModalOpen(false)}>
+                    <NuevoEjercicio cerrarModal={cerrarModal}></NuevoEjercicio>
+                </Modal>
             </div>
         </Authenticated>
     );
