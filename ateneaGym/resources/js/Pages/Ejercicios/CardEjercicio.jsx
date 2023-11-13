@@ -4,16 +4,36 @@ import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const CardEjercicio = ({ ejercicio, rutina }) => {
+const CardEjercicio = ({ ejercicio }) => {
+    const [coleccionEjercicio, setColeccionEjercicio] = useState([]);
+    const [rutina, setRutina] = useState("");
+    console.log(ejercicio);
     const { data, setData, post, processing, errors, reset } = useForm({
         ejercicio_id: ejercicio.id,
-        rutina_id: rutina.id,
-        repeticiones: 0,
-        peso: 0,
-        series: 0,
+        rutina_id: "" || ejercicio.rutina_id,
+        repeticiones: 0 || ejercicio.repeticiones,
+        peso: 0 || ejercicio.peso,
+        series: 0 || ejercicio.series,
     });
+    useEffect(() => {
+        if (ejercicio.length > 0 && ejercicio[0].ejercicio) {
+            const nuevosEjercicios = ejercicio.map((item) => {
+                // Aquí puedes realizar cualquier procesamiento adicional si es necesario
+                return item.ejercicio;
+            });
+
+            setColeccionEjercicio(nuevosEjercicios);
+            data.ejercicio_id = ejercicio.ejercicio.id;
+            data.rutina_id = ejercicio.rutina_id;
+            data.repeticiones = ejercicio.repeticiones;
+            data.peso = ejercicio.peso;
+            data.series = ejercicio.series;
+        }
+    }, []);
+    console.log(data);
+
     const [modalOpen, setModalOpen] = useState(false);
     const submit = (e) => {
         e.preventDefault();
@@ -42,30 +62,77 @@ const CardEjercicio = ({ ejercicio, rutina }) => {
     return (
         <>
             <div className="p-3">
-                <a
-                    onClick={() => seleccionarEjercicio(ejercicio.id)}
-                    className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-                >
-                    <img
-                        className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                        src={ejercicio.gifUrl}
-                        alt=""
-                    />
-                    <div className="flex flex-col justify-between p-4 leading-normal">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            {ejercicio.name}
-                        </h5>
-                        <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            {ejercicio.bodyPart}
-                        </h5>
-                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            {ejercicio.description}
-                        </p>
-                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            {ejercicio.equipment}
-                        </p>
-                    </div>
-                </a>{" "}
+                {ejercicio.ejercicio ? (
+                    <a
+                        onClick={() =>
+                            seleccionarEjercicio(ejercicio.ejercicio.id)
+                        }
+                        className="flex flex-col max-w-6xl items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-6xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                    >
+                        <img
+                            className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                            src={ejercicio.ejercicio.imagen}
+                            alt=""
+                        />
+                        <div className="flex flex-col justify-between p-4 leading-normal">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                {ejercicio.ejercicio.nombre}
+                            </h5>
+                            <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                <span className="text-1xl font-semibold">
+                                    Parte del cuerpo:{" "}
+                                </span>{" "}
+                                {ejercicio.ejercicio.parte_cuerpo}
+                            </h5>
+                            {/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            <span className="text-1xl font-semibold">
+                                Descripcion:{" "}
+                            </span>{" "}
+                            {ejercicio.descripcion}
+                        </p> */}
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <span className="text-1xl font-semibold me-2">
+                                    Musculo:
+                                </span>
+                                {ejercicio.ejercicio.musculo}
+                            </p>
+                        </div>
+                    </a>
+                ) : (
+                    <a
+                        onClick={() => seleccionarEjercicio(ejercicio.id)}
+                        className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                    >
+                        <img
+                            className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                            src={ejercicio.imagen}
+                            alt=""
+                        />
+                        <div className="flex flex-col justify-between p-4 leading-normal">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                {ejercicio.nombre}
+                            </h5>
+                            <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                <span className="text-1xl font-semibold">
+                                    Parte del cuerpo:{" "}
+                                </span>{" "}
+                                {ejercicio.parte_cuerpo}
+                            </h5>
+                            {/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            <span className="text-1xl font-semibold">
+                                Descripcion:{" "}
+                            </span>{" "}
+                            {ejercicio.descripcion}
+                        </p> */}
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <span className="text-1xl font-semibold me-2">
+                                    Musculo:
+                                </span>
+                                {ejercicio.musculo}
+                            </p>
+                        </div>
+                    </a>
+                )}{" "}
             </div>
             <Modal show={modalOpen} onClose={() => setModalOpen(false)}>
                 <div>

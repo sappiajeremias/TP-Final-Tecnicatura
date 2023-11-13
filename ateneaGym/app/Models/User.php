@@ -78,5 +78,9 @@ class User extends Authenticatable {
     }
 
     public function alumno() {
+        return $this->belongsTo(Alumno::class, 'user_id');
+    }
+    public function profesor() {
+        return $this->belongsTo(Profesor::class, 'user_id');
     }
 }

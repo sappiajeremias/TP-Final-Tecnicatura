@@ -18,6 +18,7 @@ use App\Http\Controllers\PagoController;
 use App\Models\Alumno;
 use App\Models\Especialidad;
 use App\Models\Membresia;
+use App\Models\Rutina;
 use Spatie\Permission\Traits\HasRoles;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
@@ -86,12 +87,13 @@ Route::resource('turnos', TurnoController::class)
 Route::group(['middleware' => ['role:Profesor|Administrador']], function () {
 });
 Route::resource('rutina', RutinaController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
+    ->only(['store', 'index', 'update', 'destroy','show'])
     ->middleware(['auth']);
 
 Route::resource('ejercicio', EjercicioController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
+Route::post('/agregarEjercicio', [RutinaController::class, 'agregarEjercicio'])->middleware(['auth'])->name('agregarEjercicio');
 
 
 /*Route::get('/mostrarMembresias/{membresia_id}', function ($membresia_id) {
