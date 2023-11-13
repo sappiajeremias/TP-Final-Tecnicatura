@@ -77,6 +77,8 @@ class User extends Authenticatable {
         return ['pago' => $pagoReciente, 'membresia' => $pagoReciente->membresia];
     }
 
-    public function alumno() {
+    public function pagosAlumno() {
+        return $this->hasMany(Pago::class);
     }
+    
 }

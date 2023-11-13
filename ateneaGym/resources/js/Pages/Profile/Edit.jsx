@@ -32,6 +32,7 @@ export default function Edit({ auth, mustVerifyEmail, status, membresia }) {
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <MostrarMembresia
                             membresia={membresia}
+                            auth={auth}
                         ></MostrarMembresia>
                     </div>
                 </div>
