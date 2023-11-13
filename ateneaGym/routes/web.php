@@ -64,15 +64,19 @@ Route::resource('pago', PagoController::class)
 
 Route::group(['middleware' => ['role:Alumno|Administrador']], function () {
 });
-Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('turnoAlumno');
-Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->name('cancelar.turnoAlumno');
+Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->middleware(['auth'])->name('turnoAlumno');
+Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->middleware(['auth'])->name('cancelar.turnoAlumno');
 
 
 Route::resource('membresia', MembresiaController::class)
-    ->only(['store', 'index', 'update', 'destroy', 'show'])
+    ->only(['store', 'index', 'update', 'destroy',])
     ->middleware(['auth']);
 
-Route::put('/mostrarMembresias/{membresia_id}', [PagoController::class, 'confirmarPago'])->name('mostrarMembresias');
+Route::post('/realizarPago', [MembresiaController::class, 'realizarPago'])->middleware(['auth'])->name('mostrarMembresias');
+
+Route::post('/procesar-pago', [PagoController::class, 'crearPreference'])->middleware(['auth'])->name('procesar.pago');
+
+Route::get('/procesar-respuesta-pago', [PagoController::class, 'estadoPago'])->middleware(['auth'])->name('procesar.respuesta');
 
 Route::resource('turnos', TurnoController::class)
     ->only(['store', 'index', 'update', 'destroy'])
@@ -109,12 +113,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-Route::post('/procesar-pago', [PagoController::class, 'procesarPago'])->name('procesar.pago');
-
-Route::get('/procesar-respuesta-pago', [MembresiaController::class, 'procesarPago'])->name('procesar.respuesta.pago');
-
-
 
 
 

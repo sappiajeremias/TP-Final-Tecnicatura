@@ -60,7 +60,7 @@ const Index = ({ auth, ejercicios }) => {
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
-
+console.log(coleccionEjercicio);
     return (
         <Authenticated auth={auth}>
             <div className="px-5">

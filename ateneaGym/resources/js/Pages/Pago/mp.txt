@@ -1,0 +1,90 @@
+import React, { useEffect } from "react";
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+
+const Pagos = ({ membresia }) => {
+    const key = import.meta.env.VITE_MP_PUBLIC_KEY;
+    const token = import.meta.env.VITE_MP_ACCESS_TOKEN;
+    // SDK do Mercado Pago
+    var mercadopago = require("mercadopago");
+    // Adicione as credenciais
+    mercadopago.configure({
+        access_token: token,
+    });
+
+    // Cria um objeto de preferência
+    let preference = {
+        items: [
+            {
+                id: "item-ID-1234",
+                title: membresia.descripcion,
+                currency_id: "ARS",
+                picture_url:
+                    "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
+                category_id: "art",
+                quantity: 1,
+                unit_price: membresia.valor,
+            },
+        ],
+        payer: {
+            name: "Test",
+            surname: "Comprador",
+            email: "user@email.com",
+            phone: {
+                area_code: "11",
+                number: "4444-4444",
+            },
+            identification: {
+                type: "DNI",
+                number: "12345678",
+            },
+            address: {
+                street_name: "Street",
+                street_number: 123,
+                zip_code: "06233200",
+            },
+        },
+        back_urls: {
+            success: route("procesar.respuesta"),
+            failure: route("procesar.respuesta"),
+            pending: route("procesar.respuesta"),
+        },
+        auto_return: "approved",
+        payment_methods: {
+            excluded_payment_methods: [],
+            excluded_payment_types: [
+                {
+                    id: "ticket",
+                },
+            ],
+            installments: 1,
+        },
+        // notification_url: "https://www.your-site.com/ipn",
+        statement_descriptor: "MEUNEGOCIO",
+        external_reference: "Reference_1234",
+        expires: true,
+        expiration_date_from: "2016-02-01T12:00:00.000-04:00",
+        expiration_date_to: "2016-02-28T12:00:00.000-04:00",
+    };
+
+    mercadopago.preferences
+        .create(preference)
+        .then(function (response) {
+            // Este valor substituirá a string "<%= global.id %>" no seu HTML
+            global.id = response.body.id;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    useEffect(() => {
+        initMercadoPago(key, { locale: "es-AR" });
+    }, []);
+
+    return (
+        <div>
+            <Wallet initialization={{ preferenceId: "<PREFERENCE_ID>" }} />
+        </div>
+    );
+};
+
+export default Pagos;
