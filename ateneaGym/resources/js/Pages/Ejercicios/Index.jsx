@@ -25,7 +25,7 @@ const Index = ({ auth }) => {
 
             xhr.open(
                 "GET",
-                "https://exercisedb.p.rapidapi.com/exercises?limit=1321"
+                "https://exercisedb.p.rapidapi.com/exercises?limit=200"
             );
             xhr.setRequestHeader(
                 "X-RapidAPI-Key",
@@ -47,7 +47,7 @@ const Index = ({ auth }) => {
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
-console.log(coleccionEjercicio);
+    console.log(coleccionEjercicio);
     return (
         <Authenticated auth={auth}>
             <div className="px-5">
@@ -59,6 +59,7 @@ console.log(coleccionEjercicio);
                     .map((ejercicio, index) => (
                         <div key={index} className="card">
                             <CardEjercicio
+                                rutina={1}
                                 ejercicio={ejercicio}
                             ></CardEjercicio>
                         </div>
