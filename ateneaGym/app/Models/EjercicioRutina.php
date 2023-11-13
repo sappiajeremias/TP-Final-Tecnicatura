@@ -15,4 +15,7 @@ class EjercicioRutina extends Model
         'series',
         'adicional'
     ];
+    public function ejercicio(){
+        return $this->belongsTo(Ejercicio::class);
+    }
 }

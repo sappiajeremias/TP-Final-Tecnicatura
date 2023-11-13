@@ -9,7 +9,7 @@ use Inertia\Inertia;
 class EjercicioController extends Controller {
     public function index() {
         $ejercicios = Ejercicio::all();
-        return Inertia::render('Ejercicios/Index');
+        return Inertia::render('Ejercicios/Index', ['ejercicios' => $ejercicios]);
     }
     public function store(Request $request) {
     }

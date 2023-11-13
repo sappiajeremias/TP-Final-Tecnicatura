@@ -77,8 +77,10 @@ class User extends Authenticatable {
         return ['pago' => $pagoReciente, 'membresia' => $pagoReciente->membresia];
     }
 
-    public function pagosAlumno() {
-        return $this->hasMany(Pago::class);
+    public function alumno() {
+        return $this->belongsTo(Alumno::class, 'user_id');
     }
-    
+    public function profesor() {
+        return $this->belongsTo(Profesor::class, 'user_id');
+    }
 }

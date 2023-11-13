@@ -14,15 +14,7 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
     // Función para manejar el cambio de la actividad seleccionada
 
     const handleActividadChange = (e) => {
-        // Destruir el calendario existente
-        $("#calendar").evoCalendar("destroy");
-
-        // Inicializar el calendario de nuevo
-        $("#calendar").evoCalendar({
-            language: "es",
-            sidebarDisplayDefault: false,
-            sidebarToggler: false,
-        });
+        $("#calendar").evoCalendar("clearCalendarEvents");
 
         const actividadId = e.target.value;
         setActividadSeleccionada(actividadId);
@@ -39,29 +31,43 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
         setTurnosFiltrados(turnosFiltrados);
         setListaTurnos(turnosFiltrados.map((turno) => turno.fecha));
 
-        // $("#calendar").evoCalendar({
-        //     language: "es",
-        //     sidebarDisplayDefault: false,
-        //     sidebarToggler: false,
-        // });
-
         turnosFiltrados.map((turno) => {
-            console.log(turno.fecha);
             // console.log(actividad[0].especialidad.descripcion);
+            const hoy = new Date();
             const partesFecha = turno.fecha.split("-");
-            console.log(
-                `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`
-            );
+
             // const nuevasFechas = fecha.map((item) => {
-            //     console.log(item);
+
             // });
-            $("#calendar").evoCalendar("addCalendarEvent", {
-                id: turno.id,
-                name: actividad[0].especialidad.descripcion,
-                description: "Lorem ipsum dolor sit..",
-                date: `${partesFecha[0]}/${partesFecha[1]}/${partesFecha[2]}`,
-                type: "event",
-            });
+            if (
+                new Date(
+                    `${partesFecha[0]}/${partesFecha[1]}/${partesFecha[2]}`
+                ) >= hoy
+            ) {
+                $("#calendar").evoCalendar("addCalendarEvent", {
+                    id: turno.id,
+                    name: actividad[0].especialidad.descripcion,
+                    description: turno.hora,
+                    date: `${partesFecha[0]}/${partesFecha[1]}/${partesFecha[2]}`,
+                    type: "event",
+                });
+            }
+        });
+
+        $("#calendar").on("selectEvent", (event, activeEvent) => {
+            const eventoSeleccionado = activeEvent;
+            // console.log(eventoSeleccionado);
+            // console.log(turnosFiltrados);
+            const turnoSeleccionado = turnosFiltrados.find(
+                (turno) => turno.id === eventoSeleccionado.id
+            );
+            // console.log(turnoSeleccionado);
+            if (turnoSeleccionado) {
+                // Hacer algo con el turno seleccionado
+                console.log(turnoSeleccionado); // Esto imprimirá el turno correspondiente en la consola
+                sacarTurno(turnoSeleccionado);
+            }
+            // ...
         });
     };
 
@@ -76,34 +82,6 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
         });
     }, []);
 
-    useEffect(() => {
-        if (diaSeleccionado && turnosFiltrados.length > 0) {
-            // Convertir la fecha seleccionada y las fechas de los turnos a las zonas horarias adecuadas
-            const fechaSeleccionada = new Date(
-                diaSeleccionado.getFullYear(),
-                diaSeleccionado.getMonth(),
-                diaSeleccionado.getDate()
-            );
-
-            const turnosFechaSeleccionada = turnosFiltrados.filter((turno) => {
-                const fechaTurno = new Date(turno.fecha);
-
-                // Comparar las fechas sin tener en cuenta la zona horaria
-                return (
-                    fechaTurno.getUTCFullYear() ===
-                        fechaSeleccionada.getUTCFullYear() &&
-                    fechaTurno.getUTCMonth() ===
-                        fechaSeleccionada.getUTCMonth() &&
-                    fechaTurno.getUTCDate() === fechaSeleccionada.getUTCDate()
-                );
-            });
-
-            setTurnosPorFecha(turnosFechaSeleccionada);
-        } else {
-            setTurnosPorFecha([]); // Si no hay fecha seleccionada, reiniciar la lista de turnos por fecha
-        }
-    }, [diaSeleccionado, turnosFiltrados]);
-    
     const [modalOpen, setModalOpen] = useState(false);
 
     const sacarTurno = (e) => {
@@ -115,76 +93,49 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
     };
     // console.log(listaTurnos);
     return (
-        <div className="">
+        <div className=" bg-white">
+            {" "}
+            <h1 className="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white text-center py-3">
+                Turnos disponibles
+            </h1>
             <div className="pt-5 flex justify-center items-center">
-                <label htmlFor="actividad" className="pe-5">
-                    Seleccione una actividad
+                <label
+                    htmlFor="actividad"
+                    className="pr-3 text-gray-700 text-lg"
+                >
+                    Seleccione una actividad:
                 </label>
                 <select
                     name="actividad"
                     id="actividad"
-                    className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
+                    className="border-2 border-pink-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 rounded-md py-2 px-4 outline-none"
                     onChange={handleActividadChange}
                     value={actividadSeleccionada}
                 >
-                    <option value="">Seleccione una actividad</option>
+                    <option value="" className="text-gray-400">
+                        Seleccione una actividad
+                    </option>
                     {actividades.map((actividad, index) => (
-                        <option key={index} value={actividad.id}>
+                        <option
+                            key={index}
+                            value={actividad.id}
+                            className="text-gray-900"
+                        >
                             {actividad.especialidad.descripcion}
                         </option>
                     ))}
                 </select>
             </div>
-            {/* Mostrar la tabla de turnos filtrados */}
-            <div className="flex justify-center gap-10 pt-10">
-                {/* <div className="">
-                    {actividadSeleccionada && (
-                        <Calendario
-                            turnos={listaTurnos}
-                            setdiaSeleccionado={setdiaSeleccionado}
-                        />
-                    )}
-                </div>
-                <div>
-                    {diaSeleccionado && (
-                        <div>
-                            <h2>
-                                Turnos disponibles para el{" "}
-                                {diaSeleccionado.toLocaleDateString()}
-                            </h2>
-                            <ul className="py-3">
-                                {turnosPorFecha.map((turno, index) => (
-                                    <li key={index}>
-                                        <button
-                                            type="button"
-                                            className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                                            onClick={() => sacarTurno(turno)}
-                                        >
-                                            {turno.hora}
-                                        </button>
-
-                                       
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <Modal
-                                show={modalOpen}
-                                onClose={() => setModalOpen(false)}
-                            >
-                                <ConfirmarTurno
-                                    auth={auth}
-                                    turno={idTurno}
-                                    actividad={actividad}
-                                    setModalOpen={setModalOpen}
-                                />
-                            </Modal>
-                        </div>
-                    )}
-                </div> */}
-            </div>
             <div className="max-w-5xl m-auto pb-5">
                 <div id="calendar"></div>
+                <Modal show={modalOpen} onClose={() => setModalOpen(false)}>
+                    <ConfirmarTurno
+                        auth={auth}
+                        turno={idTurno}
+                        actividad={actividad}
+                        setModalOpen={setModalOpen}
+                    />
+                </Modal>
             </div>
         </div>
     );

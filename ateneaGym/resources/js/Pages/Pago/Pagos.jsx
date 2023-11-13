@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
-import { usePage } from "@inertiajs/react";
+import { Payment, Wallet, initMercadoPago } from "@mercadopago/sdk-react";
+import { router, usePage } from "@inertiajs/react";
 
 const Pagos = ({ preference }) => {
     console.log(preference);
 
     // const env = import.meta.env.VITE_MP_PUBLIC_KEY;
     initMercadoPago("TEST-97f01f23-0584-466a-95fe-9a526f6fa77b");
-    const onReady = (response) => {
-        console.log(response);
+
+    const onReady = () => {
         console.log("app lista");
     };
     const onSubmit = (response) => {
+        router.post("/procesar-pago", preference);
         console.log(response);
         console.log("app enviada");
     };
@@ -20,11 +21,25 @@ const Pagos = ({ preference }) => {
     };
     return (
         <div className="max-w-3xl m-auto">
+            {" "}
+            <h1>mercado pago</h1>
+            <div id="wallet_container"></div>
             <div>
+                {/* <Payment
+                    initialization={{
+                        i
+                        preferenceId: preference.id, // Utiliza la preferenceId recibida del backend
+                        // <redirectMode: "modal",>
+                    }}
+                    customization={{ locale: "es-AR" }}
+                    onError={onError}
+                    onSubmit={onSubmit}
+                    onReady={onReady}
+                /> */}
                 <Wallet
                     initialization={{
                         preferenceId: preference.id, // Utiliza la preferenceId recibida del backend
-                        redirectMode: "modal",
+                        // <redirectMode: "modal",>
                     }}
                     customization={{ locale: "es-AR" }}
                     onError={onError}

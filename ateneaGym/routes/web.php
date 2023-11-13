@@ -11,10 +11,14 @@ use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RutinaController;
 use App\Http\Controllers\TurnoController;
-use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\MembresiaController;
+use App\Http\Controllers\PagoController;
+use App\Models\Alumno;
+use App\Models\Especialidad;
+use App\Models\Membresia;
+use App\Models\Rutina;
+use Spatie\Permission\Traits\HasRoles;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,18 +63,19 @@ Route::resource('pago', PagoController::class)
 
 Route::group(['middleware' => ['role:Alumno|Administrador']], function () {
 });
-Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('turnoAlumno');
-Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->name('cancelar.turnoAlumno');
+Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->middleware(['auth'])->name('turnoAlumno');
+Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->middleware(['auth'])->name('cancelar.turnoAlumno');
+
 
 Route::resource('membresia', MembresiaController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
-Route::post('/realizarPago', [MembresiaController::class, 'realizarPago'])->name('mostrarMembresias');
+Route::post('/realizarPago', [MembresiaController::class, 'realizarPago'])->middleware(['auth'])->name('mostrarMembresias');
 
-Route::post('/procesar-pago', [PagoController::class, 'crearPreference'])->name('procesar.pago');
+Route::post('/procesar-pago', [PagoController::class, 'crearPreference'])->middleware(['auth'])->name('procesar.pago');
 
-Route::get('/procesar-respuesta-pago', [PagoController::class, 'estadoPago'])->name('procesar.respuesta');
+Route::get('/procesar-respuesta-pago', [PagoController::class, 'estadoPago'])->middleware(['auth'])->name('procesar.respuesta');
 
 Route::resource('turnos', TurnoController::class)
     ->only(['store', 'index', 'update', 'destroy'])
@@ -79,12 +84,13 @@ Route::resource('turnos', TurnoController::class)
 Route::group(['middleware' => ['role:Profesor|Administrador']], function () {
 });
 Route::resource('rutina', RutinaController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
+    ->only(['store', 'index', 'update', 'destroy','show'])
     ->middleware(['auth']);
 
 Route::resource('ejercicio', EjercicioController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
+
 
 /*Route::get('/mostrarMembresias/{membresia_id}', function ($membresia_id) {
 return Inertia::render('Pago/Index', [
