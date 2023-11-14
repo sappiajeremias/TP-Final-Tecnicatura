@@ -42,6 +42,7 @@ const Index = ({ auth, ejercicios }) => {
     const abrirModal = () => {
         setModalOpen(true);
     };
+    
     return (
         <Authenticated auth={auth}>
             <div className="px-5">
@@ -146,7 +147,10 @@ const Index = ({ auth, ejercicios }) => {
                     />
                 </div>
                 <Modal show={modalOpen} onClose={() => setModalOpen(false)}>
-                    <NuevoEjercicio cerrarModal={cerrarModal}></NuevoEjercicio>
+                    <NuevoEjercicio
+                        cerrarModal={cerrarModal}
+                        setModalOpen
+                    ></NuevoEjercicio>
                 </Modal>
             </div>
         </Authenticated>

@@ -4,6 +4,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
 import React from "react";
+import Swal from "sweetalert2";
 
 const NuevoEjercicio = (props) => {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -13,9 +14,17 @@ const NuevoEjercicio = (props) => {
         musculo: "",
         imagen: "",
     });
-
+    console.log(props);
     const submit = (e) => {
         e.preventDefault();
+        post(`/ejercicio`, data, {
+            onSuccess: () => {
+                Swal.fire({
+                    icon: "success",
+                    text: "Ejercicio agregado!",
+                });
+            },
+        });
     };
 
     return (
@@ -107,21 +116,19 @@ const NuevoEjercicio = (props) => {
                     <InputError message={errors.imagen} className="mt-2" />
                 </div>
                 <div className="flex items-center justify-end mt-2">
-                    {/* <button
-                        onClick={cerrarModal}
+                    <button
+                        onClick={props.cerrarModal}
                         type="button"
                         className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ml-4"
                     >
                         Cancelar
-                    </button> */}
+                    </button>
+
                     <PrimaryButton
-                        className="ml-4 bg-red-600"
-                        onClick={props.cerrarModal}
+                        className="ml-4"
                         disabled={processing}
+                        onClick={props.cerrarModal}
                     >
-                        Cancelar
-                    </PrimaryButton>
-                    <PrimaryButton className="ml-4" disabled={processing}>
                         Confirmar
                     </PrimaryButton>
                 </div>

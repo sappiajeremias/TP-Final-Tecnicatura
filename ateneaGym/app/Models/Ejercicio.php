@@ -11,6 +11,7 @@ class Ejercicio extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
+        'parte_cuerpo',
         'musculo',
         'imagen'
     ];

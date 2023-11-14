@@ -12,6 +12,24 @@ class EjercicioController extends Controller {
         return Inertia::render('Ejercicios/Index', ['ejercicios' => $ejercicios]);
     }
     public function store(Request $request) {
+        // dd($request)
+        $request->validate([
+            'nombre' => 'required',
+            'parte_cuerpo' => 'required',
+            'musculo' => 'required',
+            'imagen' => 'required',
+        ]);
+        $ejercicio = Ejercicio::create([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'parte_cuerpo' => $request->parte_cuerpo,
+            'musculo' => $request->musculo,
+            'imagen' => $request->imagen,
+        ]);
+        $ejercicio->save();
+
+        // dd($request);
+        return redirect()->back()->with('mensaje', 'ejercicio agregado');
     }
     public function update(Request $request, Ejercicio $ejercicio) {
     }
