@@ -41,7 +41,7 @@ class RutinaController extends Controller {
         $rutina->save();
         $rutinaE = EjercicioRutina::where('rutina_id', $rutina->id)->with('ejercicio')->get();
 
-        return Inertia::render('Rutinas/EjerciciosRutina', ['ejercicios' => $rutinaE]);
+        return redirect()->back();
     }
     public function show($id) {
         $ejerciciosCompletos = Ejercicio::all();
