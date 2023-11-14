@@ -92,7 +92,9 @@ Route::resource('rutina', RutinaController::class)
 Route::resource('ejercicio', EjercicioController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
-    Route::post('/ejercicioRutina', [EjercicioRutinaController::class, 'destroy'])->middleware(['auth'])->name('eliminar.ejercicio');
+
+Route::post('/ejercicioRutina', [EjercicioRutinaController::class, 'destroy'])->middleware(['auth'])->name('eliminar.ejercicio');
+Route::post('/agregarEjercicio', [RutinaController::class, 'agregarEjercicio'])->middleware(['auth'])->name('agregar.ejercicioR');
 
 /*Route::get('/mostrarMembresias/{membresia_id}', function ($membresia_id) {
 return Inertia::render('Pago/Index', [

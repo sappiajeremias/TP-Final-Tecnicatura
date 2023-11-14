@@ -42,7 +42,7 @@ const Index = ({ auth, ejercicios }) => {
     const abrirModal = () => {
         setModalOpen(true);
     };
-    
+
     return (
         <Authenticated auth={auth}>
             <div className="px-5">

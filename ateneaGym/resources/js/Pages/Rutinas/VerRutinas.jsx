@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import CardRutina from "./CardRutina";
+import NuevaRutina from "./NuevaRutina";
+import Modal from "@/Components/Modal";
 
-const VerRutinas = ({ rutinas }) => {
-    const nuevaRutina = () => {};
+const VerRutinas = ({ rutinas, profesor }) => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const cerrarModal = () => {
+        setModalOpen(false);
+    };
+    const nuevaRutina = () => {
+        setModalOpen(true);
+    };
     return (
         <div className=" pt-5">
             <h1 className="font-semibold text-3xl text-center pt-2">
@@ -23,6 +31,13 @@ const VerRutinas = ({ rutinas }) => {
                     <CardRutina rutina={rutina}></CardRutina>
                 ))}
             </div>
+
+            <Modal show={modalOpen} onClose={() => setModalOpen(false)}>
+                <NuevaRutina
+                    cerrarModal={cerrarModal}
+                    profesor={profesor}
+                ></NuevaRutina>
+            </Modal>
         </div>
     );
 };

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Rutina extends Model {
     use HasFactory;
     protected $fillable = [
+        'mes',
         'profesor_id',
         'dia_semana'
     ];
