@@ -3,10 +3,11 @@ import React from "react";
 import CardEjercicio from "../Ejercicios/CardEjercicio";
 
 const EjerciciosRutina = ({ auth, ejercicios }) => {
+    console.log(ejercicios);
     return (
         <Authenticated auth={auth}>
             <h1 className="text-xl font-sans font-medium text-center py-3">
-                Ejercicios Rutina {ejercicios[0].rutina_id}
+                Ejercicios Rutina
             </h1>
             <div className="flex justify-end pe-3">
                 <button
@@ -20,6 +21,9 @@ const EjerciciosRutina = ({ auth, ejercicios }) => {
                 {ejercicios.map((ejercicio) => (
                     <CardEjercicio ejercicio={ejercicio}></CardEjercicio>
                 ))}
+            </div>
+            <div>
+                
             </div>
         </Authenticated>
     );

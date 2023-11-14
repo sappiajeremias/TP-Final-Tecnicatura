@@ -1,14 +1,17 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\EjercicioController;
-use App\Http\Controllers\EspecialidadController;
+use App\Http\Controllers\EjercicioRutinaController;
 use App\Http\Controllers\EspecialidadProfesorController;
-use App\Http\Controllers\MembresiaController;
-use App\Http\Controllers\PagoController;
+use App\Http\Controllers\EspecialidadController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfesorController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RutinaController;
 use App\Http\Controllers\TurnoController;
 use App\Http\Controllers\MembresiaController;
@@ -19,7 +22,6 @@ use App\Models\Membresia;
 use App\Models\Rutina;
 use Spatie\Permission\Traits\HasRoles;
 use Symfony\Component\HttpKernel\Profiler\Profile;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -84,13 +86,13 @@ Route::resource('turnos', TurnoController::class)
 Route::group(['middleware' => ['role:Profesor|Administrador']], function () {
 });
 Route::resource('rutina', RutinaController::class)
-    ->only(['store', 'index', 'update', 'destroy','show'])
+    ->only(['store', 'index', 'update', 'destroy', 'show'])
     ->middleware(['auth']);
 
 Route::resource('ejercicio', EjercicioController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
-
+    Route::post('/ejercicioRutina', [EjercicioRutinaController::class, 'destroy'])->middleware(['auth'])->name('eliminar.ejercicio');
 
 /*Route::get('/mostrarMembresias/{membresia_id}', function ($membresia_id) {
 return Inertia::render('Pago/Index', [
