@@ -14,8 +14,9 @@ const ConfirmarTurno = ({ auth, turno, actividad, setModalOpen }) => {
         dni: auth.user.dni,
         hora: turno.hora,
         fecha: turno.fecha,
+        especialidad_id: actividad[0].especialidad_id,
     });
-
+    console.log(actividad[0].especialidad_id);
     console.log(turno);
     const submit = (e) => {
         e.preventDefault();
@@ -27,7 +28,15 @@ const ConfirmarTurno = ({ auth, turno, actividad, setModalOpen }) => {
                     text: "Turno sacado con exito!",
                 }).then(() => {
                     setModalOpen(false);
-                  
+                });
+            },
+            onError: (response) => {
+                console.log(response);
+                Swal.fire({
+                    icon: "error",
+                    text: response.message,
+                }).then(() => {
+                    setModalOpen(false);
                 });
             },
         });

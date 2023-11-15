@@ -10,7 +10,8 @@ class Asistencia extends Model {
     protected $fillable = [
         'alumno_id',
         'especialidad_id',
-        'fecha'
+        'fecha',
+        'estado'
     ];
 
     public function alumno() {
