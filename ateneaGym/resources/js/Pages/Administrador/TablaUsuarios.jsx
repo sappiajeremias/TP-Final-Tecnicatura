@@ -42,13 +42,19 @@ const TablaUsuarios = ({ usuarios, roles }) => {
     // const [usuario, setusuario] = useState('');
     const handleDelete = (usuario) => {
         // Lógica para eliminar el recurso
-        router.delete(`/usuarios/${usuario.id}`, {
-            onBefore: () => confirm("Estas seguro?"),
-            onSuccess: () =>
-                Swal.fire({
-                    icon: "success",
-                    text: "Usuario Eliminado!",
-                }),
+        Swal.fire({
+            title: "Confirmar",
+            text: "Eliminar usuario? ",
+            icon: "question",
+            confirmButtonColor: "#E10045",
+            confirmButtonText: "Confirmar",
+            showCancelButton: true,
+            cancelButtonText:'Cancelar',
+            cancelButtonColor:'"#938592",'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(`/usuarios/${usuario.id}`);
+            }
         });
     };
 

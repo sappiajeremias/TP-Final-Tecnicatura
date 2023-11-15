@@ -6,6 +6,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, router, useForm } from "@inertiajs/react";
 import InputSelect from "@/Components/InputSelect";
+import Swal from "sweetalert2";
 
 export default function Register({ isEdit, objeto, roles }) {
     const { data, setData, put, post, processing, errors, reset } = useForm({
@@ -31,12 +32,29 @@ export default function Register({ isEdit, objeto, roles }) {
         if (isEdit) {
             put(`/usuarios/${objeto.id}`, {
                 onSuccess: () => {
-                    alert("Usuario Actualizado");
+                    Swal.fire({
+                        title: "Exito.",
+                        text: "Usuario actualizado!",
+                        icon: "success",
+                    });
                     document.getElementById("cierreModal").click();
+                    location.reload();
                 },
+                
             });
         } else {
-            post(route("usuarios.store"));
+            post(route("usuarios.store"), {
+                onSuccess: () => {
+                    Swal.fire({
+                        title: "Exito.",
+                        text: "Usuario creado!",
+                        icon: "success",
+                    });
+                    document.getElementById("cierreModal").click();
+                    location.reload();
+                },
+               
+            });
         }
     };
 

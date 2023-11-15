@@ -6,19 +6,32 @@ use App\Models\Ejercicio;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class EjercicioController extends Controller {
-    public function index() {
+class EjercicioController extends Controller
+{
+    public function index()
+    {
         $ejercicios = Ejercicio::all();
         return Inertia::render('Ejercicios/Index', ['ejercicios' => $ejercicios]);
     }
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         // dd($request)
         $request->validate([
-            'nombre' => 'required',
-            'parte_cuerpo' => 'required',
-            'musculo' => 'required',
+            'nombre' => ['required', 'unique:'.Ejercicio::class],
+            'parte_cuerpo' => ['required', 'exclude:1'],
+            'musculo' => ['required', 'exclude:1'],
             'imagen' => 'required',
+        ], [
+            'nombre.required' => 'Debe ingresar un nombre.',
+            'nombre.unique' => 'Ya existe un ejercicio con ese nombre.',
+            'parte_cuerpo.required' => 'Debe seleccionar una parte del cuerpo.',
+            'parte_cuerpo.exclude' => 'Debe seleccionar una parte del cuerpo.',
+            'musculo.required' => 'Debe seleccionar un musculo',
+            'musculo.exclude' => 'Debe seleccionar un musculo.',
+            'imagen.required' => 'Debe seleccionar una imagen',
+            
         ]);
+   
         $ejercicio = Ejercicio::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
@@ -29,10 +42,12 @@ class EjercicioController extends Controller {
         $ejercicio->save();
 
         // dd($request);
-        return redirect()->back()->with('mensaje', 'ejercicio agregado');
+       return redirect()->back()->with('mensaje', 'ejercicio agregado');
     }
-    public function update(Request $request, Ejercicio $ejercicio) {
+    public function update(Request $request, Ejercicio $ejercicio)
+    {
     }
-    public function destroy(Ejercicio $ejercicio) {
+    public function destroy(Ejercicio $ejercicio)
+    {
     }
 }

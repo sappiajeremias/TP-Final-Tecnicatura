@@ -9,10 +9,10 @@ import Swal from "sweetalert2";
 
 const CardEjercicio = (props) => {
     const ejercicio = props.ejercicio;
-    console.log(ejercicio);
+    //console.log(ejercicio);
     const [coleccionEjercicio, setColeccionEjercicio] = useState([]);
     const [rutina, setRutina] = useState("");
-    console.log(ejercicio);
+    //console.log(ejercicio);
     const { data, setData, post, put, processing, errors, reset } = useForm({
         ejercicio_id: ejercicio.id,
         rutina_id: "" || ejercicio.rutina_id,
@@ -43,7 +43,7 @@ const CardEjercicio = (props) => {
         const id = obtenerIdDesdeURL();
         data.rutina_id = id;
     }, []);
-    console.log(data);
+    //console.log(data);
 
     const [modalOpen, setModalOpen] = useState(false);
     const submit = (e) => {

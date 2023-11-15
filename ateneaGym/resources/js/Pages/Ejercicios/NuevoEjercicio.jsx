@@ -14,15 +14,20 @@ const NuevoEjercicio = (props) => {
         musculo: "",
         imagen: "",
     });
-    console.log(props);
+    const cerrar = props.cerrarModal;
+    const listaParteCuerpo = ['Brazos', 'Pecho', 'Hombros', 'Espalda', 'Piernas','Abdominales'];
+    const listaMusculos = ['Biceps', 'Triceps', 'Hombros', 'Trapecios', 'Dorsales','Pectorales', 'Abdominales', 'Gluteos','Cuadriceps','Aductores','Isquiotibiales', 'Gemélos'];
+   //console.log(props.cerrarModal);
     const submit = (e) => {
         e.preventDefault();
-        post(`/ejercicio`, data, {
+        post(`/ejercicio`, {
             onSuccess: () => {
                 Swal.fire({
-                    icon: "success",
+                    title: "Exito.",
                     text: "Ejercicio agregado!",
+                    icon: "success",
                 });
+                cerrar();
             },
         });
     };
@@ -47,7 +52,7 @@ const NuevoEjercicio = (props) => {
                     <InputError message={errors.nombre} className="mt-2" />
                 </div>
                 <div className="mt-2">
-                    <InputLabel htmlFor="descripcion" value="descripcion" />
+                    <InputLabel htmlFor="descripcion" value="Descripcion" />
 
                     <TextInput
                         id="descripcion"
@@ -62,45 +67,47 @@ const NuevoEjercicio = (props) => {
 
                     <InputError message={errors.descripcion} className="mt-2" />
                 </div>
-                <div className="mt-2">
-                    <InputLabel htmlFor="parte_cuerpo" value="parte_cuerpo" />
+                <div className="mt-4">
+                    <InputLabel htmlFor="musculo" value="Músculo" />
 
-                    <TextInput
-                        id="parte_cuerpo"
-                        type="text"
-                        name="parte_cuerpo"
-                        value={data.parte_cuerpo}
-                        className="mt-1 block w-full"
-                        autoComplete="parte_cuerpo"
-                        isFocused={true}
-                        onChange={(e) =>
-                            setData("parte_cuerpo", e.target.value)
-                        }
-                    />
-
-                    <InputError
-                        message={errors.parte_cuerpo}
-                        className="mt-2"
-                    />
-                </div>
-                <div className="mt-2">
-                    <InputLabel htmlFor="musculo" value="musculo" />
-
-                    <TextInput
-                        id="musculo"
-                        type="text"
+                    <select
                         name="musculo"
+                        id="musculo"
+                        className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
                         value={data.musculo}
-                        className="mt-1 block w-full"
-                        autoComplete="musculo"
-                        isFocused={true}
                         onChange={(e) => setData("musculo", e.target.value)}
-                    />
-
+                    >
+                        <option value={1}>Seleccione el musculo</option>
+                        {listaMusculos.map((musc, index) => (
+                            <option key={index} value={musc}>
+                                {musc}
+                            </option>
+                        ))}
+                    </select>
                     <InputError message={errors.musculo} className="mt-2" />
                 </div>
+                <div className="mt-4">
+                    <InputLabel htmlFor="parte_cuerpo" value="Parte del cuerpo" />
+
+                    <select
+                        name="parte_cuerpo"
+
+                        id="parte_cuerpo"
+                        className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
+                        value={data.parte_cuerpo}
+                        onChange={(e) => setData("parte_cuerpo", e.target.value)}
+                    >
+                        <option value={1} >Seleccione la parte del cuerpo</option>
+                        {listaParteCuerpo.map((musc, index) => (
+                            <option key={index} value={musc}>
+                                {musc}
+                            </option>
+                        ))}
+                    </select>
+                    <InputError message={errors.parte_cuerpo} className="mt-2" />
+                </div>
                 <div className="mt-2">
-                    <InputLabel htmlFor="imagen" value="imagen" />
+                    <InputLabel htmlFor="imagen" value="Imagen" />
 
                     <TextInput
                         id="imagen"
@@ -127,7 +134,7 @@ const NuevoEjercicio = (props) => {
                     <PrimaryButton
                         className="ml-4"
                         disabled={processing}
-                        onClick={props.cerrarModal}
+                        onClick={submit}
                     >
                         Confirmar
                     </PrimaryButton>
