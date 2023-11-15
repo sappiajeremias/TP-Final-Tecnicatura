@@ -10,7 +10,14 @@ class EjercicioRutinaController extends Controller {
     }
     public function store(Request $request) {
     }
-    public function update(Request $request, EjercicioRutina $ejercicioRutina) {
+    public function update(Request $request) {
+        dd($request);
+        $ejercicioRutina = EjercicioRutina::where('ejercicio_id', $request->ejercicio_id)->where('rutina_id', $request->rutina_id)->first();
+        $ejercicioRutina->repeticiones = $request->repeticiones;
+        $ejercicioRutina->series = $request->series;
+        $ejercicioRutina->peso = $request->peso;
+        $ejercicioRutina->save();
+        return redirect()->back();
     }
     public function destroy(Request $ejercicioRutina) {
         // dd($ejercicioRutina);

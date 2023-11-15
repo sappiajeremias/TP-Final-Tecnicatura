@@ -7,11 +7,13 @@ import { router, useForm } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-const CardEjercicio = ({ ejercicio }) => {
+const CardEjercicio = (props) => {
+    const ejercicio = props.ejercicio;
+    console.log(ejercicio);
     const [coleccionEjercicio, setColeccionEjercicio] = useState([]);
     const [rutina, setRutina] = useState("");
     console.log(ejercicio);
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, put, processing, errors, reset } = useForm({
         ejercicio_id: ejercicio.id,
         rutina_id: "" || ejercicio.rutina_id,
         repeticiones: 0 || ejercicio.repeticiones,
@@ -46,17 +48,13 @@ const CardEjercicio = ({ ejercicio }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const submit = (e) => {
         e.preventDefault();
-        console.log(e.value);
-        post(`/agregarEjercicio`, data, {
-            // onSuccess: () => {
-            //     Swal.fire({
-            //         icon: "success",
-            //         text: "Turno sacado con exito!",
-            //     }).then(() => {
-            //         setModalOpen(false);
-            //     });
-            // },
-        });
+        if (props.isEdit) {
+            post(`/ejercicioRutinaEditar`, data);
+            console.log(editar);
+        } else {
+            post(`/agregarEjercicio`, data);
+            console.log(nuevo);
+        }
 
         setModalOpen(false);
     };
@@ -107,19 +105,17 @@ const CardEjercicio = ({ ejercicio }) => {
         <>
             <div className="container p-3">
                 {ejercicio.ejercicio ? (
-                    <div className="flex">
+                    <div className="flex bg-white border border-gray-200 rounded-lg shadow  md:max-w-6xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                         <a
-                            onClick={() =>
-                                seleccionarEjercicio(ejercicio.ejercicio.id)
-                            }
-                            className="flex flex-col max-w-6xl items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-6xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                            onClick={() => seleccionarEjercicio()}
+                            className="flex flex-col max-w-6xl items-center md:flex-row"
                         >
                             <img
                                 className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                                 src={ejercicio.ejercicio.imagen}
                                 alt=""
                             />
-                            <div className="flex flex-col justify-between p-4 leading-normal">
+                            <div className="flex flex-col justify-between p-4 leading-normal w-96">
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                     {ejercicio.ejercicio.nombre}
                                 </h5>
@@ -129,12 +125,24 @@ const CardEjercicio = ({ ejercicio }) => {
                                     </span>{" "}
                                     {ejercicio.ejercicio.parte_cuerpo}
                                 </h5>
-                                {/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            <span className="text-1xl font-semibold">
-                                Descripcion:{" "}
-                            </span>{" "}
-                            {ejercicio.descripcion}
-                        </p> */}
+                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    <span className="text-1xl font-semibold">
+                                        Repeticiones:{" "}
+                                    </span>{" "}
+                                    {ejercicio.repeticiones}
+                                </p>
+                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    <span className="text-1xl font-semibold">
+                                        Series:{" "}
+                                    </span>{" "}
+                                    {ejercicio.series}
+                                </p>
+                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    <span className="text-1xl font-semibold">
+                                        Kg:{" "}
+                                    </span>{" "}
+                                    {ejercicio.peso}
+                                </p>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                     <span className="text-1xl font-semibold me-2">
                                         Musculo:
@@ -159,8 +167,12 @@ const CardEjercicio = ({ ejercicio }) => {
                     </div>
                 ) : (
                     <a
-                        onClick={() => seleccionarEjercicio(ejercicio.id)}
-                        className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 "
+                        className={`flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 ${
+                            data.rutina_id != null ? "cursor-pointer" : ""
+                        }`}
+                        onClick={() =>
+                            data.rutina_id && seleccionarEjercicio()
+                        }
                     >
                         <img
                             className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"

@@ -31,6 +31,7 @@ const EjerciciosRutina = ({ auth, ejercicios, ejerciciosAll }) => {
             <div className="grid justify-center">
                 {ejercicios.map((ejercicio) => (
                     <CardEjercicio
+                        isEdit={true}
                         key={ejercicio.id}
                         ejercicio={ejercicio}
                     ></CardEjercicio>

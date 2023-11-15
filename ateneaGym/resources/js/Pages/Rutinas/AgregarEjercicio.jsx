@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CardEjercicio from "../Ejercicios/CardEjercicio";
 import ReactPaginate from "react-paginate";
 
-const AgregarEjercicio = ({ auth, ejercicios}) => {
+const AgregarEjercicio = ({ auth, ejercicios }) => {
     const [coleccionEjercicio, setColeccionEjercicio] = useState(ejercicios);
 
     console.log(ejercicios);
@@ -26,6 +26,7 @@ const AgregarEjercicio = ({ auth, ejercicios}) => {
                         .map((ejercicio, index) => (
                             <div key={index} className="card flex bg">
                                 <CardEjercicio
+                                    isEdit={true}
                                     ejercicio={ejercicio}
                                 ></CardEjercicio>
                             </div>
