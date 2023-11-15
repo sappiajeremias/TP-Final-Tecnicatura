@@ -23,7 +23,7 @@ const Pagos = ({ preference }) => {
         <div className="max-w-3xl m-auto">
             {" "}
             <h1>mercado pago</h1>
-            <div id="wallet_container"></div>
+            {/* <div id="wallet_container"></div> */}
             <div>
                 {/* <Payment
                     initialization={{
@@ -39,7 +39,7 @@ const Pagos = ({ preference }) => {
                 <Wallet
                     initialization={{
                         preferenceId: preference.id, // Utiliza la preferenceId recibida del backend
-                        // <redirectMode: "modal",>
+                        // redirectMode: "modal"
                     }}
                     customization={{ locale: "es-AR" }}
                     onError={onError}

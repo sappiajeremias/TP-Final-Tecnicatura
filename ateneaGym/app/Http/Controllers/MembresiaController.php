@@ -31,6 +31,7 @@ class MembresiaController extends Controller {
 
         $preference = new Preference;
         $item = new Item();
+        $item->id = $membresia->id;
         $item->title = $membresia->descripcion;
         $item->quantity = 1;
         $item->currency_id = 'ARS';

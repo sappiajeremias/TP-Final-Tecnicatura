@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->foreign('membresia_id')->references('id')->on('membresias')->onDelete('cascade');
             $table->date('fecha_vencimiento');
             $table->string('medio_pago');
+            $table->string('estado');
 
             $table->timestamps();
         });

@@ -12,7 +12,8 @@ class Pago extends Model {
         'membresia_id',
         'fecha_vencimiento',
         'medio_pago',
-        'dias_disponibles'
+        'dias_disponibles',
+        'estado'
     ];
 
     public function membresia() {

@@ -76,23 +76,19 @@ class PagoController extends Controller {
     public function destroy(Pago $pago) {
     }
     public function crearPreference(Request $request) {
-        // dd($request);
-
-        // $fecha = Carbon::now();
-        // $fecha->addDays(30);
-        // $membresia = Membresia::where('id', $request->membresia_id)->first();
-
-        // $pago = Pago::create([
-        //     'user_id' => Auth()->user()->id,
-        //     'membresia_id' => $request->membresia_id,
-        //     'medio_pago' => $medio,
-        //     'dias_disponibles' => ($membresia->dias_disponibles) * 4,
-        //     'fecha_vencimiento' => $fecha,
-        // ]);
-
-        // $preferencia = $request->id;
-
-        // return;
+        // dd($request->items[0]['id']);
+        $membresia = Membresia::find($request->items[0]['id']);
+        $fecha = Carbon::now();
+        $fecha->addDays(30);
+        $pago = Pago::create([
+            'user_id' => Auth()->user()->id,
+            'membresia_id' => $membresia->id,
+            'medio_pago' => 'mercado pago',
+            'dias_disponibles' => ($membresia->dias_disponibles) * 4,
+            'fecha_vencimiento' => $fecha,
+            'estado' => 'pending'
+        ]);
+        $pago->save();
     }
 
 
@@ -100,10 +96,13 @@ class PagoController extends Controller {
         $_GET['status'];
 
         $payment_info = $_GET;
-
+        $pago = Pago::where('user_id', Auth()->user()->id)->where('estado', 'pending')->first();
         // dd($payment_info);
         switch ($payment_info['status']) {
             case 'approved':
+
+                $pago->estado = 'approved';
+                $pago->save();
                 return Inertia::render('Dashboard', [
                     'mensaje' => 'El pago se registro con exito',
                 ]);
@@ -145,7 +144,8 @@ class PagoController extends Controller {
                 break;
 
             default:
-                dd('hola');
+                $pago->estado = 'denied';
+                $pago->save();
                 break;
         }
     }

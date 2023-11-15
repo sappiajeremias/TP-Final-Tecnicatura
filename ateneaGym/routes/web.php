@@ -17,6 +17,7 @@ use App\Http\Controllers\TurnoController;
 use App\Http\Controllers\MembresiaController;
 use App\Http\Controllers\PagoController;
 use App\Models\Alumno;
+use App\Models\EjercicioRutina;
 use App\Models\Especialidad;
 use App\Models\Membresia;
 use App\Models\Rutina;
@@ -93,6 +94,11 @@ Route::resource('ejercicio', EjercicioController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
 
+// Route::resource('ejercicioRutina', EjercicioRutinaController::class)
+//     ->only(['store', 'index', 'update'])
+//     ->middleware(['auth']);
+
+Route::post('/ejercicioRutinaEditar', [EjercicioRutinaController::class, 'update'])->middleware(['auth'])->name('actualizar.ejercicio');
 Route::post('/ejercicioRutina', [EjercicioRutinaController::class, 'destroy'])->middleware(['auth'])->name('eliminar.ejercicio');
 Route::post('/agregarEjercicio', [RutinaController::class, 'agregarEjercicio'])->middleware(['auth'])->name('agregar.ejercicioR');
 
