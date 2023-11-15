@@ -3,8 +3,7 @@ import ModalEditar from "@/Components/tabla/ModalEditar";
 import React, { useState } from "react";
 import Register from "../Auth/Register";
 import Thead from "@/Components/tabla/Thead";
-import TrBody from "@/Components/tabla/TrBody";
-import { TdBody } from "@/Components/tabla/TdBody";
+import Swal from "sweetalert2";
 import BotonEliminar from "@/Components/tabla/BotonEliminar";
 import { router } from "@inertiajs/react";
 import CrearRelacion from "./CrearRelacion";
@@ -20,10 +19,20 @@ export default function ListarRelaciones({
     const nombreProp = ["id", "nombre", "descripcion"];
 
     const deleteHandler = (especialidad) => {
-        router.delete(`/especialidad/${especialidad.id}`, {
-            onBefore: () => confirm("Estas seguro?"),
-            onError:()=>alert("La relacion no se pudo crear"),
-            onSuccess: () => alert("Relacion de especialidad eliminada"),
+        Swal.fire({
+            title: "Confirmar",
+            text: "Eliminar especialidad? ",
+            icon: "question",
+            confirmButtonColor: "#E10045",
+            confirmButtonText: "Confirmar",
+            showCancelButton: true,
+            cancelButtonText:'Cancelar',
+            cancelButtonColor:'"#938592",'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(`/especialidad/${especialidad.id}`);
+                location.reload();
+            }
         });
     };
     const [especialidadesFiltradas, setEspecialidadesFiltradas] = useState(

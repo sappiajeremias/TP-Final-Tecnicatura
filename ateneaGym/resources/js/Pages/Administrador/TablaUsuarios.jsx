@@ -54,6 +54,7 @@ const TablaUsuarios = ({ usuarios, roles }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 router.delete(`/usuarios/${usuario.id}`);
+                location.reload();
             }
         });
     };

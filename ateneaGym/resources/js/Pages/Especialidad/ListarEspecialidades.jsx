@@ -1,7 +1,7 @@
 import Table from "@/Components/Table";
 import ModalEditar from "@/Components/tabla/ModalEditar";
 import React, { useState } from "react";
-
+import Swal from "sweetalert2";
 import Thead from "@/Components/tabla/Thead";
 
 import BotonEliminar from "@/Components/tabla/BotonEliminar";
@@ -17,9 +17,20 @@ export default function ListarEspecialidades({
     const nombreProp = ["id", "descripcion"];
 
     const deleteHandler = (especialidad) => {
-        router.delete(`/esp/${especialidad.id}`, {
-            onBefore: () => confirm("Estas seguro?"),
-            onSuccess: () => {alert("Especialidad eliminada");location.reload();},
+        Swal.fire({
+            title: "Confirmar",
+            text: "Eliminar especialidad? ",
+            icon: "question",
+            confirmButtonColor: "#E10045",
+            confirmButtonText: "Confirmar",
+            showCancelButton: true,
+            cancelButtonText:'Cancelar',
+            cancelButtonColor:'"#938592",'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(`/esp/${especialidad.id}`);
+                
+            }
         });
     };
     const [especialidadesFiltradas, setEspecialidadesFiltradas] = useState(

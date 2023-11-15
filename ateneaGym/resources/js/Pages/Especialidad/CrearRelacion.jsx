@@ -29,15 +29,14 @@ export default function CrearRelacion({
         if (isEdit) {
             put(`/especialidad/${objeto.id}`, {
                 onSuccess: () => {
-                    console.log("success");
+                    //console.log("success");
                     // if (Object.keys(props.errors).length > 0) {
                     Swal.fire({
                         title: "Exito.",
                         text: "Se modifico exitosamente",
                         icon: "success",
                     });
-                    // } else {
-                    //     //  console.log(response);
+                    
                     document.getElementById("cierreModal").click();
                     location.reload();
                     // }

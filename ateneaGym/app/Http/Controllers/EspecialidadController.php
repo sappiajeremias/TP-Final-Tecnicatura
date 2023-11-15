@@ -20,7 +20,7 @@ class EspecialidadController extends Controller
             'descripcion' => $request->descripcion
         ]);
         $especialidad->save();
-        return redirect()->route('dashboard');
+        //return redirect()->route('dashboard');
     }
     public function update(Request $request, Especialidad $especialidad) {
     }

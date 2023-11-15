@@ -5,6 +5,8 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, router, useForm } from "@inertiajs/react";
+
+import Swal from "sweetalert2";
 export default function CrearEspecialidad({ objeto }) {
     const { data, setData, put, post, processing, errors, reset } = useForm({
         descripcion: objeto.descripcion || ""
@@ -15,8 +17,17 @@ export default function CrearEspecialidad({ objeto }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        post(route("esp.store"));
-
+        post(route("esp.store"), {
+            onSuccess: () => {
+                Swal.fire({
+                    title: "Exito.",
+                    text: "Especialidad creada!",
+                    icon: "success",
+                });
+                document.getElementById("cierreModal").click();
+                //location.reload();
+            },
+        });
     };
 
 
