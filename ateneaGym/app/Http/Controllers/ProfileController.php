@@ -62,18 +62,21 @@ class ProfileController extends Controller {
         $user = new User();
 
         $user = User::find(Auth::user()->id);
-        $ultimaMembresia = $user->membresiaActual();
+        if ($user->membresiaActual()) {
+            $ultimaMembresia = $user->membresiaActual();
+        } else {
+            $ultimaMembresia = null;
+        }
+
         // dd($ultimaMembresia);
         return $ultimaMembresia;
-        // return Inertia::render('Profile/Edit',  ['membresia' => $ultimaMembresia]);
-        // return Inertia::render('profile.edit', ['membresia' => $ultimaMembresia]);
     }
 
-    public function diasDisponibles (String $idUser) {
+    public function diasDisponibles(String $idUser) {
         $user = new User();
         $user = User::find(Auth::user()->id);
         $pagos = $user->ultimoPago();
-return $pagos->dias_disponibles;
-//      return response()->json(['diasDisp' => $pagos->dias_disponibles]);
+        return $pagos->dias_disponibles;
+        //      return response()->json(['diasDisp' => $pagos->dias_disponibles]);
     }
 }

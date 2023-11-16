@@ -4,6 +4,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import Login from "@/Pages/Auth/Login";
 
 const MostrarMembresia = ({ membresia }) => {
+    
     const fechaVencimiento = new Date(membresia.pago.fecha_vencimiento);
     const dia = fechaVencimiento.getDate();
     const { props } = usePage();

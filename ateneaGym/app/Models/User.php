@@ -74,7 +74,13 @@ class User extends Authenticatable {
 
         // $pagosOrdenados = $this->pagos()->get()->sortByDesc('fecha_vencimiento');
         $pagoReciente = $this->ultimoPago();
-        return ['pago' => $pagoReciente, 'membresia' => $pagoReciente->membresia];
+        if ($pagoReciente) {
+            $membresia = $pagoReciente->membresia;
+        } else {
+            $membresia = null;
+        }
+        // dd($membresia);
+        return ['pago' => $pagoReciente, 'membresia' => $membresia];
     }
 
     public function alumno() {
