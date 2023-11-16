@@ -134,6 +134,7 @@ class TurnoController extends Controller {
                 // Verificar si la asistencia existe antes de intentar eliminarla
                 if ($asistencia) {
                     $asistencia->estado = 'cancelado';
+                    $asistencia->save();
                 }
             }
         }
