@@ -77,7 +77,11 @@ Route::resource('membresia', MembresiaController::class)
     ->middleware(['auth']);
 
 Route::post('/realizarPago', [MembresiaController::class, 'realizarPago'])->middleware(['auth'])->name('mostrarMembresias');
+// Route::get('/realizarPago', [MembresiaController::class, 'realizarPago'])->middleware(['auth']);
 
+Route::get('/realizarPago', function () {
+    return Inertia::render('Pago.Index');
+});
 Route::post('/procesar-pago', [PagoController::class, 'crearPreference'])->middleware(['auth'])->name('procesar.pago');
 
 Route::get('/procesar-respuesta-pago', [PagoController::class, 'estadoPago'])->middleware(['auth'])->name('procesar.respuesta');

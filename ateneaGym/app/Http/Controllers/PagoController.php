@@ -76,19 +76,22 @@ class PagoController extends Controller {
     public function destroy(Pago $pago) {
     }
     public function crearPreference(Request $request) {
-        // dd($request->items[0]['id']);
-        $membresia = Membresia::find($request->items[0]['id']);
-        $fecha = Carbon::now();
-        $fecha->addDays(30);
-        $pago = Pago::create([
-            'user_id' => Auth()->user()->id,
-            'membresia_id' => $membresia->id,
-            'medio_pago' => 'mercado pago',
-            'dias_disponibles' => ($membresia->dias_disponibles) * 4,
-            'fecha_vencimiento' => $fecha,
-            'estado' => 'pending'
-        ]);
-        $pago->save();
+
+        $pagoCreado = Pago::where('user_id', Auth()->user()->id)->where('estado', 'pending')->first();
+        if ($pagoCreado == null) {
+            $membresia = Membresia::find($request->items[0]['id']);
+            $fecha = Carbon::now();
+            $fecha->addDays(30);
+            $pago = Pago::create([
+                'user_id' => Auth()->user()->id,
+                'membresia_id' => $membresia->id,
+                'medio_pago' => 'mercado pago',
+                'dias_disponibles' => ($membresia->dias_disponibles) * 4,
+                'fecha_vencimiento' => $fecha,
+                'estado' => 'pending'
+            ]);
+            $pago->save();
+        }
     }
 
 

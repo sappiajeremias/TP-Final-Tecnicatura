@@ -39,7 +39,7 @@ const Pagos = ({ preference }) => {
                 <Wallet
                     initialization={{
                         preferenceId: preference.id, // Utiliza la preferenceId recibida del backend
-                        // redirectMode: "modal"
+                        redirectMode: "modal",
                     }}
                     customization={{ locale: "es-AR" }}
                     onError={onError}
