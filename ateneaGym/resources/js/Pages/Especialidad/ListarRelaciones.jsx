@@ -57,7 +57,7 @@ export default function ListarRelaciones({
         <>
             <div className="container m-auto max-w-6xl p-5">
                 <Table
-                    titulo={"Tabla especialidades"}
+                    titulo={"Tabla relaciones especialidades y profesores"}
                     boton={[
                         <ModalEditar isEdit={false} title={"ASIGNAR PROFESOR"}>
                             <CrearRelacion

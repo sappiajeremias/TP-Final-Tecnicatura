@@ -13,7 +13,7 @@ class EspecialidadController extends Controller
         $request->validate([
             'descripcion' => ['required', 'unique:' . Especialidad::class]
         ], [
-            'descripcion.required' => 'Debe seleccionar una descripción.',
+            'descripcion.required' => 'Debe ingresar una descripción.',
             'descripcion.unique' => 'La actividad ingresada ya existe.'
         ]);
         $especialidad = Especialidad::create([

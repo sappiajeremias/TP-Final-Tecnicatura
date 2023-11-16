@@ -11,7 +11,9 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('rutinas', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->string('mes');
+            $table->string('dificultad');
             $table->unsignedBigInteger('profesor_id');
             $table->foreign('profesor_id')->references('id')->on('profesors')->onDelete('cascade');
             $table->string('dia_semana');

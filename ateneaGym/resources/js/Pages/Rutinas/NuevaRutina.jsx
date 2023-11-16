@@ -1,5 +1,6 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
+import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
 import React from "react";
@@ -7,19 +8,23 @@ import Swal from "sweetalert2";
 
 const NuevaRutina = (props) => {
     console.log(props);
+    const cerrar = props.cerrarModal;
     const { data, setData, post, processing, errors, reset } = useForm({
+        nombre: "",
         mes: "",
+        dificultad: "",
         profesor_id: props.profesor.id,
         dia_semana: "",
     });
     const submit = (e) => {
         e.preventDefault();
-        post(`/rutina`, data, {
+        post(`/rutina`, {
             onSuccess: () => {
                 Swal.fire({
                     icon: "success",
-                    text: "rutina agregada!",
+                    text: "Rutina agregada.",
                 });
+                cerrar();
             },
         });
     };
@@ -46,11 +51,32 @@ const NuevaRutina = (props) => {
         "Viernes",
         "Sábado",
     ];
+    const dificultades = [
+        "Fácil",
+        "Medio",
+        "Difícil",
+    ];
 
     return (
         <div>
             {" "}
             <form onSubmit={submit}>
+                <div className="mt-2">
+                    <InputLabel htmlFor="nombre" value="Nombre" />
+
+                    <TextInput
+                        id="nombre"
+                        name="nombre"
+                        value={data.nombre}
+                        className="mt-1 block w-full"
+                        autoComplete="nombre"
+                        isFocused={true}
+                        onChange={(e) => setData("nombre", e.target.value)}
+
+                    />
+
+                    <InputError message={errors.nombre} className="mt-2" />
+                </div>
                 <div className="mt-2">
                     <InputLabel htmlFor="mes" value="Mes" />
 
@@ -61,7 +87,7 @@ const NuevaRutina = (props) => {
                         value={data.mes}
                         onChange={(e) => setData("mes", e.target.value)}
                     >
-                        <option>
+                        <option value={1}>
                             Seleccione la descripcion de la actividad
                         </option>
                         {meses.map((mes, index) => (
@@ -82,7 +108,7 @@ const NuevaRutina = (props) => {
                         value={data.dia_semana}
                         onChange={(e) => setData("dia_semana", e.target.value)}
                     >
-                        <option>
+                        <option value={1}>
                             Seleccione la descripcion de la actividad
                         </option>
                         {diasSemana.map((dia, index) => (
@@ -92,6 +118,27 @@ const NuevaRutina = (props) => {
                         ))}
                     </select>
                     <InputError message={errors.dia_semana} className="mt-2" />
+                </div>
+                <div className="mt-2">
+                    <InputLabel htmlFor="dificultad" value="Dia de la semana" />
+
+                    <select
+                        name="dificultad"
+                        id="dificultad"
+                        className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
+                        value={data.dificultad}
+                        onChange={(e) => setData("dificultad", e.target.value)}
+                    >
+                        <option value={1}>
+                            Seleccione la dificultad
+                        </option>
+                        {dificultades.map((dif, index) => (
+                            <option key={index} value={dif}>
+                                {dif}
+                            </option>
+                        ))}
+                    </select>
+                    <InputError message={errors.dificultad} className="mt-2" />
                 </div>
 
                 <div className="flex items-center justify-end mt-2">
@@ -106,7 +153,7 @@ const NuevaRutina = (props) => {
                     <PrimaryButton
                         className="ml-4"
                         disabled={processing}
-                        onClick={props.cerrarModal}
+                        onClick={submit}
                     >
                         Confirmar
                     </PrimaryButton>

@@ -38,11 +38,13 @@ class EspecialidadProfesorController extends Controller {
     public function store(Request $request) {
         // dd($request);
         $request->validate([
-            'especialidad_id' => 'required',
-            'profesor_id' => 'required',
+            'especialidad_id' => ['required', 'exclude:1'],
+            'profesor_id' => ['required', 'exclude:1'],
         ], [
             'especialidad_id.required' => 'Debe seleccionar una descripción.',
-            'profesor_id.required' => 'Debe seleccionar un profesor.'
+            'especialidad_id.exclude' => 'Debe seleccionar una descripción.',
+            'profesor_id.required' => 'Debe seleccionar un profesor.',
+            'profesor_id.exclude' => 'Debe seleccionar un profesor.'
         ]);
 
         $registroExistente = EspecialidadProfesor::where('especialidad_id', $request->especialidad_id)
