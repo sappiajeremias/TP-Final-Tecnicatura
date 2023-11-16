@@ -93,7 +93,7 @@ export default function CrearRelacion({
                             setData("especialidad_id", e.target.value)
                         }
                     >
-                        <option value="">
+                        <option value={1}>
                             Seleccione la descripción de la especialidad
                         </option>
                         {especialidades.map((especialidad, index) => (
@@ -115,7 +115,7 @@ export default function CrearRelacion({
                         value={data.profesor_id}
                         onChange={(e) => setData("profesor_id", e.target.value)}
                     >
-                        <option selected>Seleccione el id del profesor</option>
+                        <option value={1}>Seleccione el id del profesor</option>
                         {profesores.map((profe, index) => (
                             <option key={index} value={profe.id}>
                                 {profe.nombre_apellido}

@@ -30,18 +30,28 @@ class RutinaController extends Controller {
 
     public function store(Request $request) {
         $request->validate([
-            'mes' => 'required',
-            'dia_semana' => 'required'
+            'nombre' => ['required'],
+            'mes' => ['required', 'exclude:1'],
+            'dificultad' => ['required', 'exclude:1'],
+            'dia_semana' => ['required', 'exclude:1'],
+        ], [
+            'nombre.required' => 'Debe ingresar un nombre.',
+            'mes.required' => 'Debe seleccionar un mes.',
+            'mes.exclude' => 'Debe seleccionar un mes.',
+            'dificultad.required' => 'Debe seleccionar una dificultad',
+            'dificultad.exclude' => 'Debe seleccionar una dificultad.',
+            'dia_semana.required' => 'Debe seleccionar un dia de la semana.',
+            'dia_semana.exclude' => 'Debe seleccionar un dia de la semana.',
         ]);
         $rutina = Rutina::create([
+            'nombre' => $request->nombre,
             'mes' => $request->mes,
+            'dificultad'=> $request->dificultad,
             'profesor_id' => $request->profesor_id,
             'dia_semana' => $request->dia_semana
         ]);
         $rutina->save();
         $rutinaE = EjercicioRutina::where('rutina_id', $rutina->id)->with('ejercicio')->get();
-
-        return redirect()->back();
     }
     public function show($id) {
         $ejerciciosCompletos = Ejercicio::all();
@@ -55,6 +65,7 @@ class RutinaController extends Controller {
     }
     public function agregarEjercicio(Request $request) {
         // dd($request);
+        if ($request->adicional)
         $ejercicioRutina = EjercicioRutina::create([
             'ejercicio_id' => $request->ejercicio_id,
             'rutina_id' => $request->rutina_id,
