@@ -20,125 +20,81 @@ const Pagos = ({ preference }) => {
         console.log(error);
     };
     return (
-        <div className="max-w-3xl m-auto">
-            {" "}
-            <h1>mercado pago</h1>
-            {/* <div id="wallet_container"></div> */}
-            <div>
-                {/* <Payment
-                    initialization={{
-                        i
-                        preferenceId: preference.id, // Utiliza la preferenceId recibida del backend
-                        // <redirectMode: "modal",>
-                    }}
-                    customization={{ locale: "es-AR" }}
-                    onError={onError}
-                    onSubmit={onSubmit}
-                    onReady={onReady}
-                /> */}
-                <Wallet
-                    initialization={{
-                        preferenceId: preference.id, // Utiliza la preferenceId recibida del backend
-                        redirectMode: "modal",
-                    }}
-                    customization={{ locale: "es-AR" }}
-                    onError={onError}
-                    onSubmit={onSubmit}
-                    onReady={onReady}
-                />
+        <div className="max-w-xl m-auto">
+            <div class="flex items-center justify-center min-h-screen">
+                <div
+                    aria-label="card"
+                    class="p-8 rounded-3xl bg-white max-w-sm w-full"
+                >
+                    <div
+                        aria-label="header"
+                        class="flex items-center space-x-2"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-8 h-8 shrink-0"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                            ></path>
+                            <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"></path>
+                        </svg>
+                        <div class="space-y-0.5 flex-1">
+                            <h3 class="font-medium text-lg tracking-tight text-gray-900 leading-tight">
+                                Detalle de compra
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div aria-label="content" class="mt-9 grid gap-2.5">
+                        <div class="flex items-center space-x-4 p-3.5 rounded-full bg-gray-100">
+                            <div class="flex flex-col flex-1">
+                                <h2 class="text-sm font-semibold ms-3">
+                                    Membresia:
+                                </h2>
+                                <h3 class="text-sm font-medium ms-3">
+                                    {preference.items[0]["title"]}
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3.5 rounded-full bg-gray-100">
+                            <div class="flex flex-col flex-1 ">
+                                <h2 class="text-sm font-semibold ms-3">
+                                    Precio:
+                                </h2>
+                                <h3 class="text-sm font-medium ms-3">
+                                    {preference.items[0]["unit_price"]}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 p-3.5 ">
+                            <Wallet
+                                initialization={{
+                                    preferenceId: preference.id, // Utiliza la preferenceId recibida del backend
+                                    redirectMode: "modal",
+                                }}
+                                customization={{ locale: "es-AR" }}
+                                onError={onError}
+                                onSubmit={onSubmit}
+                                onReady={onReady}
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
 };
 
 export default Pagos;
-
-// import React, { useEffect } from "react";
-
-// const Index = () => {
-
-//     useEffect(() => {
-//         const script = document.createElement("script");
-//         script.src = "https://sdk.mercadopago.com/js/v2";
-//         script.async = true;
-//         document.body.appendChild(script);
-
-//         script.onload = () => {
-//             const mp = new window.MercadoPago(env, {
-//                 locale: "es-AR",
-//             });
-//             const bricksBuilder = mp.bricks();
-//             const renderCardPaymentBrick = async (bricksBuilder) => {
-//                 const settings = {
-//                     initialization: {
-//                         amount: 100, // monto a ser pago
-//                         payer: {
-//                             email: "",
-//                         },
-//                     },
-//                     customization: {
-//                         visual: {
-//                             style: {
-//                                 customVariables: {
-//                                     theme: "flat", // | 'dark' | 'bootstrap' | 'flat'
-//                                 },
-//                             },
-//                         },
-//                         paymentMethods: {
-//                             maxInstallments: 1,
-//                         },
-//                     },
-//                     callbacks: {
-//                         onReady: () => {
-//                             // callback llamado cuando Brick esté listo
-//                         },
-//                         onSubmit: (cardFormData) => {
-//                             //  callback llamado cuando el usuario haga clic en el botón enviar los datos
-//                             //  ejemplo de envío de los datos recolectados por el Brick a su servidor
-//                             return new Promise((resolve, reject) => {
-//                                 fetch("/procesar-pago", {
-//                                     method: "POST",
-//                                     headers: {
-//                                         "Content-Type": "application/json",
-//                                     },
-//                                     body: JSON.stringify(cardFormData),
-//                                 })
-//                                     .then((response) => {
-//                                         console.log(response);
-//                                         console.log(resolve());
-//                                         // recibir el resultado del pago
-//                                         resolve();
-//                                     })
-//                                     .catch((error) => {
-//                                         console.log(error);
-//                                         console.log(reject());
-//                                         // tratar respuesta de error al intentar crear el pago
-//                                         reject();
-//                                     });
-//                             });
-//                         },
-//                         onError: (error) => {
-//                             console.log(error);
-//                             // callback llamado para todos los casos de error de Brick
-//                         },
-//                     },
-//                 };
-
-//                 window.cardPaymentBrickController = await bricksBuilder.create(
-//                     "cardPayment",
-//                     "cardPaymentBrick_container",
-//                     settings
-//                 );
-//             };
-//             renderCardPaymentBrick(bricksBuilder);
-//         };
-//     }, []);
-
-//     return (
-//         <div>
-//             <div id="cardPaymentBrick_container"></div>
-//         </div>
-//     );
-// };
-
-// export default Index;
