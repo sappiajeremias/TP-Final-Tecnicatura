@@ -9,11 +9,9 @@ use App\Models\Profesor;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ActividadController extends Controller
-{
+class ActividadController extends Controller {
     //
-    public function index()
-    {
+    public function index() {
         $actividades = Actividad::all();
         $especialidades = Especialidad::all()->map(function ($especialidad) {
             return [
@@ -30,8 +28,7 @@ class ActividadController extends Controller
         return Inertia::render('Actividad/Index', ['actividades' => $actividades, 'profesores' => $profesores, 'especialidades' => $especialidades]);
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //dd($request->dia_semana);
         $request->validate([
             'dia_semana' => ['required', 'exclude:1', 'min:1'],
@@ -62,12 +59,20 @@ class ActividadController extends Controller
             'cupos.min' => 'La cantidad de cupos debe ser mayor o igual a 5 o menor que 20.',
         ]);
 
-//dd($request);
+        //dd($request);
         $actividadRepe = Actividad::where('dia_semana', $request->dia_semana)
-            ->where('hora_inicio', $request->hora_inicio)
-            ->first();
-        $especialidadRepe = EspecialidadProfesor::where('especialidad_id', $request->especialidad_id)
-            ->where('profesor_id', $request->profesor_id)
+            ->where(function ($query) use ($request) {
+                $query->where(function ($subQuery) use ($request) {
+                    // Nueva actividad comienza después de la existente y termina antes de la existente
+                    $subQuery->where('hora_inicio', '<', $request->hora_fin)
+                        ->where('hora_fin', '>', $request->hora_inicio);
+                })
+                    ->orWhere(function ($subQuery) use ($request) {
+                        // Nueva actividad comienza antes de la existente y termina después de la existente
+                        $subQuery->where('hora_inicio', '>', $request->hora_inicio)
+                            ->where('hora_inicio', '<', $request->hora_fin);
+                    });
+            })
             ->first();
 
         if ($actividadRepe) {
@@ -87,12 +92,10 @@ class ActividadController extends Controller
             } else {
                 return back()->withErrors(['message', 'Ese profesor no tiene asignada esa especialidad.']);
             }
-
         }
     }
-    
-    public function update(Request $request, String $id)
-    {
+
+    public function update(Request $request, String $id) {
         $request->validate([
             'dia_semana' => ['required', 'min:1'],
             'hora_inicio' => 'required',
@@ -142,12 +145,10 @@ class ActividadController extends Controller
             } else {
                 return back()->withErrors(['message', 'Ese profesor no tiene asignada esa especialidad.']);
             }
-
         }
     }
 
-    public function destroy(String $id)
-    {
+    public function destroy(String $id) {
         $act = Actividad::find($id);
         $act->delete();
     }
