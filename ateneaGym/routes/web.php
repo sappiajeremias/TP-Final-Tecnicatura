@@ -99,32 +99,18 @@ Route::resource('rutina', RutinaController::class)
 Route::resource('ejercicio', EjercicioController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
-// Route::resource('asistencia', AsistenciaController::class)
-//     ->only(['store', 'index', 'update', 'destroy'])
-//     ->middleware(['auth']);
-
-// Route::resource('ejercicioRutina', EjercicioRutinaController::class)
-//     ->only(['store', 'index', 'update'])
-//     ->middleware(['auth']);
 
 Route::post('/ejercicioRutinaEditar', [EjercicioRutinaController::class, 'update'])->middleware(['auth'])->name('actualizar.ejercicio');
+
 Route::post('/ejercicioRutina', [EjercicioRutinaController::class, 'destroy'])->middleware(['auth'])->name('eliminar.ejercicio');
+
 Route::post('/agregarEjercicio', [RutinaController::class, 'agregarEjercicio'])->middleware(['auth'])->name('agregar.ejercicioR');
-
-/*Route::get('/mostrarMembresias/{membresia_id}', function ($membresia_id) {
-return Inertia::render('Pago/Index', [
-'membresia_id' => $membresia_id
-]);
-})->name('mostrarMembresias');*/
-
-// Route::get('/mostrarMembresias', [PagoController::class, 'index'])->name('mostrarMembresias');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    // Route::get('profile', [ProfileController::class, 'membresia'])->name('profile.membresia');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -133,6 +119,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('asistencia', AsistenciaController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
+    
 Route::resource('asistenciaAlumno', AlumnoController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
@@ -149,12 +136,8 @@ Route::get('/user-role', function () {
     return auth()->user()->getRoles();
 });
 
-// Route::get('/{any}', function () {
-//     return Inertia::render('Error404');
-// })->where('any', '.*');
-
 Route::get('/error-403', function () {
     return Inertia::render('Error403');
 });
-// Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->name('misTurnos');
+
 require __DIR__ . '/auth.php';
