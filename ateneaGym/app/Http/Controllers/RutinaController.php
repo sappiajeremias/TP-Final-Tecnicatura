@@ -46,7 +46,7 @@ class RutinaController extends Controller {
         $rutina = Rutina::create([
             'nombre' => $request->nombre,
             'mes' => $request->mes,
-            'dificultad'=> $request->dificultad,
+            'dificultad' => $request->dificultad,
             'profesor_id' => $request->profesor_id,
             'dia_semana' => $request->dia_semana
         ]);
@@ -65,15 +65,25 @@ class RutinaController extends Controller {
     }
     public function agregarEjercicio(Request $request) {
         // dd($request);
-        if ($request->adicional)
-        $ejercicioRutina = EjercicioRutina::create([
-            'ejercicio_id' => $request->ejercicio_id,
-            'rutina_id' => $request->rutina_id,
-            'repeticiones' => $request->repeticiones,
-            'peso' => $request->peso,
-            'series' => $request->series,
-            'adicional' => 'null'
-        ]);
+        if ($request->adicional) {
+            $ejercicioRutina = EjercicioRutina::create([
+                'ejercicio_id' => $request->ejercicio_id,
+                'rutina_id' => $request->rutina_id,
+                'repeticiones' => $request->repeticiones,
+                'peso' => $request->peso,
+                'series' => $request->series,
+                'adicional' => $request->adicional
+            ]);
+        } else {
+            $ejercicioRutina = EjercicioRutina::create([
+                'ejercicio_id' => $request->ejercicio_id,
+                'rutina_id' => $request->rutina_id,
+                'repeticiones' => $request->repeticiones,
+                'peso' => $request->peso,
+                'series' => $request->series,
+                'adicional' => ''
+            ]);
+        }
         $ejercicioRutina->save();
         return redirect()->back();
     }

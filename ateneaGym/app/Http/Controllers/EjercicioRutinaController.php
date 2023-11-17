@@ -11,7 +11,7 @@ class EjercicioRutinaController extends Controller {
     public function store(Request $request) {
     }
     public function update(Request $request) {
-        dd($request);
+        // dd($request);
         $ejercicioRutina = EjercicioRutina::where('ejercicio_id', $request->ejercicio_id)->where('rutina_id', $request->rutina_id)->first();
         $ejercicioRutina->repeticiones = $request->repeticiones;
         $ejercicioRutina->series = $request->series;

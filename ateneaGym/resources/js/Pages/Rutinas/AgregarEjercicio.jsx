@@ -26,7 +26,7 @@ const AgregarEjercicio = ({ auth, ejercicios }) => {
                         .map((ejercicio, index) => (
                             <div key={index} className="card flex bg">
                                 <CardEjercicio
-                                    isEdit={true}
+                                    isEdit={false}
                                     ejercicio={ejercicio}
                                 ></CardEjercicio>
                             </div>
