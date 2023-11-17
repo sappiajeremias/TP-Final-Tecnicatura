@@ -26,9 +26,9 @@ const VerRutinas = ({ rutinas, profesor }) => {
                     Agregar Nueva Rutina
                 </button>
             </div>
-            <div className="grid grid-cols-3 pt-4 justify-around ">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-4 justify-around">
                 {rutinas.map((rutina) => (
-                    <CardRutina rutina={rutina}></CardRutina>
+                    <CardRutina key={rutina.id} rutina={rutina}></CardRutina>
                 ))}
             </div>
 

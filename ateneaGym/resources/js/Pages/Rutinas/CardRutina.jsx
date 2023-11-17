@@ -4,48 +4,58 @@ import React from "react";
 const CardRutina = ({ rutina }) => {
     const verRutina = () => {
         router.get(`/rutina/${rutina.id}`);
-    }
+    };
+    const getDificultadStyle = () => {
+        let styleClass = "";
+        switch (rutina.dificultad) {
+            case "facil":
+                styleClass = "bg-green-200 text-green-700";
+                break;
+            case "medio":
+                styleClass = "bg-blue-200 text-blue-700";
+                break;
+            default:
+                styleClass = "bg-red-200 text-red-700";
+        }
+        return styleClass;
+    };
     return (
-        <div>
+        <div className="m-auto">
             <button
                 onClick={verRutina}
-                className="mx-16 max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 px-16 py-10"
+                className="mx-4 md:mx-8 lg:mx-16 max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 px-8 md:px-16 py-8 md:py-10"
             >
                 <img
-                    className="m-auto rounded-t-lg h-24 w-24"
+                    width={80}
+                    className="m-auto max-w-full h-auto rounded-t-lg md:h-24 md:w-24"
                     src="/assets/img/rutina/rutina.svg"
                     alt=""
                 />
                 <div className="p-5">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        {rutina.mes}
+                    <h5 className="mb-2 text-lg md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {rutina.nombre}
                     </h5>
 
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        <span className="text-lg font-semibold text-gray-900">
+                            mes:
+                        </span>{" "}
+                        {rutina.mes}
+                    </p>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        <span className="text-lg font-semibold text-gray-900">
+                            dia:
+                        </span>{" "}
                         {rutina.dia_semana}
                     </p>
-                    {/* <a
-                    href="#"
-                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                    Read more
-                    <svg
-                        className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 14 10"
+                </div>
+                <div className="flex justify-center">
+                    <span
+                        className={`block w-16 text-center text-sm rounded-md ${getDificultadStyle()}`}
                     >
-                        <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M1 5h12m0 0L9 1m4 4L9 9"
-                        />
-                    </svg>
-                </a> */}
-                </div>{" "}
+                        {rutina.dificultad}
+                    </span>
+                </div>
             </button>
         </div>
     );
