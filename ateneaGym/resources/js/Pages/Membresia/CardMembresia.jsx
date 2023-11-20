@@ -9,7 +9,7 @@ function CardMembresia({ membresia, auth }) {
             membresia_id: id,
         });
 
-     // Estado para almacenar el resultado SOAP
+    // Estado para almacenar el resultado SOAP
 
     const clickHandler = (e) => {
         e.preventDefault();
@@ -21,16 +21,13 @@ function CardMembresia({ membresia, auth }) {
             confirmButtonText: "Confirmar",
         }).then((result) => {
             if (result.isConfirmed) {
-                post(`/realizarPago`,membresia.id);
+                post(`/realizarPago`, membresia.id);
             }
         });
     };
 
- 
-
     const imagen = "atenea_" + descripcion.toLowerCase();
 
-    
     return (
         <div className="max-w-xs rounded overflow-hidden bg-white shadow-lg">
             <div className="px-6 py-2">
@@ -51,72 +48,72 @@ function CardMembresia({ membresia, auth }) {
                         /mes
                     </span>
                 </div>
-                
                 <ul role="list" className="space-y-5 my-7">
-                      <li className="flex space-x-3 items-center">
-            <svg
-              className="flex-shrink-0 w-4 h-4  text-pink-500 dark:text-pink-600"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-            </svg>
-            <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-              {membresia.dias_disponibles} dias disponibles por
-              semana
-            </span>
-          </li>
-          <li className="flex space-x-3 items-center">
-            <svg
-              className="flex-shrink-0 w-4 h-4  text-pink-500 dark:text-pink-600"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-            </svg>
-            <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-              Rutinas personalizadas
-            </span>
-          </li>
-          <li className="flex space-x-3 items-center">
-            <svg
-              className="flex-shrink-0 w-4 h-4 text-pink-500 dark:text-pink-600"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-            </svg>
-            <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-              Profesor
-            </span>
-          </li>
-          <li className="flex space-x-3 items-center">
-            <svg
-              className="flex-shrink-0 w-4 h-4 text-pink-500 dark:text-pink-600"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-            </svg>
-            <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-              Clases o Musculación
-            </span>
-          </li>
+                    <li className="flex space-x-3 items-center">
+                        <svg
+                            className="flex-shrink-0 w-4 h-4  text-pink-500 dark:text-pink-600"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                        >
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                            {membresia.dias_disponibles} dias disponibles por
+                            semana
+                        </span>
+                    </li>
+                    <li className="flex space-x-3 items-center">
+                        <svg
+                            className="flex-shrink-0 w-4 h-4  text-pink-500 dark:text-pink-600"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                        >
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                            Rutinas personalizadas
+                        </span>
+                    </li>
+                    <li className="flex space-x-3 items-center">
+                        <svg
+                            className="flex-shrink-0 w-4 h-4 text-pink-500 dark:text-pink-600"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                        >
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                            Profesor
+                        </span>
+                    </li>
+                    <li className="flex space-x-3 items-center">
+                        <svg
+                            className="flex-shrink-0 w-4 h-4 text-pink-500 dark:text-pink-600"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                        >
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                            Clases o Musculación
+                        </span>
+                    </li>
                 </ul>
             </div>
+
             <div className="px-6 pb-2 flex justify-end">
                 <button
                     onClick={clickHandler}
                     type="button"
-                    className="text-white bg-pink-500 hover-bg-pink-600 focus-outline-none focus-ring-4 focus-ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark-bg-gray-800 dark-hover-bg-gray-700 dark-focus-ring-gray-700 dark-border-gray-700"
+                    className="text-white bg-pink-500 hover:bg-pink-600 focus-outline-none focus-ring-4 focus-ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark-bg-gray-800 dark-hover-bg-gray-700 dark-focus-ring-gray-700 dark-border-gray-700"
                 >
                     Renovar
                 </button>
