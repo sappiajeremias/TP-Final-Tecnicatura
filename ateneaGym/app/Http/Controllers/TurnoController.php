@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Actividad;
 use App\Models\Alumno;
 use App\Models\Asistencia;
+use App\Models\Pago;
 use App\Models\Turno;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -55,8 +56,10 @@ class TurnoController extends Controller {
         var_dump($coleccionTurnos);
         return $coleccionTurnos;
     }
+
     public function store(Request $request) {
     }
+
     public function update(Request $request, String $turno) {
         $usuario = User::where('dni', $request->dni)->first();
         $alumno = Alumno::where('user_id', $usuario->id)->first();
@@ -68,25 +71,27 @@ class TurnoController extends Controller {
             return back()->withErrors(['message' => 'El turno ya está asignado al alumno']);
         }
 
-        $t->alumno_id = $alumno->id;
-        $t->save();
-
-        $asistencia = Asistencia::create([
-            'alumno_id' => $alumno->id,
-            'fecha' => $request->fecha,
-            'especialidad_id' => $request->especialidad_id,
-            'estado' => 'presente'
-        ]);
-        $asistencia->save();
-
         if ($alumno) {
             // Acceder al usuario del alumno
             $usuario = $alumno->usuario;
             if ($usuario) {
                 // Acceder a los pagos del usuario
                 $pagos = $usuario->ultimoPago();
-                $pagos->dias_disponibles = ($pagos->dias_disponibles - 1);
-                $pagos->save();
+                if ($pagos && $pagos->dias_disponibles > 0) {
+                    $t->alumno_id = $alumno->id;
+                    $t->save();
+                    $pagos->dias_disponibles = ($pagos->dias_disponibles - 1);
+                    $pagos->save();
+                    $asistencia = Asistencia::create([
+                        'alumno_id' => $alumno->id,
+                        'fecha' => $request->fecha,
+                        'especialidad_id' => $request->especialidad_id,
+                        'estado' => 'presente'
+                    ]);
+                    $asistencia->save();
+                } else {
+                    return back()->withErrors(['message' => 'No le quedan dias disponibles']);
+                }
                 // Aquí tienes la colección de pagos, y puedes hacer lo que necesites con ella
             }
         }
