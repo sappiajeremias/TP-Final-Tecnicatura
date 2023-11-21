@@ -9,10 +9,8 @@ import Swal from "sweetalert2";
 
 const CardEjercicio = (props) => {
     const ejercicio = props.ejercicio;
-    //console.log(ejercicio);
     const [coleccionEjercicio, setColeccionEjercicio] = useState([]);
     const [rutina, setRutina] = useState("");
-    //console.log(ejercicio);
     const { data, setData, post, put, processing, errors, reset } = useForm({
         ejercicio_id: ejercicio.id,
         rutina_id: "" || ejercicio.rutina_id,
@@ -45,7 +43,6 @@ const CardEjercicio = (props) => {
         const id = obtenerIdDesdeURL();
         data.rutina_id = id;
     }, []);
-    //console.log(data);
 
     const [modalOpen, setModalOpen] = useState(false);
     const submit = (e) => {
@@ -59,12 +56,11 @@ const CardEjercicio = (props) => {
                         title: "Exito.",
                         text: "Se modifico exitosamente",
                         icon: "success",
-                    })
+                    });
                     setModalOpen(false);
-                }
+                },
             });
         } else {
-
             // setModalOpen(false);
             post(`/agregarEjercicio`, {
                 onSuccess: () => {
@@ -72,16 +68,17 @@ const CardEjercicio = (props) => {
                         title: "Exito.",
                         text: "Se agregó exitosamente",
                         icon: "success",
-                    })
+                    });
                     setModalOpen(false);
-                }, onError: (response) => {
+                },
+                onError: (response) => {
                     //console.log(response);
                     Swal.fire({
                         title: "Error.",
                         text: response[1],
                         icon: "error",
                     });
-                }
+                },
             });
         }
 
@@ -124,96 +121,87 @@ const CardEjercicio = (props) => {
         });
     };
     const seleccionarEjercicio = (e) => {
-        console.log(e);
-        // console.log(auth.user.name);
-        // setIdTurno(e);
-        // Abre el modal cuando se hace clic en el botón de turno
         setModalOpen(true);
     };
     return (
         <>
             <div className="container p-3">
                 {ejercicio.ejercicio ? (
-                    (console.log(ejercicio),
-                        (
-                            <div className="flex bg-white border border-gray-200 rounded-lg shadow  md:max-w-6xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                <a
-                                    onClick={() => seleccionarEjercicio()}
-                                    className="flex flex-col max-w-6xl items-center md:flex-row"
-                                >
-                                    <img
-                                        className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                                        src={ejercicio.ejercicio.imagen}
-                                        alt=""
-                                    />
-                                    <div className="flex flex-col justify-between p-4 leading-normal w-96">
-                                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                            {ejercicio.ejercicio.nombre}
-                                        </h5>
-                                        <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                            <span className="text-1xl font-semibold">
-                                                Parte del cuerpo:{" "}
-                                            </span>{" "}
-                                            {ejercicio.ejercicio.parte_cuerpo}
-                                        </h5>
-                                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                            <span className="text-1xl font-semibold">
-                                                Repeticiones:{" "}
-                                            </span>{" "}
-                                            {ejercicio.repeticiones}
-                                        </p>
-                                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                            <span className="text-1xl font-semibold">
-                                                Series:{" "}
-                                            </span>{" "}
-                                            {ejercicio.series}
-                                        </p>
-                                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                            <span className="text-1xl font-semibold">
-                                                Kg:{" "}
-                                            </span>{" "}
-                                            {ejercicio.peso}
-                                        </p>
-                                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                            <span className="text-1xl font-semibold me-2">
-                                                Musculo:
-                                            </span>
-                                            {ejercicio.ejercicio.musculo}
-                                        </p>
-                                        {ejercicio.adicional ? (
-                                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                                <span className="text-1xl font-semibold me-2">
-                                                    Adicional:
-                                                </span>
-                                                {ejercicio.adicional}
-                                            </p>
-                                        ) : (
-                                            ""
-                                        )}
-                                    </div>
-                                </a>
-                                <button
-                                    className="px-4"
-                                    onClick={eliminarEjercicio}
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="26"
-                                        height="26"
-                                        fill="currentColor"
-                                        className="bi bi-trash"
-                                        viewBox="0 0 16 16"
-                                    >
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-                                    </svg>
-                                </button>
+                    <div className="flex bg-white border border-gray-200 rounded-lg shadow md:max-w-6xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <a
+                            onClick={() => seleccionarEjercicio()}
+                            className="flex flex-col max-w-6xl items-center md:flex-row"
+                        >
+                            <img
+                                className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                                src={ejercicio.ejercicio.imagen}
+                                alt=""
+                            />
+                            <div className="flex flex-col justify-between p-4 leading-normal w-full md:w-96">
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    {ejercicio.ejercicio.nombre}
+                                </h5>
+                                <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    <span className="text-1xl font-semibold">
+                                        Parte del cuerpo:{" "}
+                                    </span>{" "}
+                                    {ejercicio.ejercicio.parte_cuerpo}
+                                </h5>
+                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    <span className="text-1xl font-semibold">
+                                        Repeticiones:{" "}
+                                    </span>{" "}
+                                    {ejercicio.repeticiones}
+                                </p>
+                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    <span className="text-1xl font-semibold">
+                                        Series:{" "}
+                                    </span>{" "}
+                                    {ejercicio.series}
+                                </p>
+                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    <span className="text-1xl font-semibold">
+                                        Kg:{" "}
+                                    </span>{" "}
+                                    {ejercicio.peso}
+                                </p>
+                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    <span className="text-1xl font-semibold me-2">
+                                        Musculo:
+                                    </span>
+                                    {ejercicio.ejercicio.musculo}
+                                </p>
+                                {ejercicio.adicional ? (
+                                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                        <span className="text-1xl font-semibold me-2">
+                                            Adicional:
+                                        </span>
+                                        {ejercicio.adicional}
+                                    </p>
+                                ) : (
+                                    ""
+                                )}
                             </div>
-                        ))
+                        </a>
+                        <button className="px-4" onClick={eliminarEjercicio}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="26"
+                                height="26"
+                                fill="currentColor"
+                                className="bi bi-trash"
+                                viewBox="0 0 16 16"
+                            >
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                            </svg>
+                        </button>
+                    </div>
                 ) : (
                     <a
-                        className={`flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 ${data.rutina_id != null ? "cursor-pointer" : ""
-                            }`}
+                        className={`flex flex-col items-center m-auto bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 ${
+                            data.rutina_id != null ? "cursor-pointer" : ""
+                        }`}
                         onClick={() => data.rutina_id && seleccionarEjercicio()}
                     >
                         <img
@@ -231,12 +219,6 @@ const CardEjercicio = (props) => {
                                 </span>{" "}
                                 {ejercicio.parte_cuerpo}
                             </h5>
-                            {/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            <span className="text-1xl font-semibold">
-                                Descripcion:{" "}
-                            </span>{" "}
-                            {ejercicio.descripcion}
-                        </p> */}
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                 <span className="text-1xl font-semibold me-2">
                                     Musculo:
@@ -331,7 +313,6 @@ const CardEjercicio = (props) => {
                                     setData("adicional", e.target.value)
                                 }
                             />
-
                         </div>
                         <div className="flex items-center justify-end mt-2">
                             <PrimaryButton

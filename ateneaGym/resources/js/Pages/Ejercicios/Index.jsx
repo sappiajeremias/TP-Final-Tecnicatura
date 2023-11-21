@@ -60,21 +60,23 @@ const Index = ({ auth, ejercicios }) => {
                         </button>
                     </div>
                 </div>
-                {coleccionEjercicio ? (
-                    coleccionEjercicio
-                        .slice(pagesVisited, pagesVisited + itemsPerPage)
-                        .map((ejercicio, index) => (
-                            <div key={index} className="card">
-                                <CardEjercicio
-                                    ejercicio={ejercicio}
-                                ></CardEjercicio>
-                            </div>
-                        ))
-                ) : (
-                    <div>
-                        <h1>No se encontraron ejercicios</h1>
-                    </div>
-                )}
+                <div>
+                    {coleccionEjercicio ? (
+                        coleccionEjercicio
+                            .slice(pagesVisited, pagesVisited + itemsPerPage)
+                            .map((ejercicio, index) => (
+                                <div key={index} className="card">
+                                    <CardEjercicio
+                                        ejercicio={ejercicio}
+                                    ></CardEjercicio>
+                                </div>
+                            ))
+                    ) : (
+                        <div>
+                            <h1>No se encontraron ejercicios</h1>
+                        </div>
+                    )}
+                </div>
                 <div className="px-4 mb-3">
                     <ReactPaginate
                         previousLabel={

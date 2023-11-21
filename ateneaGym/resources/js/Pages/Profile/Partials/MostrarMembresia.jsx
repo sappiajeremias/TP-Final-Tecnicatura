@@ -4,7 +4,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import Login from "@/Pages/Auth/Login";
 
 const MostrarMembresia = ({ membresia }) => {
-    
+    console.log(membresia);
     const fechaVencimiento = new Date(membresia.pago.fecha_vencimiento);
     const dia = fechaVencimiento.getDate();
     const { props } = usePage();
@@ -13,7 +13,7 @@ const MostrarMembresia = ({ membresia }) => {
     const anio = fechaVencimiento.getFullYear();
 
     useEffect(() => {
-        setDiasDisponibles(props.membresia.pago.dias_disponibles);
+        // setDiasDisponibles(props.membresia.pago.dias_disponibles);
     }, []);
 
     return (

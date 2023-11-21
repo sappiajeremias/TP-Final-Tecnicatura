@@ -27,7 +27,7 @@ function TarjetaTurnos({ turnos }) {
             >
                 {turnos.map((turno) => (
                     <li className="py-3 sm:py-4" key={turno.id}>
-                        <div className="flex items-center space-x-4">
+                        <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
                             <div className="flex-shrink-0">
                                 <img
                                     className="w-8 h-8 rounded-md"
