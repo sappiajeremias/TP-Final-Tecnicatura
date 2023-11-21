@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Membresia;
 use App\Models\Pago;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -25,42 +26,45 @@ class MembresiaController extends Controller {
     }
 
     public function realizarPago(Request $request) {
+        $ultimoPago = Auth::user()->ultimoPago();
 
-        $membresia = Membresia::where('id', $request->membresia_id)->first();
-        MercadoPagoConfig::setAccessToken('TEST-1348754680884105-110109-6707e699579e65cd614043f0f8f76ce8-1530492018');
+        //  dd($ultimoPago && Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3);
+        if (($ultimoPago && Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3) == false) {
+            // dd('pago no vencido');
+            return back()->withErrors(['message' => 'Todavía no se ha vencido su membresía.']);
+        } else {
+            $membresia = Membresia::where('id', $request->membresia_id)->first();
+            MercadoPagoConfig::setAccessToken('TEST-1348754680884105-110109-6707e699579e65cd614043f0f8f76ce8-1530492018');
 
-        $preference = new Preference;
-        $item = new Item();
-        $item->id = $membresia->id;
-        $item->title = $membresia->descripcion;
-        $item->quantity = 1;
-        $item->currency_id = 'ARS';
-        $item->unit_price = $membresia->valor;
-        //    $payer = new Payer();
-        //     $payer->name = Auth()->user() ->name;
-        //     // $payer->surname = 'Silva';
-        //     $payer->email = Auth()->user()->email;
-        $preference->items = array($item);
-        $preference->back_urls = array(
-            "success" => route('procesar.respuesta'),
-            "failure" => route('procesar.respuesta'),
-            "pending" => route('procesar.respuesta')
-        );
-        $valorTotal = 0;
-        foreach ($preference->items as $item) {
-            $valorTotal += $item->unit_price;
+            $preference = new Preference;
+            $item = new Item();
+            $item->id = $membresia->id;
+            $item->title = $membresia->descripcion;
+            $item->quantity = 1;
+            $item->currency_id = 'ARS';
+            $item->unit_price = $membresia->valor;
+            //    $payer = new Payer();
+            //     $payer->name = Auth()->user() ->name;
+            //     // $payer->surname = 'Silva';
+            //     $payer->email = Auth()->user()->email;
+            $preference->items = array($item);
+            $preference->back_urls = array(
+                "success" => route('procesar.respuesta'),
+                "failure" => route('procesar.respuesta'),
+                "pending" => route('procesar.respuesta')
+            );
+            $valorTotal = 0;
+            foreach ($preference->items as $item) {
+                $valorTotal += $item->unit_price;
+            }
+            $preference->total_amount = $valorTotal;
+
+            $client = new PreferenceClient();
+            $cliente = $client->create([
+                $preference
+            ]);
+            return Inertia::render('Pago/Index', ['preference' => $cliente]);
         }
-        $preference->total_amount = $valorTotal;
-
-        $client = new PreferenceClient();
-        $cliente = $client->create([
-            $preference
-        ]);
-
-        // dd($membresia);
-
-
-        return Inertia::render('Pago/Index', ['preference' => $cliente]);
     }
 
     public function update(Request $request, Membresia $membresia) {
