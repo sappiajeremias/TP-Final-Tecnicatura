@@ -18,6 +18,10 @@ const CardEjercicio = (props) => {
         peso: 0 || ejercicio.peso,
         series: 0 || ejercicio.series,
         adicional: null || ejercicio.adicional,
+        nombre: "" || ejercicio.nombre,
+        imagen: "" || ejercicio.imagen,
+        parte_cuerpo: "" || ejercicio.parte_cuerpo,
+        musculo: "" || ejercicio.musculo,
     });
     useEffect(() => {
         if (ejercicio.length > 0 && ejercicio[0].ejercicio) {
@@ -43,7 +47,8 @@ const CardEjercicio = (props) => {
         const id = obtenerIdDesdeURL();
         data.rutina_id = id;
     }, []);
-
+    //console.log(data);
+    const [modalOpenEdit, setModalOpenEdit] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const submit = (e) => {
         e.preventDefault();
@@ -85,6 +90,25 @@ const CardEjercicio = (props) => {
         // setModalOpen(false);
     };
 
+    const submitEdit = (e) => {
+        e.preventDefault();
+        put(`/ejercicio/${ejercicio.id}`, {
+            onSuccess: () => {
+                console.log("success");
+                // if (Object.keys(props.errors).length > 0) {
+                Swal.fire({
+                    title: "Exito.",
+                    text: "Se modifico exitosamente",
+                    icon: "success",
+                })
+                setModalOpenEdit(false);
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);
+            }
+        });
+    };
+
     const eliminarEjercicio = () => {
         Swal.fire({
             title: "¿Estás seguro?",
@@ -120,7 +144,14 @@ const CardEjercicio = (props) => {
             }
         });
     };
+    const seleccionarEjercicioEdit = (e) => {
+        console.log(e);
+
+        setModalOpenEdit(true);
+    };
     const seleccionarEjercicio = (e) => {
+        console.log(e);
+
         setModalOpen(true);
     };
     return (
@@ -312,6 +343,204 @@ const CardEjercicio = (props) => {
                                 onChange={(e) =>
                                     setData("adicional", e.target.value)
                                 }
+                            />
+                        </div>
+                        <div className="flex items-center justify-end mt-2">
+                            <PrimaryButton
+                                className="ml-4"
+                                disabled={processing}
+                            >
+                                Confirmar
+                            </PrimaryButton>
+                        </div>
+                    </form>
+                </div>
+            </Modal>
+
+            <Modal show={modalOpenEdit} onClose={() => setModalOpenEdit(false)}>
+                <div>
+                    <form onSubmit={submitEdit}>
+
+                        <div className="mt-2">
+                            <InputLabel htmlFor="nombre" value="Nombre" />
+
+                            <TextInput
+                                id="nombre"
+                                type="text"
+                                name="nombre"
+                                value={data.nombre}
+                                className="mt-1 block w-full"
+                                autoComplete="nombre"
+                                isFocused={true}
+                                onChange={(e) =>
+                                    setData("nombre", e.target.value)
+                                }
+                            />
+
+                            <InputError
+                                message={errors.nombre}
+                                className="mt-2"
+                            />
+                        </div>
+                        <div className="mt-2">
+                            <InputLabel htmlFor="parte_cuerpo" value="Parte del cuerpo" />
+
+                            <TextInput
+                                id="parte_cuerpo"
+                                type="text"
+                                name="parte_cuerpo"
+                                value={data.parte_cuerpo}
+                                className="mt-1 block w-full"
+                                autoComplete="parte_cuerpo"
+                                isFocused={true}
+                                onChange={(e) =>
+                                    setData("parte_cuerpo", e.target.value)
+                                }
+                            />
+                            <InputError
+                                message={errors.parte_cuerpo}
+                                className="mt-2"
+                            />
+                        </div>
+                        <div className="mt-2">
+                            <InputLabel htmlFor="musculo" value="Musculo" />
+
+                            <TextInput
+                                id="musculo"
+                                type="text"
+                                name="musculo"
+                                value={data.musculo}
+                                className="mt-1 block w-full"
+                                autoComplete="musculo"
+                                isFocused={true}
+                                onChange={(e) =>
+                                    setData("musculo", e.target.value)
+                                }
+                            />
+
+                            <InputError
+                                message={errors.musculo}
+                                className="mt-2"
+                            />
+                        </div>
+
+                        <div className="mt-2">
+                            <InputLabel htmlFor="imagen" value="Ruta de imagen" />
+
+                            <TextInput
+                                id="imagen"
+                                type="text"
+                                name="imagen"
+                                value={data.imagen}
+                                className="mt-1 block w-full"
+                                autoComplete="imagen"
+                                isFocused={true}
+                                onChange={(e) =>
+                                    setData("imagen", e.target.value)
+                                }
+                            />
+                            <InputError
+                                message={errors.imagen}
+                                className="mt-2"
+                            />
+                        </div>
+                        <div className="flex items-center justify-end mt-2">
+                            <PrimaryButton
+                                className="ml-4"
+                                disabled={processing}
+                            >
+                                Confirmar
+                            </PrimaryButton>
+                        </div>
+                    </form>
+                </div>
+            </Modal>
+
+            <Modal show={modalOpenEdit} onClose={() => setModalOpenEdit(false)}>
+                <div>
+                    <form onSubmit={submitEdit}>
+
+                        <div className="mt-2">
+                            <InputLabel htmlFor="nombre" value="Nombre" />
+
+                            <TextInput
+                                id="nombre"
+                                type="text"
+                                name="nombre"
+                                value={data.nombre}
+                                className="mt-1 block w-full"
+                                autoComplete="nombre"
+                                isFocused={true}
+                                onChange={(e) =>
+                                    setData("nombre", e.target.value)
+                                }
+                            />
+
+                            <InputError
+                                message={errors.nombre}
+                                className="mt-2"
+                            />
+                        </div>
+                        <div className="mt-2">
+                            <InputLabel htmlFor="parte_cuerpo" value="Parte del cuerpo" />
+
+                            <TextInput
+                                id="parte_cuerpo"
+                                type="text"
+                                name="parte_cuerpo"
+                                value={data.parte_cuerpo}
+                                className="mt-1 block w-full"
+                                autoComplete="parte_cuerpo"
+                                isFocused={true}
+                                onChange={(e) =>
+                                    setData("parte_cuerpo", e.target.value)
+                                }
+                            />
+                            <InputError
+                                message={errors.parte_cuerpo}
+                                className="mt-2"
+                            />
+                        </div>
+                        <div className="mt-2">
+                            <InputLabel htmlFor="musculo" value="Musculo" />
+
+                            <TextInput
+                                id="musculo"
+                                type="text"
+                                name="musculo"
+                                value={data.musculo}
+                                className="mt-1 block w-full"
+                                autoComplete="musculo"
+                                isFocused={true}
+                                onChange={(e) =>
+                                    setData("musculo", e.target.value)
+                                }
+                            />
+
+                            <InputError
+                                message={errors.musculo}
+                                className="mt-2"
+                            />
+                        </div>
+
+                        <div className="mt-2">
+                            <InputLabel htmlFor="imagen" value="Ruta de imagen" />
+
+                            <TextInput
+                                id="imagen"
+                                type="text"
+                                name="imagen"
+                                value={data.imagen}
+                                className="mt-1 block w-full"
+                                autoComplete="imagen"
+                                isFocused={true}
+                                onChange={(e) =>
+                                    setData("imagen", e.target.value)
+                                }
+                            />
+                            <InputError
+                                message={errors.imagen}
+                                className="mt-2"
                             />
                         </div>
                         <div className="flex items-center justify-end mt-2">
