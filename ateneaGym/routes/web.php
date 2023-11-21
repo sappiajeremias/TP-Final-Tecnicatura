@@ -106,6 +106,13 @@ Route::post('/ejercicioRutina', [EjercicioRutinaController::class, 'destroy'])->
 
 Route::post('/agregarEjercicio', [RutinaController::class, 'agregarEjercicio'])->middleware(['auth'])->name('agregar.ejercicioR');
 
+Route::get('/asignarRutina', [RutinaController::class, 'mostrarUsuarios'])->middleware(['auth'])->name('mostrarUsuario');
+
+
+Route::post('/asignarAlumno', [RutinaController::class, 'agregarUsuarios'])->middleware(['auth'])->name('agregar.usuarios');
+// Ruta para eliminar la asignación
+Route::delete('/eliminarAsignacion/{rutina}/{alumno}', [RutinaController::class, 'eliminarAsignacion'])->middleware(['auth'])->name('eliminar.usuarios');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -119,7 +126,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('asistencia', AsistenciaController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
-    
+
 Route::resource('asistenciaAlumno', AlumnoController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
@@ -130,6 +137,7 @@ Route::get('/obtenerDiasDisp/{idUser}', [ProfileController::class, 'diasDisponib
 Route::resource('profesor', ProfesorController::class)
     ->only(['store', 'index', 'update', 'destroy'])
     ->middleware(['auth']);
+
 
 Route::get('/user-role', function () {
 

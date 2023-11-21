@@ -4,6 +4,7 @@ import CardEjercicio from "../Ejercicios/CardEjercicio";
 import Modal from "@/Components/Modal";
 import Index from "../Ejercicios/Index";
 import AgregarEjercicio from "./AgregarEjercicio";
+import { router } from "@inertiajs/react";
 
 const EjerciciosRutina = ({ auth, ejercicios, ejerciciosAll }) => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -13,6 +14,7 @@ const EjerciciosRutina = ({ auth, ejercicios, ejerciciosAll }) => {
     const nuevaRutina = () => {
         setModalOpen(true);
     };
+   
     console.log(ejercicios);
     return (
         <Authenticated auth={auth}>
@@ -20,6 +22,8 @@ const EjerciciosRutina = ({ auth, ejercicios, ejerciciosAll }) => {
                 Ejercicios Rutina
             </h1>
             <div className="flex justify-end pe-3">
+                {" "}
+               
                 <button
                     onClick={nuevaRutina}
                     type="button"

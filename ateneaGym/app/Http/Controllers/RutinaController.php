@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumno;
 use App\Models\Ejercicio;
 use App\Models\EjercicioRutina;
 use App\Models\Profesor;
 use App\Models\Rutina;
+use App\Models\RutinaAlumno;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class RutinaController extends Controller
-{
-    public function index()
-    {
+class RutinaController extends Controller {
+    public function index() {
         // Obtener el profesor autenticado con la relación de usuario
         $profesor = Profesor::where('user_id', auth()->user()->id)->with('usuario')->first();
 
@@ -29,8 +29,7 @@ class RutinaController extends Controller
         return Inertia::render('Rutinas/Index', ['rutinas' => $rutinas, 'profesor' => $profesor]);
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $request->validate([
             'nombre' => ['required'],
             'mes' => ['required', 'exclude:1'],
@@ -55,21 +54,17 @@ class RutinaController extends Controller
         $rutina->save();
         $rutinaE = EjercicioRutina::where('rutina_id', $rutina->id)->with('ejercicio')->get();
     }
-    public function show($id)
-    {
+    public function show($id) {
         $ejerciciosCompletos = Ejercicio::all();
         $rutina = EjercicioRutina::where('rutina_id', $id)->with('ejercicio')->get();
         // dd($rutina);
         return Inertia::render('Rutinas/EjerciciosRutina', ['ejercicios' => $rutina, 'ejerciciosAll' => $ejerciciosCompletos]);
     }
-    public function update(Request $request, Rutina $rutina)
-    {
+    public function update(Request $request, Rutina $rutina) {
     }
-    public function destroy(Rutina $rutina)
-    {
+    public function destroy(Rutina $rutina) {
     }
-    public function agregarEjercicio(Request $request)
-    {
+    public function agregarEjercicio(Request $request) {
         // dd($request);
         $request->validate([
             'repeticiones' => 'required',
@@ -108,6 +103,37 @@ class RutinaController extends Controller
             }
             $ejercicioRutina->save();
         }
+    }
 
+    public function mostrarUsuarios() {
+        $profesor = Profesor::where('user_id', Auth()->user()->id)->first();
+        $rutinas = Rutina::where('profesor_id', $profesor->id)->with('profesor.usuario')->get();
+
+        $alumnos = Alumno::with('usuario')->get();
+        $rutinaAlumno = RutinaAlumno::all();
+        // dd($rutinaAlumno);
+        return Inertia::render('Rutinas/AsignarRutina', ['alumnos' => $alumnos, 'rutinas' => $rutinas, 'rutinaAlumnos' => $rutinaAlumno]);
+    }
+    public function agregarUsuarios(Request $request) {
+        // dd($request);
+        $rutinaAlumno = RutinaAlumno::create([
+            'alumno_id' => $request->alumno,
+            'rutina_id' => $request->rutina,
+        ]);
+        $rutinaAlumno->save();
+        return back()->with(['message' => 'Se agrego correctamente el alumno a la rutina']);
+    }
+    public function eliminarAsignacion($rutinaId, $alumnoId) {
+        // dd($rutinaId, $alumnoId);
+        // $rutina = Rutina::find($rutinaId);
+        // $alumnoId = Rutina::find($alumnoId);
+        $rutinaAlumno = RutinaAlumno::where('alumno_id', $alumnoId)->where('rutina_id', $rutinaId)->first();
+
+        if ($rutinaAlumno) {
+            $rutinaAlumno->delete();
+            return back()->with(['message' => 'Se elimino correctamente el alumno de la rutina']);
+        } else {
+            return back()->withErrors(['message' => 'No se pudo eliminar el alumno de la rutina']);
+        }
     }
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CardRutina from "./CardRutina";
 import NuevaRutina from "./NuevaRutina";
 import Modal from "@/Components/Modal";
+import { router } from "@inertiajs/react";
 
 const VerRutinas = ({ rutinas, profesor }) => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -11,6 +12,9 @@ const VerRutinas = ({ rutinas, profesor }) => {
     const nuevaRutina = () => {
         setModalOpen(true);
     };
+    const asignarRutina = () => {
+        router.visit(`/asignarRutina`);
+    };
     return (
         <div className=" pt-5">
             <h1 className="font-semibold text-3xl text-center pt-2">
@@ -18,6 +22,13 @@ const VerRutinas = ({ rutinas, profesor }) => {
                 Mis Rutinas
             </h1>
             <div className="flex justify-end pe-3">
+                <button
+                    onClick={asignarRutina}
+                    type="button"
+                    className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                >
+                    Asignar Rutina a Alumnos
+                </button>
                 <button
                     onClick={nuevaRutina}
                     type="button"
