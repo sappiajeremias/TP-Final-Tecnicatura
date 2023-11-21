@@ -40,7 +40,6 @@ export default function Register({ isEdit, objeto, roles }) {
                     document.getElementById("cierreModal").click();
                     location.reload();
                 },
-                
             });
         } else {
             post(route("usuarios.store"), {
@@ -53,7 +52,6 @@ export default function Register({ isEdit, objeto, roles }) {
                     document.getElementById("cierreModal").click();
                     location.reload();
                 },
-               
             });
         }
     };
@@ -62,7 +60,7 @@ export default function Register({ isEdit, objeto, roles }) {
         <>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className="max-w-md mx-auto mt-8">
                 <div className="mt-2">
                     <InputLabel htmlFor="name" value="Nombre" />
 

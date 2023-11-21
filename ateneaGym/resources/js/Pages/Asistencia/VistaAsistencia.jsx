@@ -8,9 +8,12 @@ const VistaAsistencia = ({ asistencia }) => {
                 Asistencia
             </h1>
             {asistencia.map((item) => (
-                <div className="max-w-xs mx-auto bg-white shadow-md rounded overflow-hidden mb-4">
-                    <div className="border-l-4 border-rosa-600 p-4 flex justify-between items-center">
-                        <div>
+                <div
+                    key={item.id} // Make sure to add a unique key for each item in the array
+                    className="max-w-xs mx-auto bg-white shadow-md rounded overflow-hidden mb-4 sm:max-w-md md:max-w-lg lg:max-w-xl"
+                >
+                    <div className="border-l-4 border-rosa-600 p-4 flex flex-col sm:flex-row justify-between items-center">
+                        <div className="mb-2 sm:mb-0">
                             <span className="text-lg font-bold">
                                 {item.especialidad.descripcion}
                             </span>
@@ -41,7 +44,6 @@ const VistaAsistencia = ({ asistencia }) => {
                     </div>
                 </div>
             ))}
-            ;
         </div>
     );
 };

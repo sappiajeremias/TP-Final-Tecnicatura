@@ -10,10 +10,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-use PhpParser\Node\Stmt\Return_;
 
-class RutinaController extends Controller {
-    public function index() {
+class RutinaController extends Controller
+{
+    public function index()
+    {
         // Obtener el profesor autenticado con la relación de usuario
         $profesor = Profesor::where('user_id', auth()->user()->id)->with('usuario')->first();
 
@@ -28,7 +29,8 @@ class RutinaController extends Controller {
         return Inertia::render('Rutinas/Index', ['rutinas' => $rutinas, 'profesor' => $profesor]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'nombre' => ['required'],
             'mes' => ['required', 'exclude:1'],
@@ -48,43 +50,64 @@ class RutinaController extends Controller {
             'mes' => $request->mes,
             'dificultad' => $request->dificultad,
             'profesor_id' => $request->profesor_id,
-            'dia_semana' => $request->dia_semana
+            'dia_semana' => $request->dia_semana,
         ]);
         $rutina->save();
         $rutinaE = EjercicioRutina::where('rutina_id', $rutina->id)->with('ejercicio')->get();
     }
-    public function show($id) {
+    public function show($id)
+    {
         $ejerciciosCompletos = Ejercicio::all();
         $rutina = EjercicioRutina::where('rutina_id', $id)->with('ejercicio')->get();
         // dd($rutina);
         return Inertia::render('Rutinas/EjerciciosRutina', ['ejercicios' => $rutina, 'ejerciciosAll' => $ejerciciosCompletos]);
     }
-    public function update(Request $request, Rutina $rutina) {
+    public function update(Request $request, Rutina $rutina)
+    {
     }
-    public function destroy(Rutina $rutina) {
+    public function destroy(Rutina $rutina)
+    {
     }
-    public function agregarEjercicio(Request $request) {
+    public function agregarEjercicio(Request $request)
+    {
         // dd($request);
-        if ($request->adicional) {
-            $ejercicioRutina = EjercicioRutina::create([
-                'ejercicio_id' => $request->ejercicio_id,
-                'rutina_id' => $request->rutina_id,
-                'repeticiones' => $request->repeticiones,
-                'peso' => $request->peso,
-                'series' => $request->series,
-                'adicional' => $request->adicional
-            ]);
+        $request->validate([
+            'repeticiones' => 'required',
+            'series' => 'required',
+            'peso' => 'required',
+        ], [
+            'repeticiones.required' => 'Debe ingresar un nombre.',
+            'series.required' => 'Debe seleccionar un mes.',
+            'peso.required' => 'Debe seleccionar una dificultad',
+        ]);
+
+        $registroRepe = EjercicioRutina::where('ejercicio_id', $request->ejercicio_id)
+            ->where('rutina_id', $request->rutina_id)
+            ->first();
+        if ($registroRepe) {
+            return back()->withErrors(['message', 'Ya hay un ejercicio igual agregado.']);
         } else {
-            $ejercicioRutina = EjercicioRutina::create([
-                'ejercicio_id' => $request->ejercicio_id,
-                'rutina_id' => $request->rutina_id,
-                'repeticiones' => $request->repeticiones,
-                'peso' => $request->peso,
-                'series' => $request->series,
-                'adicional' => ''
-            ]);
+            if ($request->adicional) {
+                $ejercicioRutina = EjercicioRutina::create([
+                    'ejercicio_id' => $request->ejercicio_id,
+                    'rutina_id' => $request->rutina_id,
+                    'repeticiones' => $request->repeticiones,
+                    'peso' => $request->peso,
+                    'series' => $request->series,
+                    'adicional' => $request->adicional,
+                ]);
+            } else {
+                $ejercicioRutina = EjercicioRutina::create([
+                    'ejercicio_id' => $request->ejercicio_id,
+                    'rutina_id' => $request->rutina_id,
+                    'repeticiones' => $request->repeticiones,
+                    'peso' => $request->peso,
+                    'series' => $request->series,
+                    'adicional' => '',
+                ]);
+            }
+            $ejercicioRutina->save();
         }
-        $ejercicioRutina->save();
-        return redirect()->back();
+
     }
 }

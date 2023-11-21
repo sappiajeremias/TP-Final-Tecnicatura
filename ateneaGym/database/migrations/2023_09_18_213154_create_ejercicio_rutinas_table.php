@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->foreign('rutina_id')->references('id')->on('rutinas')->onDelete('cascade');
             $table->integer('repeticiones');
             $table->integer('series');
-            $table->integer('peso')->nullable();
-            $table->string('adicional')->nulleable();
+            $table->integer('peso');
+            $table->string('adicional')->nullable();
             $table->timestamps();
         });
     }

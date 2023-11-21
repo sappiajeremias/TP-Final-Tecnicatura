@@ -4,22 +4,25 @@ import { useForm, usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 const TurnosAlumno = ({ auth, turnos, pagos }) => {
-
     const { props } = usePage();
     const [diasDisponibles, setDiasDisponibles] = useState(0);
-    console.log(props.pago.dias_disponibles);
+    console.log(props);
     useEffect(() => {
-        setDiasDisponibles(props.pago.dias_disponibles);
+        if (props.pago) {
+            setDiasDisponibles(props.pago.dias_disponibles);
+        }
     }, []);
 
     return (
         <>
             <AuthenticatedLayout auth={auth}>
                 <TarjetaTurnos turnos={turnos}></TarjetaTurnos>
-                <h1 className="text-xl font-semibold mt-2">Dias disponibles: {diasDisponibles}</h1>
+                <h1 className="text-xl font-semibold mt-2">
+                    Dias disponibles: {diasDisponibles}
+                </h1>
             </AuthenticatedLayout>
-            
-        </>);
+        </>
+    );
 };
 
 export default TurnosAlumno;

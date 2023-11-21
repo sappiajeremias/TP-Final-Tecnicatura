@@ -55,7 +55,9 @@ const PaginaWelcome = () => {
                                         href="#"
                                         className="text-white text-2xl font-bold flex-nowrap justify-center"
                                     >
-                                        <span className="text-pink-500 ">Atenea</span>
+                                        <span className="text-pink-500 ">
+                                            Atenea
+                                        </span>
                                         <br />
                                         <span className="ps-3">Gym</span>
                                     </a>
@@ -97,6 +99,7 @@ const PaginaWelcome = () => {
                 </header>
 
                 <div className="relative">
+                    {/* Slider */}
                     <div
                         className="hero-slide-item relative h-[895px] bg-cover bg-center"
                         style={{
@@ -109,6 +112,8 @@ const PaginaWelcome = () => {
                             </h2>
                         </div>
                     </div>
+
+                    {/* Navigation Buttons */}
                     <div className="absolute top-1/2 transform -translate-y-1/2 left-4">
                         <button
                             onClick={prevSlide}
@@ -128,9 +133,11 @@ const PaginaWelcome = () => {
                 </div>
             </div>
 
+            {/* Features Section */}
             <div id="features" className="bg-gray-100 py-16">
-                <div className="flex container mx-auto justify-around">
-                    <div className="bg-white shadow-md rounded-lg overflow-hidden w-1/4 p-4">
+                <div className="flex flex-wrap container mx-auto justify-around">
+                    {/* Feature 1 */}
+                    <div className="bg-white shadow-md rounded-lg overflow-hidden w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4 mb-8">
                         <img
                             src="https://onclickwebdesign.com/wp-content/uploads/feature-1.jpg"
                             alt="Exercise Class"
@@ -154,7 +161,8 @@ const PaginaWelcome = () => {
                         </div>
                     </div>
 
-                    <div className="bg-white shadow-md rounded-lg overflow-hidden w-1/4 p-4">
+                    {/* Feature 2 */}
+                    <div className="bg-white shadow-md rounded-lg overflow-hidden w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4 mb-8">
                         <img
                             src="https://onclickwebdesign.com/wp-content/uploads/feature-2.jpg"
                             alt="Man doing dumbbell rows"
@@ -178,7 +186,8 @@ const PaginaWelcome = () => {
                         </div>
                     </div>
 
-                    <div className="bg-white shadow-md rounded-lg overflow-hidden w-1/4 p-4">
+                    {/* Feature 3 */}
+                    <div className="bg-white shadow-md rounded-lg overflow-hidden w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4 mb-8">
                         <img
                             src="https://onclickwebdesign.com/wp-content/uploads/feature-3.jpg"
                             alt="Woman doing leg press"
@@ -205,23 +214,19 @@ const PaginaWelcome = () => {
             </div>
 
             <div id="services" className="bg-gray-800 py-16">
-                <div className="container mx-auto mb-16 ">
+                <div className="container mx-auto mb-16">
                     <h3 className="text-white text-2xl mb-6 ps-5">Services</h3>
-                    <div className="flex justify-around ">
-                        <div className=" w-1/4 sm:w-2/5 px-4 mb-8">
+                    <div className="flex flex-wrap justify-around">
+                        {/* Service 1 */}
+                        <div className="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8">
                             <div className="bg-white rounded-lg p-4 text-center">
                                 <img
                                     width="66"
                                     height="66"
                                     className="h-16 mx-auto mb-4 text-pink-500"
                                     src="https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/66/external-Pilates-fitness-smashingstocks-flat-smashing-stocks-2.png"
-                                    alt="external-Pilates-fitness-smashingstocks-flat-smashing-stocks-2"
+                                    alt="Pilates Icon"
                                 />
-                                {/* <img
-                                    src="https://onclickwebdesign.com/wp-content/uploads/services-icon-1.png"
-                                    alt="Basketball Icon"
-                                    className="h-16 mx-auto mb-4 text-pink-500"
-                                /> */}
                                 <h4 className="text-xl font-semibold">
                                     Pilates
                                 </h4>
@@ -233,14 +238,15 @@ const PaginaWelcome = () => {
                             </div>
                         </div>
 
-                        <div className=" w-1/4 sm:w-2/5 px-4 mb-8">
+                        {/* Service 2 */}
+                        <div className="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8">
                             <div className="bg-white rounded-lg p-4 text-center">
                                 <img
                                     width="66"
                                     height="66"
-                                    className=" mx-auto mb-4"
+                                    className="mx-auto mb-4"
                                     src="https://img.icons8.com/officel/80/bench-press.png"
-                                    alt="bench-press"
+                                    alt="Free Lifting Icon"
                                 />
                                 <h4 className="text-xl font-semibold">
                                     Free Lifting
@@ -253,14 +259,15 @@ const PaginaWelcome = () => {
                             </div>
                         </div>
 
-                        <div className=" w-1/4 sm:w-2/5 px-4 mb-8">
+                        {/* Service 3 */}
+                        <div className="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8">
                             <div className="bg-white rounded-lg p-4 text-center">
                                 <img
                                     width="66"
                                     height="66"
-                                    className=" mx-auto mb-4"
+                                    className="mx-auto mb-4"
                                     src="https://img.icons8.com/external-filled-color-icons-papa-vector/78/external-Yoga-massage-types-filled-color-icons-papa-vector.png"
-                                    alt="external-Yoga-massage-types-filled-color-icons-papa-vector"
+                                    alt="Yoga Icon"
                                 />
                                 <h4 className="text-xl font-semibold">Yoga</h4>
                                 <p className="text-gray-700">
@@ -271,14 +278,15 @@ const PaginaWelcome = () => {
                             </div>
                         </div>
 
-                        <div className=" w-1/4 sm:w-2/5 px-4 mb-8">
+                        {/* Service 4 */}
+                        <div className="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8">
                             <div className="bg-white rounded-lg p-4 text-center">
                                 <img
                                     width="66"
                                     height="66"
-                                    className=" mx-auto mb-4"
+                                    className="mx-auto mb-4"
                                     src="https://img.icons8.com/officel/80/cycling-track.png"
-                                    alt="cycling-track"
+                                    alt="Spinning Icon"
                                 />
                                 <h4 className="text-xl font-semibold">
                                     Spinning
@@ -300,9 +308,10 @@ const PaginaWelcome = () => {
                 </div>
             </div>
 
+            {/* Schedule Services Section */}
             <div id="schedule-services" className="">
-                <div className="flex container pt-3 justify-around">
-                    <div className="w-1/4">
+                <div className="flex flex-wrap container pt-3 justify-around">
+                    <div className="w-full sm:w-1/2 lg:w-1/4 mb-4">
                         <div className="border border-gray-300 p-8 rounded-lg h-[395px]">
                             <strong className="block text-gray-800 text-xs uppercase opacity-60 tracking-wider">
                                 NEXT
@@ -366,7 +375,8 @@ const PaginaWelcome = () => {
                             </table>
                         </div>
                     </div>
-                    <div className="w-1/4">
+
+                    <div className="w-full sm:w-1/2 lg:w-1/4 mb-4">
                         <div className="border border-gray-300 bg-pink-500 rounded-lg overflow-hidden h-[395px] flex justify-center items-center">
                             <div
                                 className="bg-cover bg-center h-80 w-50"
@@ -392,7 +402,8 @@ const PaginaWelcome = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="w-1/4">
+
+                    <div className="w-full sm:w-1/2 lg:w-1/4 mb-4">
                         <div
                             className="bg-cover bg-center p-8 rounded-lg h-[395px]"
                             style={{
