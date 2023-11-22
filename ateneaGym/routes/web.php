@@ -16,7 +16,9 @@ use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\RutinaController;
 use App\Http\Controllers\TurnoController;
 use App\Http\Controllers\MembresiaController;
+use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\RutinaAlumnoController;
 use App\Models\Alumno;
 use App\Models\Asistencia;
 use App\Models\EjercicioRutina;
@@ -43,6 +45,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
 Route::group(['middleware' => ['role:Administrador']], function () {
 });
 
@@ -91,27 +94,29 @@ Route::resource('turnos', TurnoController::class)
     ->middleware(['auth']);
 
 Route::group(['middleware' => ['role:Profesor|Administrador']], function () {
+    Route::resource('rutina', RutinaController::class)
+        ->only(['store', 'index', 'update', 'destroy', 'show'])
+        ->middleware(['auth']);
+
+    Route::resource('ejercicio', EjercicioController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
+
+    Route::post('/ejercicioRutinaEditar', [EjercicioRutinaController::class, 'update'])->middleware(['auth'])->name('actualizar.ejercicio');
+
+    Route::post('/ejercicioRutina', [EjercicioRutinaController::class, 'destroy'])->middleware(['auth'])->name('eliminar.ejercicio');
+
+    Route::post('/agregarEjercicio', [RutinaController::class, 'agregarEjercicio'])->middleware(['auth'])->name('agregar.ejercicioR');
+
+    Route::get('/asignarRutina', [RutinaAlumnoController::class, 'mostrarUsuarios'])->middleware(['auth'])->name('mostrarUsuario');
+
+
+    Route::post('/asignarAlumno', [RutinaAlumnoController::class, 'agregarUsuarios'])->middleware(['auth'])->name('agregar.usuarios');
+    // Ruta para eliminar la asignación
+    Route::delete('/eliminarAsignacion/{rutina}/{alumno}', [RutinaAlumnoController::class, 'eliminarAsignacion'])->middleware(['auth'])->name('eliminar.usuarios');
 });
-Route::resource('rutina', RutinaController::class)
-    ->only(['store', 'index', 'update', 'destroy', 'show'])
-    ->middleware(['auth']);
 
-Route::resource('ejercicio', EjercicioController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
-    ->middleware(['auth']);
-
-Route::post('/ejercicioRutinaEditar', [EjercicioRutinaController::class, 'update'])->middleware(['auth'])->name('actualizar.ejercicio');
-
-Route::post('/ejercicioRutina', [EjercicioRutinaController::class, 'destroy'])->middleware(['auth'])->name('eliminar.ejercicio');
-
-Route::post('/agregarEjercicio', [RutinaController::class, 'agregarEjercicio'])->middleware(['auth'])->name('agregar.ejercicioR');
-
-Route::get('/asignarRutina', [RutinaController::class, 'mostrarUsuarios'])->middleware(['auth'])->name('mostrarUsuario');
-
-
-Route::post('/asignarAlumno', [RutinaController::class, 'agregarUsuarios'])->middleware(['auth'])->name('agregar.usuarios');
-// Ruta para eliminar la asignación
-Route::delete('/eliminarAsignacion/{rutina}/{alumno}', [RutinaController::class, 'eliminarAsignacion'])->middleware(['auth'])->name('eliminar.usuarios');
+Route::get('/notificacion', [NotificacionController::class, 'index'])->middleware(['auth'])->name('notificacion.notification');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
