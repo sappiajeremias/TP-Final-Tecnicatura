@@ -12,13 +12,20 @@ use Inertia\Inertia;
 
 class RutinaAlumnoController extends Controller {
     public function index() {
-       
+        $alumno = Alumno::where('user_id', Auth()->user()->id)->first();
+        $rutinas = RutinaAlumno::with('rutinas')->where('alumno_id', $alumno->id)->get();
+
+        return Inertia::render('Rutinas_Alumnos/Index', ['rutinasAlumno' => $rutinas]);
     }
     public function store(Request $request) {
     }
     public function update(Request $request, RutinaAlumno $rutinaAlumno) {
     }
     public function destroy(RutinaAlumno $rutinaAlumno) {
+    }
+
+    public function ejerciciosRutina($rutinaAlumno) {
+        dd($rutinaAlumno);
     }
 
     // profesor

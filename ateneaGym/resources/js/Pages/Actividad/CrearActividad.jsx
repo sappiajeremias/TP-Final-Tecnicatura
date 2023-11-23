@@ -36,7 +36,7 @@ export default function CrearActividad({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(data.dia_semana);
+        // console.log(data.dia_semana);
         if (isEdit) {
             put(`/actividad/${objeto.id}`, {
                 dia_semana: data.dia_semana, // Envia solo los días seleccionados
@@ -47,7 +47,7 @@ export default function CrearActividad({
                 cupos: data.cupos,
                 profesor_id: data.profesor_id,
                 onSuccess: () => {
-                    console.log("success");
+                    // console.log("success");
                     // if (Object.keys(props.errors).length > 0) {
                     Swal.fire({
                         title: "Exito.",
@@ -79,7 +79,7 @@ export default function CrearActividad({
                 cupos: data.cupos,
                 profesor_id: data.profesor_id,
                 onSuccess: () => {
-                    console.log("success");
+                    // console.log("success");
                     // if (Object.keys(props.errors).length > 0) {
                     Swal.fire({
                         title: "Exito.",

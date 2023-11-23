@@ -12,7 +12,8 @@ class RutinaAlumno extends Model {
         'rutina_id',
     ];
 
-    public function rutinas() {
-        return $this->hasMany(Rutina::class, 'rutina_id');
-    }
+    public function rutinas()
+{
+    return $this->belongsTo(Rutina::class, 'rutina_id');
+}
 }

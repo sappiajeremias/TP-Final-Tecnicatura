@@ -55,7 +55,7 @@ const CardEjercicio = (props) => {
         if (props.isEdit) {
             post(`/ejercicioRutinaEditar`, {
                 onSuccess: () => {
-                    console.log("success");
+                    // console.log("success");
                     // if (Object.keys(props.errors).length > 0) {
                     Swal.fire({
                         title: "Exito.",
@@ -94,7 +94,7 @@ const CardEjercicio = (props) => {
         e.preventDefault();
         put(`/ejercicio/${ejercicio.id}`, {
             onSuccess: () => {
-                console.log("success");
+                // console.log("success");
                 // if (Object.keys(props.errors).length > 0) {
                 Swal.fire({
                     title: "Exito.",

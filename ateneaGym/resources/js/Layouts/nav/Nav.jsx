@@ -1,11 +1,14 @@
 import NavLink from "@/Components/NavLink";
+import Notification from "@/Pages/Notificacion/Notification";
+import { usePage } from "@inertiajs/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 // import { Sidebar } from 'flowbite-react';
 // import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
 
-const Nav = ({ children, auth }) => {
+const Nav = ({ children, auth, notificaciones }) => {
+    // const { props } = usePage();
     const [sidebarVisible, setSidebarVisible] = useState(false);
 
     const openSidebar = () => {
@@ -426,9 +429,7 @@ const Nav = ({ children, auth }) => {
                                             <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
                                         </svg>
                                         <NavLink
-                                            href={route(
-                                                "asistencia.index"
-                                            )}
+                                            href={route("asistencia.index")}
                                             active={route().current(
                                                 "asistencia.index"
                                             )}
@@ -524,7 +525,9 @@ const Nav = ({ children, auth }) => {
                                             <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
                                         </svg>
                                         <NavLink
-                                            href={route("asistenciaAlumno.index")}
+                                            href={route(
+                                                "asistenciaAlumno.index"
+                                            )}
                                             active={route().current(
                                                 "asistenciaAlumno.index"
                                             )}
@@ -605,7 +608,7 @@ const Nav = ({ children, auth }) => {
                                 </div>
                             </li>
                             <li className="cursor-pointer text-white pt-14 pb-3 ">
-                                <button
+                                {/* <button
                                     aria-label="show notifications"
                                     className="focus:outline-none focus:ring-2 rounded focus:ring-gray-300"
                                 >
@@ -628,7 +631,10 @@ const Nav = ({ children, auth }) => {
                                         <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
                                         <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
                                     </svg>
-                                </button>
+                                </button> */}
+                                <Notification
+                                    notificaciones={notificaciones}
+                                ></Notification>
                             </li>
                         </ul>
                     ) : (

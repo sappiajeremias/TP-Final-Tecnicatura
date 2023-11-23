@@ -3,7 +3,7 @@ import React from "react";
 
 function TarjetaTurnos({ turnos }) {
     const cancelarTurno = (id) => {
-        console.log(id);
+      
         router.put(`/misTurnos/${id}`, {
             onSuccess: () => {
                 Swal.fire({

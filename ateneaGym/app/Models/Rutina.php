@@ -18,4 +18,7 @@ class Rutina extends Model {
     public function profesor() {
         return $this->belongsTo(Profesor::class);
     }
+    public function ejercicios() {
+        return $this->belongsToMany(Ejercicio::class, 'ejercicio_rutinas', 'rutina_id', 'ejercicio_id');
+    }
 }

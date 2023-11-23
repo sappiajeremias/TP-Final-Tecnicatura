@@ -1,9 +1,13 @@
 import { router } from "@inertiajs/react";
 import React from "react";
 
-const CardRutina = ({ rutina }) => {
+const CardRutina = ({ rutina, edit }) => {
     const verRutina = () => {
-        router.get(`/rutina/${rutina.id}`);
+        if (edit) {
+            router.get(`/rutina/${rutina.id}`);
+        }else{
+            router.get(`/mis-rutinas/${rutina.id}`);
+        }
     };
     const getDificultadStyle = () => {
         let styleClass = "";

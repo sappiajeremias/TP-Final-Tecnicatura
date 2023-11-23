@@ -1,7 +1,7 @@
 import React from "react";
 
 const VistaAsistencia = ({ asistencia }) => {
-    console.log(asistencia);
+    // console.log(asistencia);
     return (
         <div className="m-auto pt-10">
             <h1 className="text-center font-semibold text-2xl py-5">

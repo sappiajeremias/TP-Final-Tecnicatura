@@ -25,6 +25,8 @@ use App\Models\EjercicioRutina;
 use App\Models\Especialidad;
 use App\Models\Membresia;
 use App\Models\Rutina;
+use App\Models\RutinaAlumno;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 /*
@@ -39,12 +41,23 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
  */
 
 Route::get('/', function () {
+    // Verifica si el usuario está autenticado
+    $isLoggedIn = Auth::check();
+
+    // Si está autenticado, obtén las notificaciones, de lo contrario, establece las notificaciones como vacías
+    $notificaciones = $isLoggedIn ? (new NotificacionController())->index() : [];
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        // 'isLoggedIn' => $isLoggedIn,
+        'notificaciones' => $notificaciones,
     ]);
 });
+
+Route::post('/notiLeida/{id}', [NotificacionController::class, 'marcarLeida'])->middleware(['auth'])->name('leer.noti');
+
 
 Route::group(['middleware' => ['role:Administrador']], function () {
 });
@@ -70,33 +83,40 @@ Route::resource('pago', PagoController::class)
     ->middleware(['auth']);
 
 Route::group(['middleware' => ['role:Alumno|Administrador']], function () {
+    Route::resource('membresia', MembresiaController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
+
+    Route::post('/realizarPago', [MembresiaController::class, 'realizarPago'])->middleware(['auth'])->name('mostrarMembresias');
+    Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->middleware(['auth'])->name('turnoAlumno');
+    Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->middleware(['auth'])->name('cancelar.turnoAlumno');
+
+    Route::get('/realizarPago', function () {
+        return Inertia::render('Pago.Index');
+    });
+    Route::post('/procesar-pago', [PagoController::class, 'crearPreference'])->middleware(['auth'])->name('procesar.pago');
+
+    Route::get('/procesar-respuesta-pago', [PagoController::class, 'estadoPago'])->middleware(['auth'])->name('procesar.respuesta');
+
+    Route::resource('turnos', TurnoController::class)
+        ->only(['store', 'index', 'update', 'destroy'])
+        ->middleware(['auth']);
+
+    Route::get('/mis-rutinas', [RutinaAlumnoController::class, 'index'])->middleware(['auth'])->name('mis.rutinas');
+    Route::get('/mis-rutinas/{idRutina}', [RutinaAlumnoController::class, 'ejerciciosRutina'])->name('ejerciciosRutina');
 });
-Route::get('/misTurnos', [TurnoController::class, 'turnoAlumno'])->middleware(['auth'])->name('turnoAlumno');
-Route::put('/misTurnos/{id}', [TurnoController::class, 'cancelarTurno'])->middleware(['auth'])->name('cancelar.turnoAlumno');
 
 
-Route::resource('membresia', MembresiaController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
-    ->middleware(['auth']);
 
-Route::post('/realizarPago', [MembresiaController::class, 'realizarPago'])->middleware(['auth'])->name('mostrarMembresias');
+
 // Route::get('/realizarPago', [MembresiaController::class, 'realizarPago'])->middleware(['auth']);
-
-Route::get('/realizarPago', function () {
-    return Inertia::render('Pago.Index');
-});
-Route::post('/procesar-pago', [PagoController::class, 'crearPreference'])->middleware(['auth'])->name('procesar.pago');
-
-Route::get('/procesar-respuesta-pago', [PagoController::class, 'estadoPago'])->middleware(['auth'])->name('procesar.respuesta');
-
-Route::resource('turnos', TurnoController::class)
-    ->only(['store', 'index', 'update', 'destroy'])
+Route::resource('rutina', RutinaController::class)
+    ->only(['store', 'index', 'update', 'destroy', 'show'])
     ->middleware(['auth']);
+
+
 
 Route::group(['middleware' => ['role:Profesor|Administrador']], function () {
-    Route::resource('rutina', RutinaController::class)
-        ->only(['store', 'index', 'update', 'destroy', 'show'])
-        ->middleware(['auth']);
 
     Route::resource('ejercicio', EjercicioController::class)
         ->only(['store', 'index', 'update', 'destroy'])
@@ -116,10 +136,11 @@ Route::group(['middleware' => ['role:Profesor|Administrador']], function () {
     Route::delete('/eliminarAsignacion/{rutina}/{alumno}', [RutinaAlumnoController::class, 'eliminarAsignacion'])->middleware(['auth'])->name('eliminar.usuarios');
 });
 
-Route::get('/notificacion', [NotificacionController::class, 'index'])->middleware(['auth'])->name('notificacion.notification');
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+
+    $notificacion = new NotificacionController();
+    return Inertia::render('Dashboard', ['notificacion' => $notificacion->index()]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
