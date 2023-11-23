@@ -27,12 +27,16 @@ class MembresiaController extends Controller {
 
     public function realizarPago(Request $request) {
         $ultimoPago = Auth::user()->ultimoPago();
+        $aux = true;
+        // dd((!empty($ultimoPago) && (Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3)));
+        if (!empty($ultimoPago)) {
+            if ((Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3) == false) {
+                // dd('pago no vencido')
+                return back()->withErrors(['message' => 'Todavía no se ha vencido su membresía.']);
+            }
+        }
 
-        //  dd($ultimoPago && Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3);
-        if (($ultimoPago && Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3) == false) {
-            // dd('pago no vencido');
-            return back()->withErrors(['message' => 'Todavía no se ha vencido su membresía.']);
-        } else {
+        if ($aux) {
             $membresia = Membresia::where('id', $request->membresia_id)->first();
             MercadoPagoConfig::setAccessToken('TEST-1348754680884105-110109-6707e699579e65cd614043f0f8f76ce8-1530492018');
 

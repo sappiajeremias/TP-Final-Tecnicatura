@@ -70,12 +70,24 @@ class User extends Authenticatable {
 
         // Filtrar los pagos para obtener el primero que no esté vencido
         $pagoReciente = $pagosOrdenados->first(function ($pago) {
-            return $pago->fecha_vencimiento > now();
+            return $pago->fecha_vencimiento > now() ;
         });
+        // $pagoReciente = $pagosOrdenados->first();
 
         return $pagoReciente;
     }
+    public function ultimoPagoVigente() {
+        // Obtener todos los pagos ordenados por fecha de vencimiento de manera descendente
+        $pagosOrdenados = $this->pagos()->where('estado', 'approved')->orderBy('fecha_vencimiento', 'desc')->get();
 
+        // Filtrar los pagos para obtener el primero que no esté vencido
+        // $pagoReciente = $pagosOrdenados->first(function ($pago) {
+        //     return $pago->fecha_vencimiento > now();
+        // });
+        $pagoReciente = $pagosOrdenados->first();
+
+        return $pagoReciente;
+    }
     public function membresiaActual() {
 
         // $pagosOrdenados = $this->pagos()->get()->sortByDesc('fecha_vencimiento');

@@ -100,12 +100,12 @@ const CardEjercicio = (props) => {
                     title: "Exito.",
                     text: "Se modifico exitosamente",
                     icon: "success",
-                })
+                });
                 setModalOpenEdit(false);
-                setTimeout(function() {
+                setTimeout(function () {
                     location.reload();
                 }, 2000);
-            }
+            },
         });
     };
 
@@ -166,7 +166,7 @@ const CardEjercicio = (props) => {
                             <img
                                 className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                                 src={ejercicio.ejercicio.imagen}
-                                alt=""
+                                alt={ejercicio.ejercicio.nombre}
                             />
                             <div className="flex flex-col justify-between p-4 leading-normal w-full md:w-96">
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -238,7 +238,7 @@ const CardEjercicio = (props) => {
                         <img
                             className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                             src={ejercicio.imagen}
-                            alt=""
+                            alt={ejercicio.nombre}
                         />
                         <div className="flex flex-col justify-between p-4 leading-normal">
                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -360,7 +360,6 @@ const CardEjercicio = (props) => {
             <Modal show={modalOpenEdit} onClose={() => setModalOpenEdit(false)}>
                 <div>
                     <form onSubmit={submitEdit}>
-
                         <div className="mt-2">
                             <InputLabel htmlFor="nombre" value="Nombre" />
 
@@ -383,7 +382,10 @@ const CardEjercicio = (props) => {
                             />
                         </div>
                         <div className="mt-2">
-                            <InputLabel htmlFor="parte_cuerpo" value="Parte del cuerpo" />
+                            <InputLabel
+                                htmlFor="parte_cuerpo"
+                                value="Parte del cuerpo"
+                            />
 
                             <TextInput
                                 id="parte_cuerpo"
@@ -425,7 +427,10 @@ const CardEjercicio = (props) => {
                         </div>
 
                         <div className="mt-2">
-                            <InputLabel htmlFor="imagen" value="Ruta de imagen" />
+                            <InputLabel
+                                htmlFor="imagen"
+                                value="Ruta de imagen"
+                            />
 
                             <TextInput
                                 id="imagen"
@@ -459,7 +464,6 @@ const CardEjercicio = (props) => {
             <Modal show={modalOpenEdit} onClose={() => setModalOpenEdit(false)}>
                 <div>
                     <form onSubmit={submitEdit}>
-
                         <div className="mt-2">
                             <InputLabel htmlFor="nombre" value="Nombre" />
 
@@ -482,7 +486,10 @@ const CardEjercicio = (props) => {
                             />
                         </div>
                         <div className="mt-2">
-                            <InputLabel htmlFor="parte_cuerpo" value="Parte del cuerpo" />
+                            <InputLabel
+                                htmlFor="parte_cuerpo"
+                                value="Parte del cuerpo"
+                            />
 
                             <TextInput
                                 id="parte_cuerpo"
@@ -524,7 +531,10 @@ const CardEjercicio = (props) => {
                         </div>
 
                         <div className="mt-2">
-                            <InputLabel htmlFor="imagen" value="Ruta de imagen" />
+                            <InputLabel
+                                htmlFor="imagen"
+                                value="Ruta de imagen"
+                            />
 
                             <TextInput
                                 id="imagen"

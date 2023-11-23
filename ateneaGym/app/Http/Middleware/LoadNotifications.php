@@ -9,12 +9,7 @@ use Inertia\Inertia;
 
 class LoadNotifications {
     public function handle($request, Closure $next) {
-        // Verifica si el usuario está autenticado
-        // dd('hola');
-        // dd(Auth::authenticate()
-        // $isLoggedIn = Auth::check();
-
-        // Si está autenticado, obtén las notificaciones, de lo contrario, establece las notificaciones como vacías
+       
         $notificaciones = (new NotificacionController())->index();
         // dd($notificaciones);
         // Comparte las notificaciones con todas las vistas

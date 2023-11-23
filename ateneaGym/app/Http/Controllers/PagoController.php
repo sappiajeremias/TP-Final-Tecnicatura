@@ -29,7 +29,7 @@ class PagoController extends Controller {
     }
     public function store(Request $request) {
         $ultimoPago = Auth::user()->ultimoPago();
-
+        dd($ultimoPago);
         //  dd($ultimoPago && Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3);
         if (($ultimoPago && Carbon::now()->diffInDays($ultimoPago->fecha_vencimiento, false) <= 3) == false) {
             return back()->withErrors(['message' => 'Todavía no se ha vencido su membresía.']);

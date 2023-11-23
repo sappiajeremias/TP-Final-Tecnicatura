@@ -12,6 +12,16 @@ export default function Dashboard({ auth }) {
             text: mensaje,
         });
     }
+   
+    Swal.fire({
+        title: "Estado de membresia!",
+        icon: "warning",
+        html: "Recuerde que su membresia se encuentra vencida",
+        timer: 3000,
+        background: '#FAF6F0',
+        timerProgressBar: true,
+    });
+
     return (
         <AuthenticatedLayout auth={auth}>
             <PaginaWelcome></PaginaWelcome>
