@@ -6,6 +6,8 @@ use App\Models\Alumno;
 use App\Models\Profesor;
 use App\Models\Rutina;
 use App\Models\RutinaAlumno;
+use App\Models\Ejercicio;
+use App\Models\EjercicioRutina;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -24,8 +26,13 @@ class RutinaAlumnoController extends Controller {
     public function destroy(RutinaAlumno $rutinaAlumno) {
     }
 
-    public function ejerciciosRutina($rutinaAlumno) {
-        dd($rutinaAlumno);
+    public function ejerciciosRutina($id) {
+       
+            $ejerciciosCompletos = Ejercicio::all();
+            $rutina = EjercicioRutina::where('rutina_id', $id)->with('ejercicio')->get();
+            // dd($rutina);
+            return Inertia::render('Rutinas_Alumnos/EjerciciosRutinasAlum', ['ejercicios' => $rutina]);
+        
     }
 
     // profesor
