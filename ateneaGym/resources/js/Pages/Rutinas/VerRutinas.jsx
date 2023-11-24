@@ -7,7 +7,7 @@ import { router, usePage } from "@inertiajs/react";
 const VerRutinas = (props) => {
     const [rutinas, setRutinas] = useState([]);
     const [profesor, setProfesor] = useState([]);
-    const [edit, setEdit] = useState(false);
+    const [edit, setEdit] = useState(true);
     useEffect(() => {
         if (props.edit) {
             setEdit(props.edit);

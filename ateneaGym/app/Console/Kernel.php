@@ -6,20 +6,25 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel {
-    protected $commands = [Commands\GenerarTurnos::class];
-    /**
-     * Define the application's command schedule.
-     */
-    protected function schedule(Schedule $schedule): void {
-        $schedule->command('turnos:generar')->everySecond();
-    }
+  protected $commands = [
+    Commands\GenerarTurnos::class,
+    Commands\GenerarNotis::class, // Agrega esta línea
+  ];
 
-    /**
-     * Register the commands for the application.
-     */
-    protected function commands(): void {
-        $this->load(__DIR__ . '/Commands');
+  /**
+   * Define the application's command schedule.
+   */
+  protected function schedule(Schedule $schedule): void {
+    $schedule->command('turnos:generar')->monthly();
+    $schedule->command('notificaciones:generar')->dailyAt('2:00'); // Agrega esta línea
+  }
 
-        require base_path('routes/console.php');
-    }
+  /**
+   * Register the commands for the application.
+   */
+  protected function commands(): void {
+    $this->load(__DIR__ . '/Commands');
+
+    require base_path('routes/console.php');
+  }
 }

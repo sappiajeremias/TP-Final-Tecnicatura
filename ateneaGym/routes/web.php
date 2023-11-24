@@ -101,13 +101,11 @@ Route::group(['middleware' => ['role:Alumno|Administrador']], function () {
     Route::resource('turnos', TurnoController::class)
         ->only(['store', 'index', 'update', 'destroy'])
         ->middleware(['auth']);
-
-    Route::get('/mis-rutinas', [RutinaAlumnoController::class, 'index'])->middleware(['auth'])->name('mis.rutinas');
-    Route::get('/mis-rutinas/{idRutina}', [RutinaAlumnoController::class, 'ejerciciosRutina'])->name('ejerciciosRutina');
 });
 
 
-
+Route::get('/mis-rutinas', [RutinaAlumnoController::class, 'index'])->middleware(['auth'])->name('mis.rutinas');
+Route::get('/mis-rutinas/{idRutina}', [RutinaAlumnoController::class, 'ejerciciosRutina'])->name('ejerciciosRutina');
 
 // Route::get('/realizarPago', [MembresiaController::class, 'realizarPago'])->middleware(['auth']);
 Route::resource('rutina', RutinaController::class)

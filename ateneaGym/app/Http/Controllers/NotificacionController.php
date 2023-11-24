@@ -10,7 +10,7 @@ use Inertia\Inertia;
 class NotificacionController extends Controller {
     public function index() {
         $notificaciones = Notificacion::where('read_at', null)->get(); // Puedes ajustar esto según tus necesidades
-
+        // dd($notificaciones);
         return $notificaciones;
     }
     public function marcarLeida($id) {
