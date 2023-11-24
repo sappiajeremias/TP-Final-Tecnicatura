@@ -6,7 +6,7 @@ import Index from "../Ejercicios/Index";
 import AgregarEjercicio from "./AgregarEjercicio";
 import { router } from "@inertiajs/react";
 
-const EjerciciosRutina = ({ auth, ejercicios, ejerciciosAll }) => {
+const EjerciciosRutina = ({ auth, ejercicios, ejerciciosAll, nombreRutina }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const cerrarModal = () => {
         setModalOpen(false);
@@ -19,7 +19,7 @@ const EjerciciosRutina = ({ auth, ejercicios, ejerciciosAll }) => {
     return (
         <Authenticated auth={auth}>
             <h1 className="text-xl font-sans font-medium text-center py-3">
-                Ejercicios Rutina
+                Ejercicios Rutina {nombreRutina}
             </h1>
             <div className="flex justify-end pe-3">
                 {" "}

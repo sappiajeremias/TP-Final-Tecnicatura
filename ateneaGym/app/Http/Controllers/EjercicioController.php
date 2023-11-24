@@ -32,11 +32,12 @@ class EjercicioController extends Controller
             
         ]);
 
+        /* SUBIDA DE IMAGENES*/
         $imagen = $request->file('imagen');
-        //dd($imagen);
         $nombreImagen = time() . '.' . $imagen->extension();
         $imagen->move(public_path('assets/subidas/'), $nombreImagen);
         $rutaImagen = 'assets/subidas/' . $nombreImagen;
+
         $ejercicio = Ejercicio::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,

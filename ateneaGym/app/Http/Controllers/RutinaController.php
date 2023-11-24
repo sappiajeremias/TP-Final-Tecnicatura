@@ -56,9 +56,10 @@ class RutinaController extends Controller {
     }
     public function show($id) {
         $ejerciciosCompletos = Ejercicio::all();
-        $rutina = EjercicioRutina::where('rutina_id', $id)->with('ejercicio')->get();
+        $rutina = Rutina::find($id);
+        $rutinaEj = EjercicioRutina::where('rutina_id', $id)->with('ejercicio')->get();
         // dd($rutina);
-        return Inertia::render('Rutinas/EjerciciosRutina', ['ejercicios' => $rutina, 'ejerciciosAll' => $ejerciciosCompletos]);
+        return Inertia::render('Rutinas/EjerciciosRutina', ['ejercicios' => $rutinaEj, 'ejerciciosAll' => $ejerciciosCompletos, 'nombreRutina' => $rutina->nombre]);
     }
     public function update(Request $request, Rutina $rutina) {
     }
