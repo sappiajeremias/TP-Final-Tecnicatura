@@ -40,19 +40,20 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 |
  */
 
+
+
 Route::get('/', function () {
     // Verifica si el usuario está autenticado
-    $isLoggedIn = Auth::check();
 
     // Si está autenticado, obtén las notificaciones, de lo contrario, establece las notificaciones como vacías
-    $notificaciones = $isLoggedIn ? (new NotificacionController())->index() : [];
+
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
-        // 'isLoggedIn' => $isLoggedIn,
-        'notificaciones' => $notificaciones,
+
+
     ]);
 });
 
@@ -137,8 +138,7 @@ Route::group(['middleware' => ['role:Profesor|Administrador']], function () {
 
 Route::get('/dashboard', function () {
 
-    $notificacion = new NotificacionController();
-    return Inertia::render('Dashboard', ['notificacion' => $notificacion->index()]);
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

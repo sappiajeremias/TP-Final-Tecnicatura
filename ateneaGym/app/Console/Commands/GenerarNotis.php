@@ -21,9 +21,9 @@ class GenerarNotis extends Command {
             $user = User::find($alumno->user_id);
 
             // Notificación de bienvenida al usuario
-            if ($user->created_at == $user->updated_at) {
-                $this->crearNotificacion($user, '¡Bienvenido a AteneaGym!');
-            }
+            // if ($user->created_at == $user->updated_at) {
+            //     $this->crearNotificacion($user, '¡Bienvenido a AteneaGym!');
+            // }
 
             // Obtener el último pago vigente
             $ultimoPago = $user->pagos()->latest('fecha_vencimiento')->first();

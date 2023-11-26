@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumno;
+use App\Models\Notificacion;
 use App\Models\Profesor;
 use App\Models\Role;
 use App\Models\User;
@@ -42,21 +44,9 @@ class UserController extends Controller {
             'dni' => ['required', 'numeric', 'digits:8', 'unique:' . User::class,],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ], [
-            // 'name.required' => 'Por favor, ingrese un nombre.',
-            // 'name.max' => 'El nombre debe tener menos de 255 caracteres.',
-            // 'email.required' => 'Por favor, ingrese un email.',
-            // 'email.email' => 'Ingrese un email válido.',
-            // 'email.unique' => 'Ya existe un usuario registrado con el mail ingresado.',
-            // 'apellido.required' => 'Por favor, ingrese un apellido.',
-            // 'apellido.max' => 'El apellido debe tener menos de 255 caracteres.',
-            // 'fecha_nac.required' => 'Por favor, ingrese una fecha.',
+
             'fecha_nac.before_or_equal' => 'La fecha de nacimiento ingresada debe ser mayor de 13 años.',
-            // 'dni.required' => 'Por favor, ingrese un DNI.',
-            // 'dni.unique' => 'Ya existe un usuario registrado con el DNI ingresado.',
-            // 'dni.integer' => 'El DNI ingresado debe ser numerico.',
-            // 'dni.max' => 'Debe contener 8 caracteres.',
-            // 'dni.min' => 'Debe contener 8 caracteres.',
-            // 'password.required' => 'Por favor, ingrese una contraseña.'
+
         ]);
 
         $user = User::create([
@@ -70,16 +60,23 @@ class UserController extends Controller {
 
         $user->assignRole($request->rol);
         if ($request->rol == 'Profesor') {
-            Profesor::create([
+            $profesor = Profesor::create([
                 'user_id' => $user->id,
                 'matricula' => $request->matricula
             ]);
+            $profesor->save();
         }
-        // event(new Registered($user));
-
-        // Auth::login($user);
-
-        //return redirect(RouteServiceProvider::HOME);
+        if ($request->rol == 'Alumno') {
+            $alumno = Alumno::create([
+                'user_id' => $user->id,
+            ]);
+            $alumno->save();
+        }
+        $noti = Notificacion::create([
+            'user_id' => $user->id,
+            'message' => '¡Bienvenido a AteneaGym!',
+        ]);
+        $noti->save();
     }
 
     /**
@@ -118,5 +115,4 @@ class UserController extends Controller {
 
         // return redirect()->route('dashboard');
     }
-   
 }

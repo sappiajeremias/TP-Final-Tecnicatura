@@ -8,6 +8,7 @@ use App\Models\Rutina;
 use App\Models\RutinaAlumno;
 use App\Models\Ejercicio;
 use App\Models\EjercicioRutina;
+use App\Models\Notificacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -27,12 +28,11 @@ class RutinaAlumnoController extends Controller {
     }
 
     public function ejerciciosRutina($id) {
-       
-            $ejerciciosCompletos = Ejercicio::all();
-            $rutina = EjercicioRutina::where('rutina_id', $id)->with('ejercicio')->get();
-            // dd($rutina);
-            return Inertia::render('Rutinas_Alumnos/EjerciciosRutinasAlum', ['ejercicios' => $rutina]);
-        
+
+        $ejerciciosCompletos = Ejercicio::all();
+        $rutina = EjercicioRutina::where('rutina_id', $id)->with('ejercicio')->get();
+        // dd($rutina);
+        return Inertia::render('Rutinas_Alumnos/EjerciciosRutinasAlum', ['ejercicios' => $rutina]);
     }
 
     // profesor
@@ -47,12 +47,20 @@ class RutinaAlumnoController extends Controller {
         return Inertia::render('Rutinas/AsignarRutina', ['alumnos' => $alumnos, 'rutinas' => $rutinas, 'rutinaAlumnos' => $rutinaAlumno]);
     }
     public function agregarUsuarios(Request $request) {
-        // dd($request);
+        $alumno = Alumno::find($request->alumno);
+        $user = $alumno->usuario;
+
         $rutinaAlumno = RutinaAlumno::create([
             'alumno_id' => $request->alumno,
             'rutina_id' => $request->rutina,
         ]);
         $rutinaAlumno->save();
+
+        $noti = Notificacion::create([
+            'user_id' => $user->id,
+            'message' => '¡Se le ha asignado una rutina nueva!',
+        ]);
+        $noti->save();
         return back()->with(['message' => 'Se agrego correctamente el alumno a la rutina']);
     }
     public function eliminarAsignacion($rutinaId, $alumnoId) {

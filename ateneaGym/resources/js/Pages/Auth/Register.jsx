@@ -38,7 +38,6 @@ export default function Register({ isEdit, objeto, roles }) {
                         icon: "success",
                     });
                     document.getElementById("cierreModal").click();
-                    location.reload();
                 },
             });
         } else {
@@ -50,7 +49,7 @@ export default function Register({ isEdit, objeto, roles }) {
                         icon: "success",
                     });
                     document.getElementById("cierreModal").click();
-                    location.reload();
+                   
                 },
             });
         }

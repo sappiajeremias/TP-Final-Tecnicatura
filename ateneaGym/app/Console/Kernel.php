@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel {
    */
   protected function schedule(Schedule $schedule): void {
     $schedule->command('turnos:generar')->monthly();
-    $schedule->command('notificaciones:generar')->dailyAt('2:00'); // Agrega esta línea
+    $schedule->command('notificaciones:generar')->dailyAt(now()); // Agrega esta línea
   }
 
   /**
