@@ -138,7 +138,9 @@ Route::group(['middleware' => ['role:Profesor|Administrador']], function () {
 
 Route::get('/dashboard', function () {
 
-    return Inertia::render('Dashboard');
+    $membresia = (new MembresiaController())->verificarMembresiaActiva();
+
+    return Inertia::render('Dashboard', ['membresia' => $membresia]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

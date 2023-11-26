@@ -91,7 +91,7 @@ class User extends Authenticatable {
     public function membresiaActual() {
 
         // $pagosOrdenados = $this->pagos()->get()->sortByDesc('fecha_vencimiento');
-        $pagoReciente = $this->ultimoPago();
+        $pagoReciente = $this->ultimoPagoVigente();
         if ($pagoReciente) {
             $membresia = $pagoReciente->membresia;
         } else {

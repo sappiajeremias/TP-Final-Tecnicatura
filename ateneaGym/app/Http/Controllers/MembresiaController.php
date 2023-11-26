@@ -75,4 +75,13 @@ class MembresiaController extends Controller {
     }
     public function destroy(Membresia $membresia) {
     }
+    public function verificarMembresiaActiva() {
+        $user = Auth::user();
+        if ($user) {
+            $ultimoPago = $user->ultimoPagoVigente();
+            return $ultimoPago;
+        } else {
+            return null;
+        }
+    }
 }
