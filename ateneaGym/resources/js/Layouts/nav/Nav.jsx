@@ -1,4 +1,7 @@
 import NavLink from "@/Components/NavLink";
+import CerrarSesion from "@/Components/iconos/CerrarSesion";
+import InicioSesion from "@/Components/iconos/InicioSesion";
+import Mancuerna from "@/Components/iconos/Mancuerna";
 import Notification from "@/Pages/Notificacion/Notification";
 import { usePage } from "@inertiajs/react";
 import axios from "axios";
@@ -129,97 +132,22 @@ const Nav = ({ children, auth, notificaciones }) => {
                         </div>
                         <ul className="mt-12 pt-3">
                             {auth.user ? (
+                                ""
+                            ) : (
                                 <>
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white justify-between gap-3">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="icon icon-tabler icon-tabler-grid"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <rect
-                                                    x="4"
-                                                    y="4"
-                                                    width="6"
-                                                    height="6"
-                                                    rx="1"
-                                                ></rect>
-                                                <rect
-                                                    x="14"
-                                                    y="4"
-                                                    width="6"
-                                                    height="6"
-                                                    rx="1"
-                                                ></rect>
-                                                <rect
-                                                    x="4"
-                                                    y="14"
-                                                    width="6"
-                                                    height="6"
-                                                    rx="1"
-                                                ></rect>
-                                                <rect
-                                                    x="14"
-                                                    y="14"
-                                                    width="6"
-                                                    height="6"
-                                                    rx="1"
-                                                ></rect>
-                                            </svg>
-
+                                            <InicioSesion></InicioSesion>
                                             <NavLink
-                                                className=""
-                                                href={route("dashboard")}
+                                                href={route("login")}
                                                 active={route().current(
-                                                    "dashboard"
+                                                    "login"
                                                 )}
                                             >
-                                                Dashboard
+                                                Login
                                             </NavLink>
                                         </div>
                                     </li>
-                                </>
-                            ) : (
-                                <>
-                                    <ul className="mt-12 pt-6">
-                                        <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
-                                            <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white justify-between gap-3">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="16"
-                                                    height="16"
-                                                    fill="currentColor"
-                                                    class="bi bi-person-circle"
-                                                    viewBox="0 0 16 16"
-                                                >
-                                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                                                    />
-                                                </svg>
-                                                <NavLink
-                                                    href={route("login")}
-                                                    active={route().current(
-                                                        "login"
-                                                    )}
-                                                >
-                                                    Login
-                                                </NavLink>
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </>
                             )}
                             {auth.user &&
@@ -227,24 +155,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                                 <>
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="icon icon-tabler icon-tabler-puzzle"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                            </svg>
+                                            <Mancuerna />
                                             <NavLink
                                                 href={route("actividad.index")}
                                                 active={route().current(
@@ -258,23 +169,7 @@ const Nav = ({ children, auth, notificaciones }) => {
 
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                className=" text-gray-100 dark:text-white"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 20 18"
-                                                width="18"
-                                                height="18"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
-                                                />
-                                            </svg>
+                                            <Mancuerna />
                                             <NavLink
                                                 href={route("usuarios.index")}
                                                 active={route().current(
@@ -288,23 +183,7 @@ const Nav = ({ children, auth, notificaciones }) => {
 
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                className=" text-gray-100 dark:text-white"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 20 18"
-                                                width="18"
-                                                height="18"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
-                                                />
-                                            </svg>
+                                            <Mancuerna />
                                             <NavLink
                                                 href={route(
                                                     "especialidad.index"
@@ -325,24 +204,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                                 <>
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="icon icon-tabler icon-tabler-puzzle"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                            </svg>
+                                            <Mancuerna />
                                             <NavLink
                                                 href={route("membresia.index")}
                                                 active={route().current(
@@ -355,23 +217,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                                     </li>
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                className=" text-gray-100 dark:text-white"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 20 18"
-                                                width="18"
-                                                height="18"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"
-                                                />
-                                            </svg>
+                                            <Mancuerna />
                                             <NavLink
                                                 href={route("turnos.index")}
                                                 active={route().current(
@@ -384,24 +230,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                                     </li>
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="icon icon-tabler icon-tabler-puzzle"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                            </svg>
+                                            <Mancuerna />
                                             <NavLink
                                                 href={route("turnoAlumno")}
                                                 active={route().current(
@@ -414,24 +243,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                                     </li>
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="icon icon-tabler icon-tabler-puzzle"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                            </svg>
+                                            <Mancuerna />
                                             <NavLink
                                                 href={route("asistencia.index")}
                                                 active={route().current(
@@ -439,6 +251,19 @@ const Nav = ({ children, auth, notificaciones }) => {
                                                 )}
                                             >
                                                 Asistencia
+                                            </NavLink>
+                                        </div>
+                                    </li>
+                                    <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
+                                        <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
+                                            <Mancuerna />
+                                            <NavLink
+                                                href={route("mis.rutinas")}
+                                                active={route().current(
+                                                    "mis.rutinas"
+                                                )}
+                                            >
+                                                Mis Rutinas
                                             </NavLink>
                                         </div>
                                     </li>
@@ -450,24 +275,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                                 <>
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="icon icon-tabler icon-tabler-puzzle"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                            </svg>
+                                            <Mancuerna />
                                             <NavLink
                                                 href={route("ejercicio.index")}
                                                 active={route().current(
@@ -480,24 +288,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                                     </li>
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="icon icon-tabler icon-tabler-puzzle"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                            </svg>
+                                            <Mancuerna />
                                             <NavLink
                                                 href={route("rutina.index")}
                                                 active={route().current(
@@ -510,24 +301,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                                     </li>
                                     <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                         <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="icon icon-tabler icon-tabler-puzzle"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
-                                            </svg>
+                                            <Mancuerna />
                                             <NavLink
                                                 href={route(
                                                     "asistenciaAlumno.index"
@@ -547,23 +321,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                             {auth.user ? (
                                 <li className="flex w-full justify-between text-gray-100 cursor-pointer items-center mb-6">
                                     <div className="flex items-center focus:outline-none focus:ring-2 focus:ring-white gap-3">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            fill="currentColor"
-                                            className="bi bi-box-arrow-right"
-                                            viewBox="0 0 16 16"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
-                                            />
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
-                                            />
-                                        </svg>
+                                        <CerrarSesion></CerrarSesion>
                                         <NavLink
                                             href={route("logout")}
                                             method="post"
@@ -612,30 +370,6 @@ const Nav = ({ children, auth, notificaciones }) => {
                                     </div>
                                 </li>
                                 <li className="cursor-pointer text-white pt-14 pb-3 ">
-                                    {/* <button
-                                    aria-label="show notifications"
-                                    className="focus:outline-none focus:ring-2 rounded focus:ring-gray-300"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="icon icon-tabler icon-tabler-bell"
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        fill="none"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                        ></path>
-                                        <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
-                                        <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
-                                    </svg>
-                                </button> */}
                                     <Notification
                                         notificaciones={notificaciones}
                                     ></Notification>
