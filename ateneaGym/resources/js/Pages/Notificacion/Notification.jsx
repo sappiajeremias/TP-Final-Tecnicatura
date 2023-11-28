@@ -43,11 +43,12 @@ const Notification = ({ notificaciones }) => {
 
                 <div
                     id="dropdownTop"
-                    className={`absolute -top-96 left-0 ${
+                    className={`absolute  ${
                         isDropdownTopOpen ? "z-10" : ""
                     }  divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 mt-10 ${
                         isDropdownTopOpen ? "block" : "hidden"
                     } sm:w-64 md:w-80 lg:w-96`}
+                    style={{ bottom: "100%" }}
                 >
                     <ul
                         className="py-2 text-sm text-gray-700 dark:text-gray-200"

@@ -29,6 +29,7 @@ php artisan view:cache
 php artisan db:wipe
 php artisan migrate --seed
 php artisan turnos:generar
+php artisan notificaciones:generar
 
 
 Comandos para ir agregando js:
