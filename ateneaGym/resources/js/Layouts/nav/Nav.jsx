@@ -2,8 +2,9 @@ import NavLink from "@/Components/NavLink";
 import CerrarSesion from "@/Components/iconos/CerrarSesion";
 import InicioSesion from "@/Components/iconos/InicioSesion";
 import Mancuerna from "@/Components/iconos/Mancuerna";
+import Dashboard from "@/Pages/Dashboard";
 import Notification from "@/Pages/Notificacion/Notification";
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -42,7 +43,9 @@ const Nav = ({ children, auth, notificaciones }) => {
             setSidebarVisible(false);
         }
     };
-
+    const irInicio = () => {
+        router.visit("/dashboard");
+    };
     // Agregar un listener para el cambio en el tamaño de la pantalla
     useEffect(() => {
         checkScreenWidth();
@@ -125,6 +128,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                     <div className="px-8 h-full">
                         <div className="w-full flex items-center justify-center pt-5 ">
                             <img
+                                onClick={irInicio}
                                 src="/assets/img/logo/atenea_gym.svg"
                                 alt=""
                                 className=" max-h-32 md:max-h-40"
