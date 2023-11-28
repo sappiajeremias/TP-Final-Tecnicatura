@@ -121,7 +121,7 @@ export default function CrearActividad({
                             setData("especialidad_id", e.target.value)
                         }
                     >
-                        <option value={1}>
+                        <option>
                             Seleccione la descripcion de la actividad
                         </option>
                         {especialidades.map((esp, index) => (
@@ -206,7 +206,7 @@ export default function CrearActividad({
                                 setData("hora_inicio", e.target.value)
                             }
                         >
-                            <option  value={1}>Selecciona una hora</option>
+                            <option >Selecciona una hora</option>
                             {Array.from({ length: 14 }, (_, index) => {
                                 const hour = index + 8; // Empieza en 8:00 AM y suma cada hora
                                 const formattedHour = `${hour
@@ -244,7 +244,7 @@ export default function CrearActividad({
                                 setData("hora_fin", e.target.value)
                             }
                         >
-                            <option  value={1}>Seleccione una hora</option>
+                            <option>Seleccione una hora</option>
                             {Array.from({ length: 14 }, (_, index) => {
                                 const hour = index + 9; // Empieza en 9:00 AM y suma cada hora
                                 const formattedHour = `${hour
@@ -304,7 +304,7 @@ export default function CrearActividad({
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="profesor_id" value="ID Profesor" />
+                    <InputLabel htmlFor="profesor_id" value="Profesor" />
 
                     <select
                         name="profesor_id"
@@ -313,7 +313,7 @@ export default function CrearActividad({
                         value={data.profesor_id}
                         onChange={(e) => setData("profesor_id", e.target.value)}
                     >
-                        <option  value={1}>Seleccione el id del profesor</option>
+                        <option >Seleccione el profesor</option>
                         {profesores.map((profe, index) => (
                             <option key={index} value={profe.id}>
                                 {profe.nombre_apellido}

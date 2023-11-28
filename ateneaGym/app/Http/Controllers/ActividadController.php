@@ -60,7 +60,8 @@ class ActividadController extends Controller {
         ]);
 
         //dd($request);
-        $actividadRepe = Actividad::where('dia_semana', $request->dia_semana)
+        $actividadRepe = Actividad::where('especialidad_id', $request->especialidad_id)
+            ->where('dia_semana', $request->dia_semana)
             ->where(function ($query) use ($request) {
                 $query->where(function ($subQuery) use ($request) {
                     // Nueva actividad comienza después de la existente y termina antes de la existente
@@ -73,6 +74,12 @@ class ActividadController extends Controller {
                             ->where('hora_inicio', '<', $request->hora_fin);
                     });
             })
+            ->first();
+
+
+
+        $especialidadRepe = EspecialidadProfesor::where('especialidad_id', $request->especialidad_id)
+            ->where('profesor_id', $request->profesor_id)
             ->first();
 
         if ($actividadRepe) {
@@ -121,27 +128,40 @@ class ActividadController extends Controller {
             'cupos.min' => 'La cantidad de cupos debe ser mayor o igual a 5 o menor que 20.',
         ]);
         //dd($actividadRepe->id != $id);
-
         $actividadRepe = Actividad::where('dia_semana', $request->dia_semana)
-            ->where('hora_inicio', $request->hora_inicio)
+            ->where('especialidad_id', $request->especialidad_id)
+            ->where(function ($query) use ($request) {
+                $query->where(function ($subQuery) use ($request) {
+                    // Nueva actividad comienza después de la existente y termina antes de la existente
+                    $subQuery->where('hora_inicio', '<', $request->hora_fin)
+                        ->where('hora_fin', '>', $request->hora_inicio);
+                })
+                    ->orWhere(function ($subQuery) use ($request) {
+                        // Nueva actividad comienza antes de la existente y termina después de la existente
+                        $subQuery->where('hora_inicio', '>', $request->hora_inicio)
+                            ->where('hora_inicio', '<', $request->hora_fin);
+                    });
+            })
             ->first();
+
         $especialidadRepe = EspecialidadProfesor::where('especialidad_id', $request->especialidad_id)
             ->where('profesor_id', $request->profesor_id)
             ->first();
 
-        if ($actividadRepe && $actividadRepe->id != $id) {
-            return back()->withErrors(['message', 'Ya existe una actividad en esa hora y día.']);
+        if ($actividadRepe) {
+            return back()->withErrors(['message', 'Ya existe una actividad en esa hora y día para esa especialidad.']);
         } else {
             if ($especialidadRepe) {
-                $act = Actividad::find($id);
-                $act->dia_semana = $request->dia_semana;
-                $act->hora_inicio = $request->hora_inicio;
-                $act->hora_fin = $request->hora_fin;
-                $act->duracion = $request->duracion;
-                $act->especialidad_id = $request->especialidad_id;
-                $act->cupos = $request->cupos;
-                $act->profesor_id = $request->profesor_id;
-                $act->save();
+                $actividad = Actividad::create([
+                    'dia_semana' => $request->dia_semana,
+                    'hora_inicio' => $request->hora_inicio,
+                    'hora_fin' => $request->hora_fin,
+                    'duracion' => $request->duracion,
+                    'especialidad_id' => $request->especialidad_id,
+                    'cupos' => $request->cupos,
+                    'profesor_id' => $request->profesor_id,
+                ]);
+                $actividad->save();
             } else {
                 return back()->withErrors(['message', 'Ese profesor no tiene asignada esa especialidad.']);
             }
