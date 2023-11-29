@@ -90,18 +90,19 @@ const AsignarRutina = ({ auth, alumnos, rutinas, rutinaAlumnos }) => {
 
     return (
         <Authenticated auth={auth}>
-            <div className="pt-8">
+            <div className="pt-8 mx-6">
                 <h1 className="pb-5 text-lg font-medium text-center">
                     Seleccione los alumnos{" "}
                 </h1>
-                <div>
+                <div className="pb-5">
                     <label htmlFor="rutinaSelect">Seleccionar Rutina:</label>
                     <select
                         id="rutinaSelect"
                         value={rutinaActual}
                         onChange={handleChangeRutina}
+                        className="ms-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-rosa-500 focus:border-rosa-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rosa-500 dark:focus:border-rosa-500"
                     >
-                        <option value="">-- Seleccione una rutina --</option>
+                        <option value="">Seleccione una rutina</option>
                         {rutinas.map((rutina) => (
                             <option key={rutina.id} value={rutina.id}>
                                 {rutina.nombre}
@@ -114,7 +115,7 @@ const AsignarRutina = ({ auth, alumnos, rutinas, rutinaAlumnos }) => {
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="p-4">
-                                    <div className="flex items-center">
+                                    {/* <div className="flex items-center">
                                         <input
                                             id="checkbox-all-search"
                                             type="checkbox"
@@ -126,7 +127,8 @@ const AsignarRutina = ({ auth, alumnos, rutinas, rutinaAlumnos }) => {
                                         >
                                             checkbox
                                         </label>
-                                    </div>
+                                    </div> */}
+                                    Seleccionar
                                 </th>
                                 <th scope="col" className="px-6 py-3">
                                     Nombre
@@ -164,7 +166,7 @@ const AsignarRutina = ({ auth, alumnos, rutinas, rutinaAlumnos }) => {
                                                                 alumno.id
                                                     )
                                                 }
-                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                className="w-4 h-4 text-rosa-500 bg-gray-100 border-gray-300 rounded focus:ring-rosa-400 dark:focus:ring-rosa-500 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 m-auto"
                                                 onClick={() =>
                                                     agregarAlumno(alumno.id)
                                                 }
@@ -177,16 +179,16 @@ const AsignarRutina = ({ auth, alumnos, rutinas, rutinaAlumnos }) => {
                                             </label>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white m-auto">
                                         {alumno.usuario.name}
                                     </td>
-                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white m-auto">
                                         {alumno.usuario.apellido}
                                     </td>
-                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white m-auto">
                                         {alumno.usuario.email}
                                     </td>
-                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white m-auto">
                                         {alumno.usuario.dni}
                                     </td>
                                 </tr>
