@@ -36,6 +36,13 @@ const ListaUsuariosAsistencia = ({ usuarios }) => {
                     text: "Asistencia confirmada!",
                 });
             },
+            onError: (response) => {
+                Swal.fire({
+                    title: "Error.",
+                    text: response[1],
+                    icon: "error",
+                });
+            },
         });
     };
 
