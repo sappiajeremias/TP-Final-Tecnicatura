@@ -129,15 +129,19 @@ const TablaTurnos = ({ turnos, actividades, auth, especialidades }) => {
                     <option value="" className="text-gray-400">
                         Seleccione una actividad
                     </option>
-                    {especialidades.map((actividad, index) => (
-                        <option
-                            key={index}
-                            value={actividad.id}
-                            className="text-gray-900"
-                        >
-                            {actividad.descripcion}
-                        </option>
-                    ))}
+                    {especialidades.map((actividad, index) =>
+                        actividad.descripcion == "Musculacion" ? (
+                            ""
+                        ) : (
+                            <option
+                                key={index}
+                                value={actividad.id}
+                                className="text-gray-900"
+                            >
+                                {actividad.descripcion}
+                            </option>
+                        )
+                    )}
                 </select>
             </div>
             <div className="max-w-5xl m-auto pb-5">

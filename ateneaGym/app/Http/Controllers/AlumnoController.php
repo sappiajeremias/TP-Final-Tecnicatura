@@ -10,12 +10,17 @@ class AlumnoController extends Controller {
     //
     public function index() {
         $alumnos = Alumno::with('usuario')->get()->map(function ($alumn) {
-            return [
-                'id' => $alumn->id,
-                'nombre' => $alumn->usuario->name . ' ' . $alumn->usuario->apellido,
-                'dni' => $alumn->usuario->dni,
-            ];
+            $userAlumno = $alumn->usuario->ultimoPago();
+            // dd($userAlumno);
+            if ($userAlumno) {
+                return [
+                    'id' => $alumn->id,
+                    'nombre' => $alumn->usuario->name . ' ' . $alumn->usuario->apellido,
+                    'dni' => $alumn->usuario->dni,
+                ];
+            }
         });
+
         return Inertia::render('Profesor/Index', ['usuarios' => $alumnos]);
     }
 
