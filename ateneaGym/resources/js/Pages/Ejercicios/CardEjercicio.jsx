@@ -157,7 +157,7 @@ const CardEjercicio = (props) => {
             <div className="container p-3">
                 {ejercicio.ejercicio ? (
                     <div className="flex bg-white border border-gray-200 rounded-lg shadow md:max-w-6xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                        <a
+                        <button
                             onClick={() => seleccionarEjercicio()}
                             className="flex flex-col max-w-6xl items-center md:flex-row"
                         >
@@ -211,7 +211,7 @@ const CardEjercicio = (props) => {
                                     ""
                                 )}
                             </div>
-                        </a>
+                        </button>
                         <button className="px-4" onClick={eliminarEjercicio}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -227,7 +227,7 @@ const CardEjercicio = (props) => {
                         </button>
                     </div>
                 ) : (
-                    <a
+                    <button
                         className={`flex flex-col items-center m-auto bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 ${
                             data.rutina_id != null ? "cursor-pointer" : ""
                         }`}
@@ -255,7 +255,7 @@ const CardEjercicio = (props) => {
                                 {ejercicio.musculo}
                             </p>
                         </div>
-                    </a>
+                    </button>
                 )}
             </div>
             <Modal show={modalOpen} onClose={() => setModalOpen(false)}>
