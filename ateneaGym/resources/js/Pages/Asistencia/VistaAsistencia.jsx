@@ -14,18 +14,18 @@ const VistaAsistencia = ({ asistencia }) => {
                 >
                     <div className="border-l-4 border-rosa-600 p-4 flex flex-col sm:flex-row justify-between items-center">
                         <div className="mb-2 sm:mb-0">
-                            <span className="text-lg font-bold">
+                            <h1 className="text-lg font-bold">
                                 {item.especialidad.descripcion}
-                            </span>
-                            <span
-                                className={`block mt-2 text-sm rounded-xl ${
+                            </h1>
+                            <h2
+                                className={`inline-block mt-2 text-sm rounded-xl ${
                                     item.estado === "presente"
                                         ? "bg-green-200 text-green-700"
                                         : "bg-red-200 text-red-700"
                                 } px-2 `}
                             >
                                 {item.estado}
-                            </span>
+                            </h2>
                         </div>
                         <span className="flex items-center">
                             <svg
