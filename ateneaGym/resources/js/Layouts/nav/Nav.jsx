@@ -131,7 +131,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                                 onClick={irInicio}
                                 src="/assets/img/logo/atenea_gym.svg"
                                 alt=""
-                                className=" max-h-32 md:max-h-40"
+                                className=" max-h-32 md:max-h-40 cursor-pointer"
                             />
                         </div>
                         <ul className="mt-12 pt-3">
