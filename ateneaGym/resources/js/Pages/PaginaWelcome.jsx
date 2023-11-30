@@ -319,7 +319,7 @@ const PaginaWelcome = () => {
                                             />
                                         </td>
                                         <td>Musculacion</td>
-                                        <td>8:00 - 23:00</td>
+                                        <td>08:00 - 23:00</td>
                                     </tr>
 
                                     <tr>
@@ -330,7 +330,7 @@ const PaginaWelcome = () => {
                                             />
                                         </td>
                                         <td>Funcional</td>
-                                        <td>12:00 - 1:00</td>
+                                        <td>08 - 13:00</td>
                                     </tr>
 
                                     <tr>
@@ -341,7 +341,7 @@ const PaginaWelcome = () => {
                                             />
                                         </td>
                                         <td>GAP</td>
-                                        <td>1:00 - 2:00</td>
+                                        <td>09:00 - 14:00</td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -351,7 +351,7 @@ const PaginaWelcome = () => {
                                             />
                                         </td>
                                         <td>Yoga</td>
-                                        <td>2:00 - 3:00</td>
+                                        <td>14:00 - 16:00</td>
                                     </tr>
                                     {/* <tr>
                                         <td>
@@ -402,17 +402,24 @@ const PaginaWelcome = () => {
                                         'url("https://onclickwebdesign.com/wp-content/uploads/personal-trainer.jpg")',
                                 }}
                             >
-                                <strong className="block text-white text-xs uppercase mt-5 opacity-60 tracking-wider">
-                                   Conviértete en un
+                                <strong className="block text-white text-xs uppercase opacity-60 tracking-wider">
+                                    POSTULATE COMO
                                 </strong>
                                 <h4 className="text-2xl font-semibold text-white mb-4">
                                     Profesor 
                                 </h4>
                                 <p className="text-white mb-4">
-                                    Recibimos datos de contacto y te tendremos en cuenta para cuando necesitemos algun profesor, en AteneaGym nos interesa darle oportunidades a todas y todos!
+                                    ¡Únete a nuestro equipo como Entrenador
+                                    Personal! Buscamos apasionados del fitness
+                                    con certificación y experiencia. Ofrecemos
+                                    un ambiente positivo, flexibilidad horaria y
+                                    compensación competitiva. Envía tu
+                                    currículum a [correo electrónico].
+                                    ¡Transforma vidas a través del fitness con
+                                    nosotros!
                                 </p>
-                                <button className="bg-pink-500 text-white px-4 py-2 mt-4 rounded-lg">
-                                    Contáctanos!
+                                <button className="bg-pink-500 text-white px-4 py-2 rounded-lg">
+                                  Contactar
                                 </button>
                             </div>
                         </div>
