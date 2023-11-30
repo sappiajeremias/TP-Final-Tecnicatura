@@ -36,4 +36,8 @@ Comandos para ir agregando js:
 npm run dev
 (si da error de permiso yo hago de nuevo npm i, npm rebuild y pruebo de nuevo npm run dev)
 
+Tarjetas Prueba
+Mastercard	5031 7557 3453 0604	cod. 123	f. ven. 11/25
+Visa	4509 9535 6623 3704	cod. 123	f. ven. 11/25
+American Express	3711 803032 57522	cod.	1234	f. ven.11/25
 
