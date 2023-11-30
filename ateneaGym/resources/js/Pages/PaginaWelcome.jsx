@@ -325,10 +325,10 @@ const PaginaWelcome = () => {
                         <div className="w-full sm:w-1/2 lg:w-1/4 mb-4">
                             <div className="border border-gray-300 p-8 rounded-lg h-[395px]">
                                 <strong className="block text-gray-800 text-xs uppercase opacity-60 tracking-wider">
-                                    NEXT
+                                    AteneaGym
                                 </strong>
                                 <h4 className="text-2xl font-semibold mb-4">
-                                    Upcoming Classes
+                                    Clases
                                 </h4>
                                 <table className="w-full">
                                     <tr>
@@ -338,8 +338,8 @@ const PaginaWelcome = () => {
                                                 alt="Stopwatch"
                                             />
                                         </td>
-                                        <td>Gym Fitness</td>
-                                        <td>11:00 - 12:00</td>
+                                        <td>Musculacion</td>
+                                        <td>8:00 - 23:00</td>
                                     </tr>
 
                                     <tr>
@@ -349,7 +349,7 @@ const PaginaWelcome = () => {
                                                 alt="Stopwatch"
                                             />
                                         </td>
-                                        <td>Pilates</td>
+                                        <td>Funcional</td>
                                         <td>12:00 - 1:00</td>
                                     </tr>
 
@@ -360,7 +360,7 @@ const PaginaWelcome = () => {
                                                 alt="Stopwatch"
                                             />
                                         </td>
-                                        <td>Spinning</td>
+                                        <td>GAP</td>
                                         <td>1:00 - 2:00</td>
                                     </tr>
                                     <tr>
@@ -373,7 +373,7 @@ const PaginaWelcome = () => {
                                         <td>Yoga</td>
                                         <td>2:00 - 3:00</td>
                                     </tr>
-                                    <tr>
+                                    {/* <tr>
                                         <td>
                                             <img
                                                 src="https://onclickwebdesign.com/wp-content/uploads/stopwatch.png"
@@ -382,7 +382,7 @@ const PaginaWelcome = () => {
                                         </td>
                                         <td>Zumba</td>
                                         <td>3:00 - 4:00</td>
-                                    </tr>
+                                    </tr> */}
                                 </table>
                             </div>
                         </div>
@@ -398,15 +398,15 @@ const PaginaWelcome = () => {
                                 >
                                     <div className="p-6">
                                         <strong className="block text-gray-800 text-xs uppercase opacity-60 tracking-wider">
-                                            NEXT
+                                            AteneaGym
                                         </strong>
                                         <h4 className="text-2xl font-semibold mb-2">
-                                            Membership Deals
+                                            Membresias
                                         </h4>
                                         <h2 className="text-pink-500 text-5xl font-bold leading-tight mb-2">
                                             25%{" "}
                                             <span className="text-xl">
-                                                Discount
+                                                Descuento
                                             </span>
                                         </h2>
                                     </div>
