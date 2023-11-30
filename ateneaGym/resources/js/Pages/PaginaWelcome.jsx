@@ -37,18 +37,18 @@ const PaginaWelcome = () => {
                                 <ul className="flex items-center justify-around">
                                     <li>
                                         <a
-                                            href="#"
+                                            href="#features"
                                             className="text-white text-sm uppercase font-semibold"
                                         >
-                                            About Us
+                                            Nosotros
                                         </a>
                                     </li>
                                     <li>
                                         <a
-                                            href="#"
+                                            href="#services"
                                             className="text-white text-sm uppercase font-semibold"
                                         >
-                                            Classes
+                                            Clases
                                         </a>
                                     </li>
                                     <li
@@ -68,19 +68,19 @@ const PaginaWelcome = () => {
                                     </li>
                                     <li>
                                         <a
-                                            href="#"
+                                            href="#schedule-services"
                                             className="text-white text-sm uppercase font-semibold"
                                         >
-                                            Instructors
+                                            Instructores
                                         </a>
                                     </li>
 
                                     <li>
                                         <a
-                                            href="#"
+                                            href="#footerId"
                                             className="text-white text-sm uppercase font-semibold"
                                         >
-                                            Contact
+                                            Contacto
                                         </a>
                                     </li>
                                     <li>
@@ -158,12 +158,10 @@ const PaginaWelcome = () => {
                                     />
                                 </div>
                                 <h4 className="text-xl font-semibold mt-2">
-                                    Amazing Setting
+                                    Máquinas increíbles
                                 </h4>
                                 <p className="mt-2">
-                                    Pellentesque dictum nisl in nibh dictum
-                                    volutpat nec a quam. Vivamus suscipit nisl
-                                    quis nulla pretium, vitae ornare leo.
+                                    En AteneaGym contamos con las mejores máquinas, mancuernas, barras para que tu experiencia de entrenamiento sea la mejor.
                                 </p>
                             </div>
                         </div>
@@ -183,12 +181,10 @@ const PaginaWelcome = () => {
                                     />
                                 </div>
                                 <h4 className="text-xl font-semibold mt-2">
-                                    Best Trainers
+                                    Los mejores entrenadores
                                 </h4>
                                 <p className="mt-2">
-                                    Pellentesque dictum nisl in nibh dictum
-                                    volutpat nec a quam. Vivamus suscipit nisl
-                                    quis nulla pretium, vitae ornare leo.
+                                    Tenemos entrenadores capacitados y dispuestos para ayudar a todos con su entrenamiento. Desde entrenamientos generales a personalizados!
                                 </p>
                             </div>
                         </div>
@@ -208,12 +204,10 @@ const PaginaWelcome = () => {
                                     />
                                 </div>
                                 <h4 className="text-xl font-semibold mt-2">
-                                    Diet Plans
+                                    Actividades únicas
                                 </h4>
                                 <p className="mt-2">
-                                    Pellentesque dictum nisl in nibh dictum
-                                    volutpat nec a quam. Vivamus suscipit nisl
-                                    quis nulla pretium, vitae ornare leo.
+                                    Tenemos actividades y planes para todas y todos. Con nuestros profesionales siempre vas a encontrar algo para vos.
                                 </p>
                             </div>
                         </div>
@@ -223,7 +217,7 @@ const PaginaWelcome = () => {
                 <div id="services" className="bg-gray-800 py-16">
                     <div className="container mx-auto mb-16">
                         <h3 className="text-white text-2xl mb-6 ps-5">
-                            Services
+                            Actividades
                         </h3>
                         <div className="flex flex-wrap justify-around">
                             {/* Service 1 */}
@@ -240,9 +234,7 @@ const PaginaWelcome = () => {
                                         Pilates
                                     </h4>
                                     <p className="text-gray-700">
-                                        Pellentesque dictum nisl in nibh dictum
-                                        volutpat nec a quam. Vivamus suscipit
-                                        nisl quis nulla pretium.
+                                        Clases de pilates con las mejores herramientas. 
                                     </p>
                                 </div>
                             </div>
@@ -258,12 +250,10 @@ const PaginaWelcome = () => {
                                         alt="Free Lifting Icon"
                                     />
                                     <h4 className="text-xl font-semibold">
-                                        Free Lifting
+                                        Musculación
                                     </h4>
                                     <p className="text-gray-700">
-                                        Pellentesque dictum nisl in nibh dictum
-                                        volutpat nec a quam. Vivamus suscipit
-                                        nisl quis nulla pretium.
+                                        Gran cantidad de máquinas, pesas, mancuernas y más!
                                     </p>
                                 </div>
                             </div>
@@ -282,9 +272,7 @@ const PaginaWelcome = () => {
                                         Yoga
                                     </h4>
                                     <p className="text-gray-700">
-                                        Pellentesque dictum nisl in nibh dictum
-                                        volutpat nec a quam. Vivamus suscipit
-                                        nisl quis nulla pretium.
+                                        Clases semanales de yoga para relajar el cuerpo y el alma.
                                     </p>
                                 </div>
                             </div>
@@ -303,19 +291,11 @@ const PaginaWelcome = () => {
                                         Spinning
                                     </h4>
                                     <p className="text-gray-700">
-                                        Pellentesque dictum nisl in nibh dictum
-                                        volutpat nec a quam. Vivamus suscipit
-                                        nisl quis nulla pretium.
+                                        Clases dinamicas e intensas con las mejores bicicletas fijas!
                                     </p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="text-center">
-                        <button className="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-700">
-                            See All Services
-                        </button>
                     </div>
                 </div>
 
@@ -422,28 +402,24 @@ const PaginaWelcome = () => {
                                         'url("https://onclickwebdesign.com/wp-content/uploads/personal-trainer.jpg")',
                                 }}
                             >
-                                <strong className="block text-white text-xs uppercase opacity-60 tracking-wider">
-                                    BECOME A
+                                <strong className="block text-white text-xs uppercase mt-5 opacity-60 tracking-wider">
+                                   Conviértete en un
                                 </strong>
                                 <h4 className="text-2xl font-semibold text-white mb-4">
-                                    Personal Trainer
+                                    Profesor 
                                 </h4>
                                 <p className="text-white mb-4">
-                                    Pellentesque dictum nisl in nibh dictum
-                                    volutpat nec a quam. Vivamus suscipit nisl
-                                    quis nulla pretium. Pellentesque dictum nisl
-                                    in nibh dictum volutpat nec a quam. Vivamus
-                                    suscipit nisl quis nulla pretium.
+                                    Recibimos datos de contacto y te tendremos en cuenta para cuando necesitemos algun profesor, en AteneaGym nos interesa darle oportunidades a todas y todos!
                                 </p>
-                                <button className="bg-pink-500 text-white px-4 py-2 rounded-lg">
-                                    Sign Up Now
+                                <button className="bg-pink-500 text-white px-4 py-2 mt-4 rounded-lg">
+                                    Contáctanos!
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer className="flex flex-col items-center justify-between px-4 py-12 mx-auto  md:flex-row bg-gray-800 ">
+            <footer className="flex flex-col items-center justify-between px-4 py-12 mx-auto  md:flex-row bg-gray-800 " id="footerId">
                 <p className="mb-8 text-sm text-center text-white md:text-left md:mb-0">
                     © Copyright 2023 AteneaGym. All Rights Reserved.
                 </p>
