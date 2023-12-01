@@ -156,7 +156,7 @@ const CardEjercicio = (props) => {
         <>
             <div className="container p-3">
                 {ejercicio.ejercicio ? (
-                    <div className="flex bg-white border border-gray-200 rounded-lg shadow md:max-w-6xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                    <div className="flex bg-white border max-w-6xl border-gray-200 rounded-lg shadow md:max-w-6xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                         <button
                             onClick={() => seleccionarEjercicio()}
                             className="flex flex-col max-w-6xl items-center md:flex-row"
@@ -228,7 +228,7 @@ const CardEjercicio = (props) => {
                     </div>
                 ) : (
                     <button
-                        className={`flex flex-col items-center m-auto bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 ${
+                        className={`flex flex-col w-full justify-around max-w-2xl items-center m-auto bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-2xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 ${
                             data.rutina_id != null ? "cursor-pointer" : ""
                         }`}
                         onClick={() => data.rutina_id && seleccionarEjercicio()}
