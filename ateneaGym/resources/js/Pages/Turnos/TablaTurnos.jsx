@@ -4,8 +4,10 @@ import Modal from "@/Components/Modal";
 import ConfirmarTurno from "./ConfirmarTurno";
 import "../../Evo Calendar/js/evo-calendar.js";
 import "../../Evo Calendar/css/evo-calendar.css";
-const TablaTurnos = ({ turnos, actividades, auth }) => {
+const TablaTurnos = ({ turnos, actividades, auth, especialidades }) => {
     const [actividadSeleccionada, setActividadSeleccionada] = useState(""); // Estado para almacenar la actividad seleccionada
+    const [especialidadSeleccionada, setEspecialidadSeleccionada] =
+        useState(""); // Estado para almacenar la actividad seleccionada
     const [actividad, setActividad] = useState([]); // Estado para almacenar la actividad seleccionada
     const [turnosFiltrados, setTurnosFiltrados] = useState([]); // Estado para almacenar los turnos filtrados
     const [listaTurnos, setListaTurnos] = useState([]);
@@ -16,18 +18,26 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
     const handleActividadChange = (e) => {
         $("#calendar").evoCalendar("clearCalendarEvents");
 
-        const actividadId = e.target.value;
-        setActividadSeleccionada(actividadId);
+        const especialidad = e.target.value;
+
+        setEspecialidadSeleccionada(especialidad);
+
+        // console.log(turnos[0].actividad.especialidad_id);
+
+        // setActividadSeleccionada(actividadId);
 
         // Filtrar los turnos por la actividad seleccionada
         const turnosFiltrados = turnos.filter(
             (turno) =>
-                turno.actividad.id == actividadId && turno.alumno_id === null
+                turno.actividad.especialidad_id == especialidad &&
+                turno.alumno_id === null
         );
+
         const actividad = actividades.filter(
-            (actividad) => actividad.id == actividadId
+            (actividad) => actividad.especialidad_id == especialidad
         );
         setActividad(actividad);
+
         setTurnosFiltrados(turnosFiltrados);
         setListaTurnos(turnosFiltrados.map((turno) => turno.fecha));
 
@@ -42,11 +52,15 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
             if (
                 new Date(
                     `${partesFecha[0]}/${partesFecha[1]}/${partesFecha[2]}`
-                ) >= hoy
+                ) > hoy ||
+                new Date(
+                    `${partesFecha[0]}/${partesFecha[1]}/${partesFecha[2]}`
+                ) === hoy
             ) {
                 $("#calendar").evoCalendar("addCalendarEvent", {
                     id: turno.id,
                     name: actividad[0].especialidad.descripcion,
+                    // name: "turno",
                     description: turno.hora,
                     date: `${partesFecha[0]}/${partesFecha[1]}/${partesFecha[2]}`,
                     type: "event",
@@ -110,18 +124,18 @@ const TablaTurnos = ({ turnos, actividades, auth }) => {
                     id="actividad"
                     className="border-2 border-pink-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 rounded-md py-2 px-4 outline-none"
                     onChange={handleActividadChange}
-                    value={actividadSeleccionada}
+                    value={especialidadSeleccionada}
                 >
                     <option value="" className="text-gray-400">
                         Seleccione una actividad
                     </option>
-                    {actividades.map((actividad, index) => (
+                    {especialidades.map((actividad, index) => (
                         <option
                             key={index}
                             value={actividad.id}
                             className="text-gray-900"
                         >
-                            {actividad.especialidad.descripcion}
+                            {actividad.descripcion}
                         </option>
                     ))}
                 </select>

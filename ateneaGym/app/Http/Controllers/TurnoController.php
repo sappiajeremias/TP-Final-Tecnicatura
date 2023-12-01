@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Actividad;
 use App\Models\Alumno;
 use App\Models\Asistencia;
+use App\Models\Especialidad;
 use App\Models\Pago;
 use App\Models\Turno;
 use App\Models\User;
@@ -38,10 +39,11 @@ class TurnoController extends Controller {
 
         // Obtén solo las actividades en un array separado
         $actividades = Actividad::with('especialidad')->get();
-
+        $especialidad = Especialidad::all();
         return Inertia::render('Turnos/Index', [
             'turnos' => $coleccionTurnos,
             'actividades' => $actividades,
+            'especialidades' => $especialidad
         ]);
     }
     protected function filtrarTurnos(Turno $turnos) {

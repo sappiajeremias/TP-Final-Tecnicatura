@@ -79,21 +79,16 @@ export default function CrearActividad({
                 cupos: data.cupos,
                 profesor_id: data.profesor_id,
                 onSuccess: () => {
-                    // console.log("success");
-                    // if (Object.keys(props.errors).length > 0) {
                     Swal.fire({
                         title: "Exito.",
                         text: "Se asigno profe a la especialidad",
                         icon: "success",
                     });
-                    // } else {
-                    //     //  console.log(response);
+
                     document.getElementById("cierreModal").click();
-                    location.reload();
-                    // }
                 },
                 onError: (response) => {
-                    //console.log(response);
+              
                     Swal.fire({
                         title: "Error.",
                         text: response[1],
@@ -164,24 +159,7 @@ export default function CrearActividad({
                                         {dia}
                                     </label>
                                 </div>
-                                {/* 
-                                <label
-                                    key={dia}
-                                    className="inline-flex items-center"
-                                >
-                                    <input
-                                        type="radio"
-                                        id={dia.toLowerCase()}
-                                        name="dia_semana"
-                                        value={dia.toLowerCase()}
-                                        checked={
-                                            data.dia_semana ===
-                                            dia.toLowerCase()
-                                        }
-                                        onChange={handleRadioChange}
-                                    />
-                                    <span className="ml-2"></span>
-                                </label> */}
+                             
                             </>
                         ))}
                     </div>
@@ -206,7 +184,7 @@ export default function CrearActividad({
                                 setData("hora_inicio", e.target.value)
                             }
                         >
-                            <option >Selecciona una hora</option>
+                            <option>Selecciona una hora</option>
                             {Array.from({ length: 14 }, (_, index) => {
                                 const hour = index + 8; // Empieza en 8:00 AM y suma cada hora
                                 const formattedHour = `${hour
@@ -313,7 +291,7 @@ export default function CrearActividad({
                         value={data.profesor_id}
                         onChange={(e) => setData("profesor_id", e.target.value)}
                     >
-                        <option >Seleccione el profesor</option>
+                        <option>Seleccione el profesor</option>
                         {profesores.map((profe, index) => (
                             <option key={index} value={profe.id}>
                                 {profe.nombre_apellido}

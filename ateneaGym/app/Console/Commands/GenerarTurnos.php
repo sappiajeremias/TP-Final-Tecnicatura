@@ -38,9 +38,15 @@ class GenerarTurnos extends Command {
                 $horaInicio = Carbon::parse($fechaActual->toDateString() . ' ' . $actividad->hora_inicio);
                 $horaFin = Carbon::parse($fechaActual->toDateString() . ' ' . $actividad->hora_fin);
                 $horaFin->subMinutes($actividad->duracion);
-                while ($horaInicio->lte($horaFin)) {
-                    // crea cada turno con el id de actividad la fecha y la hora 
-                    for ($i = 0; $i < $actividad->cupos; $i++) {
+
+                // Crea turnos solo si hay cupos disponibles
+                $cuposDisponibles = $actividad->cupos - Turno::where('actividad_id', $actividad->id)
+                    ->where('fecha', $fechaActual->format('Y-m-d'))
+                    ->count();
+
+                // Si hay cupos disponibles, crea los turnos
+                if ($cuposDisponibles > 0) {
+                    while ($horaInicio->lte($horaFin) && $cuposDisponibles > 0) {
                         $turno = new Turno();
                         $turno->actividad_id = $actividad->id;
                         $turno->fecha = $fechaActual->format('Y-m-d');
@@ -48,8 +54,9 @@ class GenerarTurnos extends Command {
                         $turno->save();
                         // le suma los minutos de la duración para avanzar
 
+                        $horaInicio->addMinutes($actividad->duracion);
+                        $cuposDisponibles--;
                     }
-                    $horaInicio->addMinutes($actividad->duracion);
                 }
             }
 
