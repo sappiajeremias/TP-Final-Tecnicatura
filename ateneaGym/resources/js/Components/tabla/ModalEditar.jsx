@@ -1,7 +1,8 @@
 import CrearActividad from "@/Pages/Actividad/CrearActividad";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Close from "../iconos/Close";
 
-const ModalEditar = ({ children, isEdit, title = "NUEVO" }) => {
+const ModalEditar = ({ children, isEdit, title = "NUEVO", clase = "" }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -33,7 +34,9 @@ const ModalEditar = ({ children, isEdit, title = "NUEVO" }) => {
             ) : (
                 <button
                     onClick={openModal}
-                    className=" text-white bg-pink-400 hover:bg-pink-500 focus:ring-4 focus:outline-none focus:ring-pink-300  dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 text-center "
+                    className={` text-white bg-pink-400 hover:bg-pink-500 focus:ring-4 focus:outline-none focus:ring-pink-300  dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 mt-2 text-center ${
+                        clase ? clase : ""
+                    }`}
                     type="button"
                 >
                     {title}
@@ -58,24 +61,10 @@ const ModalEditar = ({ children, isEdit, title = "NUEVO" }) => {
                                 className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                 data-modal-hide="authentication-modal"
                             >
-                                <svg
-                                    className="w-3 h-3"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 14 14"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                                    />
-                                </svg>
+                                <Close></Close>
                                 <span className="sr-only">Close modal</span>
                             </button>
-                            <div className="px-3 py-3 lg:px-4 mt-5">
+                            <div className="px-3 py-3 lg:px-4 mt-5 pt-8">
                                 {/* Contenido del modal */}
                                 {children}
                             </div>

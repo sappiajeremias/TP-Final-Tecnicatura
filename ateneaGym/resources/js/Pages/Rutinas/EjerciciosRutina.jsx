@@ -6,6 +6,7 @@ import Index from "../Ejercicios/Index";
 import AgregarEjercicio from "./AgregarEjercicio";
 import { router } from "@inertiajs/react";
 import ModalEjercicios from "@/Components/ModalEjercicios";
+import ModalEditar from "@/Components/tabla/ModalEditar";
 
 const EjerciciosRutina = ({
     auth,
@@ -26,8 +27,19 @@ const EjerciciosRutina = ({
         <Authenticated auth={auth}>
             <h1 className="text-xl font-sans font-medium text-center py-3">
                 Ejercicios Rutina {nombreRutina}
-            </h1>
+            </h1>{" "}
             <div className="flex justify-end pe-3">
+                <ModalEditar
+                    title="Agregar Ejercicio"
+                    isEdit={false}
+                    clase={"bg-gradient-to-br from-pink-500 to-orange-400"}
+                >
+                    <AgregarEjercicio
+                        ejercicios={ejerciciosAll}
+                    ></AgregarEjercicio>
+                </ModalEditar>
+            </div>
+            {/* <div className="flex justify-end pe-3">
                 {" "}
                 <button
                     data-modal-target="select-modal"
@@ -38,7 +50,7 @@ const EjerciciosRutina = ({
                 >
                     Agregar ejercicio
                 </button>
-            </div>
+            </div> */}
             <div className="grid justify-center">
                 {ejercicios.map((ejercicio) => (
                     <CardEjercicio
@@ -47,13 +59,6 @@ const EjerciciosRutina = ({
                         ejercicio={ejercicio}
                     ></CardEjercicio>
                 ))}
-            </div>
-            <div className="py-3 max-w-xl  m-auto">
-                <ModalEjercicios isOpen={modalOpen}>
-                    <AgregarEjercicio
-                        ejercicios={ejerciciosAll}
-                    ></AgregarEjercicio>
-                </ModalEjercicios>
             </div>
         </Authenticated>
     );

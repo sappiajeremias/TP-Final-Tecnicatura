@@ -150,8 +150,6 @@ const CardEjercicio = (props) => {
         setModalOpenEdit(true);
     };
     const seleccionarEjercicio = (e) => {
-        console.log(e);
-
         setModalOpen(true);
     };
     return (
