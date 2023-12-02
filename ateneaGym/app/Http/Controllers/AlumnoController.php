@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
+use App\Models\Asistencia;
 use Inertia\Inertia;
 
-class AlumnoController extends Controller
-{
+class AlumnoController extends Controller {
     //
-    public function index()
-    {
+    public function index() {
         $alumnos = Alumno::with('usuario')->get()->map(function ($alumn) {
             return [
                 'id' => $alumn->id,
@@ -20,8 +19,7 @@ class AlumnoController extends Controller
         return Inertia::render('Profesor/Index', ['usuarios' => $alumnos]);
     }
 
-    public function actualizarAsis(String $id)
-    {
+    public function actualizarAsis(String $id) {
         $alumno = Alumno::find($id);
 
         if ($alumno) {
@@ -33,6 +31,8 @@ class AlumnoController extends Controller
                 $pagos = $usuario->ultimoPago();
                 $pagos->dias_disponibles = ($pagos->dias_disponibles - 1);
                 $pagos->save();
+                $asistencia = Asistencia::create(['alumno_id' => $alumno->id, 'especialidad_id' => 1, 'fecha' => now(), 'estado' => 'presente']);
+                $asistencia->save();
                 // Aquí tienes la colección de pagos, y puedes hacer lo que necesites con ella
             }
         }

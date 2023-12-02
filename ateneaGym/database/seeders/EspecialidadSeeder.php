@@ -6,13 +6,12 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Especialidad;
 
-class EspecialidadSeeder extends Seeder
-{
+class EspecialidadSeeder extends Seeder {
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
+    public function run(): void {
+        $especialidad = Especialidad::create(['descripcion' => 'Musculacion']);
         //
         $especialidad1 = Especialidad::create(['descripcion' => 'Funcional']);
         $especialidad2 = Especialidad::create(['descripcion' => 'GAP']);

@@ -57,11 +57,11 @@ const VerRutinas = (props) => {
                     ""
                 )}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-4 justify-around">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-24 pt-4 justify-around">
                 {rutinas.map((rutina) => (
                     <CardRutina
                         key={rutina.id}
-                        edit={edit}
+                        edit={true}
                         rutina={rutina}
                     ></CardRutina>
                 ))}

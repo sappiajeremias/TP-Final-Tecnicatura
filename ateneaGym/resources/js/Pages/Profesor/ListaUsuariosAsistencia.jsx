@@ -24,7 +24,7 @@ const ListaUsuariosAsistencia = ({ usuarios }) => {
         setUsuariosFiltrados(filteredUsuarios);
     };
 
-    const nombreColumnas = ["Nombre", "Dni", "Acciones"];
+    const nombreColumnas = ["Nombre", "Dni", "Confirmar asistencia"];
 
     const nombreProp = ["nombre", "dni"];
     // const [usuario, setusuario] = useState('');
@@ -43,7 +43,7 @@ const ListaUsuariosAsistencia = ({ usuarios }) => {
         <>
             <div className="container m-auto p-5 sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
                 <Table
-                    titulo={"  Tabla Asistencias"}
+                    titulo={"Asistencias a sala de musculación"}
                     boton={""}
                     busqueda={
                         <Busqueda
@@ -68,7 +68,7 @@ const ListaUsuariosAsistencia = ({ usuarios }) => {
                                         // <TdBody key={index}>{usuario[nombre]}</TdBody>
                                     ))}
 
-                                    <td className="px-6 py-4 ">
+                                    <td className="px-16 py-4 ">
                                         <button
                                             className="m-auto"
                                             onClick={() =>

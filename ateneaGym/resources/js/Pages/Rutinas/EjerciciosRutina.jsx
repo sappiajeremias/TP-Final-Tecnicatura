@@ -5,7 +5,7 @@ import Modal from "@/Components/Modal";
 import Index from "../Ejercicios/Index";
 import AgregarEjercicio from "./AgregarEjercicio";
 import { router } from "@inertiajs/react";
-import ModalEjercicios from "@/Components/ModalEjercicios";
+
 import ModalEditar from "@/Components/tabla/ModalEditar";
 
 const EjerciciosRutina = ({
