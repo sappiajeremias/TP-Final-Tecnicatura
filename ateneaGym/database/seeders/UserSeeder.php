@@ -18,7 +18,7 @@ class UserSeeder extends Seeder {
       'apellido' => 'Gym',
       'dni' => 41978161,
       'fecha_nac' => date('1999-10-28'),
-      'email' => 'jeremias@gmail.com',
+      'email' => 'admin@gmail.com',
       'email_verified_at' =>  now(),
       'password' => bcrypt('1234')
     ])->assignRole('Administrador');
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder {
       'apellido' => 'Sappia',
       'dni' => 41978162,
       'fecha_nac' => date('1999-10-28'),
-      'email' => 'profesor1@gmail.com',
+      'email' => 'jeremias.sappia@gmail.com',
       'email_verified_at' =>  now(),
       'password' => bcrypt('1234')
     ])->assignRole('Profesor');
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder {
       'apellido' => 'Rossi',
       'dni' => 41978163,
       'fecha_nac' => date('1998-10-28'),
-      'email' => 'profesor2@gmail.com',
+      'email' => 'agustina.rossi@gmail.com',
       'email_verified_at' =>  now(),
       'password' => bcrypt('1234')
     ])->assignRole('Profesor');
@@ -48,7 +48,7 @@ class UserSeeder extends Seeder {
       'apellido' => 'Rossi',
       'dni' => 41978164,
       'fecha_nac' => date('1985-10-28'),
-      'email' => 'alumno1@gmail.com',
+      'email' => 'maria.rossi@gmail.com',
       'email_verified_at' =>  now(),
       'password' => bcrypt('1234')
     ])->assignRole('Alumno');
@@ -58,7 +58,7 @@ class UserSeeder extends Seeder {
       'apellido' => 'Sappia',
       'dni' => 41978165,
       'fecha_nac' => date('2002-10-28'),
-      'email' => 'alumno2@gmail.com',
+      'email' => 'teo.sappia@gmail.com',
       'email_verified_at' =>  now(),
       'password' => bcrypt('1234')
     ])->assignRole('Alumno');
@@ -123,5 +123,28 @@ class UserSeeder extends Seeder {
       'email_verified_at' => now(),
       'password' => bcrypt('1234')
     ])->assignRole('Alumno');
+      
+    
+    $use12 = User::create([
+      'name' => 'Julian',
+      'apellido' => 'Alvarez',
+      'dni' => 32054835,
+      'fecha_nac' => date('1994-10-28'),
+      'email' => 'julian.alvarez@gmail.com',
+      'email_verified_at' =>  now(),
+      'password' => bcrypt('1234')
+    ])->assignRole('Profesor');
+
+  
+    $user13 = User::create([
+      'name' => 'Enzo',
+      'apellido' => 'Fernandez',
+      'dni' => 32654015,
+      'fecha_nac' => date('1998-11-20'),
+      'email' => 'enzo.fernandez@gmail.com',
+      'email_verified_at' =>  now(),
+      'password' => bcrypt('1234')
+    ])->assignRole('Profesor');
+
   }
 }
