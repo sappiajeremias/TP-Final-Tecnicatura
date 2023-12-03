@@ -25,7 +25,7 @@ const ConfirmarTurno = ({ auth, turno, actividad, setModalOpen }) => {
             onSuccess: () => {
                 Swal.fire({
                     icon: "success",
-                    text: "Turno sacado con exito!",
+                    text: "Turno reservado con exito!",
                 }).then(() => {
                     setModalOpen(false);
                 });

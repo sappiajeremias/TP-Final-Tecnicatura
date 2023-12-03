@@ -25,6 +25,7 @@ const NuevaRutina = (props) => {
                     text: "Rutina agregada.",
                 });
                 cerrar();
+                location.reload();
             },
         });
     };
@@ -43,13 +44,13 @@ const NuevaRutina = (props) => {
         "Diciembre",
     ];
     const diasSemana = [
-        "Domingo",
+        
         "Lunes",
         "Martes",
         "Miércoles",
         "Jueves",
         "Viernes",
-        "Sábado",
+        
     ];
     const dificultades = [
         "Fácil",
@@ -120,7 +121,7 @@ const NuevaRutina = (props) => {
                     <InputError message={errors.dia_semana} className="mt-2" />
                 </div>
                 <div className="mt-2">
-                    <InputLabel htmlFor="dificultad" value="Dia de la semana" />
+                    <InputLabel htmlFor="dificultad" value="Dificultad" />
 
                     <select
                         name="dificultad"

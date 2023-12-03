@@ -330,7 +330,7 @@ const PaginaWelcome = () => {
                                             />
                                         </td>
                                         <td>Funcional</td>
-                                        <td>08 - 13:00</td>
+                                        <td>08:00 - 13:00</td>
                                     </tr>
 
                                     <tr>

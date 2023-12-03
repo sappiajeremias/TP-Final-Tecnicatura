@@ -36,7 +36,7 @@ class EjercicioController extends Controller
         $imagen = $request->file('imagen');
         $nombreImagen = time() . '.' . $imagen->extension();
         $imagen->move(public_path('assets/subidas/'), $nombreImagen);
-        $rutaImagen = 'assets/subidas/' . $nombreImagen;
+        $rutaImagen = '/assets/subidas/' . $nombreImagen;
 
         $ejercicio = Ejercicio::create([
             'nombre' => $request->nombre,

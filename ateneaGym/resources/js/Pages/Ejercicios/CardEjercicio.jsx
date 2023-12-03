@@ -51,6 +51,7 @@ const CardEjercicio = (props) => {
     const [modalOpenEdit, setModalOpenEdit] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const submit = (e) => {
+        console.log(data);
         e.preventDefault();
         if (props.isEdit) {
             post(`/ejercicioRutinaEditar`, {

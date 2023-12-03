@@ -49,6 +49,7 @@ const NuevoEjercicio = (props) => {
                     icon: "success",
                 });
                 cerrar();
+                location.reload();
             },
         });
     };
