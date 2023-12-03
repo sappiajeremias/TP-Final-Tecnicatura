@@ -13,17 +13,34 @@ const MostrarMembresia = ({ membresia }) => {
     const anio = fechaVencimiento.getFullYear();
 
     useEffect(() => {
-        // setDiasDisponibles(props.membresia.pago.dias_disponibles);
+        if (fechaVencimiento > new Date()) {
+            setDiasDisponibles(props.membresia.pago.dias_disponibles);
+        }
     }, []);
 
     return (
-        <div>
-            <h1 className="text-lg font-medium text-gray-900 pb-4">
-                Membresia Actual
-            </h1>
-            <CardMembresia membresia={membresia.membresia}></CardMembresia>
-            <h1>Proximo vto: {`${dia} ${mes} ${anio}`} </h1>
-            <h1>Dias Disponibles: {`${diasDisponibles}`}</h1>
+        <div className="flex">
+            <div>
+                {" "}
+                <h1 className="text-lg font-medium text-gray-900 pb-4">
+                    Membresia Actual
+                </h1>
+                <CardMembresia membresia={membresia.membresia}></CardMembresia>
+            </div>
+            <div className="ps-14 pt-10">
+                <h2 className="py-3 font-medium font-sans text-lg">
+                    <span className="text-red-400 font-bold ">
+                        Proximo vto:
+                    </span>{" "}
+                    {`${dia} ${mes} ${anio}`}{" "}
+                </h2>
+                <h3 className="py-3 font-medium font-sans text-lg">
+                    <span className="text-red-400 font-bold ">
+                        Dias Disponibles:
+                    </span>{" "}
+                    {`${diasDisponibles}`}
+                </h3>
+            </div>
         </div>
     );
 };

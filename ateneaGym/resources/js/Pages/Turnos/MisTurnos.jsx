@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 import { useForm, usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-const TurnosAlumno = ({ auth, turnos, pagos }) => {
-    const { props } = usePage();
+const TurnosAlumno = ({ auth, turnos, pago }) => {
+    console.log(pago);
+
     const [diasDisponibles, setDiasDisponibles] = useState(0);
-    console.log(props);
+
     useEffect(() => {
-        if (props.pago) {
-            setDiasDisponibles(props.pago.dias_disponibles);
+        if (pago) {
+            setDiasDisponibles(pago.dias_disponibles);
         }
     }, []);
 

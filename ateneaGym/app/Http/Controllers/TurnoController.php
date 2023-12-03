@@ -35,7 +35,7 @@ class TurnoController extends Controller {
                 }
             }
         }
-        // dd($coleccionTurnos);
+        
 
         // Obtén solo las actividades en un array separado
         $actividades = Actividad::with('especialidad')->get();
@@ -55,7 +55,7 @@ class TurnoController extends Controller {
                 array_push($coleccionTurnos, $t);
             }
         }
-        var_dump($coleccionTurnos);
+       
         return $coleccionTurnos;
     }
 
