@@ -19,7 +19,7 @@ const MostrarMembresia = ({ membresia }) => {
     }, []);
 
     return (
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
             <div>
                 {" "}
                 <h1 className="text-lg font-medium text-gray-900 pb-4">
