@@ -24,7 +24,7 @@ const AgregarEjercicio = ({ auth, ejercicios }) => {
                     coleccionEjercicio
                         .slice(pagesVisited, pagesVisited + itemsPerPage)
                         .map((ejercicio, index) => (
-                            <div key={index} className="card flex bg">
+                            <div key={ejercicio.id} className="card flex bg">
                                 <CardEjercicio
                                     isEdit={false}
                                     ejercicio={ejercicio}

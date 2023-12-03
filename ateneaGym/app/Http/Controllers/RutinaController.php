@@ -68,13 +68,13 @@ class RutinaController extends Controller {
     public function agregarEjercicio(Request $request) {
         // dd($request);
         $request->validate([
-            'repeticiones' => 'required',
-            'series' => 'required',
-            'peso' => 'required',
+            'repeticiones' => 'required | integer',
+            'series' => 'required | integer',
+            'peso' => 'required | integer',
         ], [
-            'repeticiones.required' => 'Debe ingresar un nombre.',
-            'series.required' => 'Debe seleccionar un mes.',
-            'peso.required' => 'Debe seleccionar una dificultad',
+            'repeticiones.required' => 'Debe ingresar un numero de repeticiones.',
+            'series.required' => 'Debe ingresar un numero de series.',
+            'peso.required' => 'Debe ingresar un peso.',
         ]);
 
         $registroRepe = EjercicioRutina::where('ejercicio_id', $request->ejercicio_id)
@@ -105,6 +105,4 @@ class RutinaController extends Controller {
             $ejercicioRutina->save();
         }
     }
-
-   
 }
