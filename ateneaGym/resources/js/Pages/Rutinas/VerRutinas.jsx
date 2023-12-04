@@ -41,14 +41,14 @@ const VerRutinas = (props) => {
                         <button
                             onClick={asignarRutina}
                             type="button"
-                            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 md:text-lg "
                         >
                             Asignar Rutina a Alumnos
                         </button>
                         <button
                             onClick={nuevaRutina}
                             type="button"
-                            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm md:text-lg px-5 py-2.5 text-center me-2 mb-2"
                         >
                             Agregar Nueva Rutina
                         </button>
@@ -57,7 +57,7 @@ const VerRutinas = (props) => {
                     ""
                 )}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-24 pt-4 justify-around">
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-24 pt-4 pb-10 justify-around">
                 {rutinas.map((rutina) => (
                     <CardRutina
                         key={rutina.id}

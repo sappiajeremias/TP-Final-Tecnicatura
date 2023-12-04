@@ -71,5 +71,23 @@ class ActividadSeeder extends Seeder
             'especialidad_id' => 5,
             'profesor_id' => 3,
         ]);
+        $actividad = Actividad::create([
+            'dia_semana' => 'martes',
+            'hora_inicio' => '17:00',
+            'hora_fin' => '19:00',
+            'duracion' => 60,
+            'cupos' => 3,
+            'especialidad_id' => 4,
+            'profesor_id' => 3,
+        ]);
+        $actividad6 = Actividad::create([
+            'dia_semana' => 'jueves',
+            'hora_inicio' => '17:00',
+            'hora_fin' => '19:00',
+            'duracion' => 60,
+            'cupos' => 3,
+            'especialidad_id' => 6,
+            'profesor_id' => 3,
+        ]);
     }
 }

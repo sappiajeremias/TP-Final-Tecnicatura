@@ -53,9 +53,9 @@ const NuevaRutina = (props) => {
         
     ];
     const dificultades = [
-        "Fácil",
+        "Facil",
         "Medio",
-        "Difícil",
+        "Dificil",
     ];
 
     return (

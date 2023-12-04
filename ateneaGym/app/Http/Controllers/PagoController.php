@@ -103,9 +103,11 @@ class PagoController extends Controller {
         // dd($payment_info);
         switch ($payment_info['status']) {
             case 'approved':
+                if ($pago) {
+                    $pago->estado = 'approved';
+                    $pago->save();
+                }
 
-                $pago->estado = 'approved';
-                $pago->save();
                 return Inertia::render('Dashboard', [
                     'mensaje' => 'El pago se registro con exito',
                 ]);

@@ -5,17 +5,17 @@ const CardRutina = ({ rutina, edit }) => {
     const verRutina = () => {
         if (edit) {
             router.get(`/rutina/${rutina.id}`);
-        }else{
+        } else {
             router.get(`/mis-rutinas/${rutina.id}`);
         }
     };
     const getDificultadStyle = () => {
         let styleClass = "";
         switch (rutina.dificultad) {
-            case "facil":
+            case "Facil":
                 styleClass = "bg-green-200 text-green-700";
                 break;
-            case "medio":
+            case "Medio":
                 styleClass = "bg-blue-200 text-blue-700";
                 break;
             default:
@@ -24,10 +24,10 @@ const CardRutina = ({ rutina, edit }) => {
         return styleClass;
     };
     return (
-        <div className="m-auto">
+        <div className="flex justify-center">
             <button
                 onClick={verRutina}
-                className="mx-4 md:mx-8 lg:mx-16 max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 px-8 md:px-16 py-8 md:py-10"
+                className="w-80 max-w-lg bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 px-8 md:px-16 py-8 md:py-10"
             >
                 <img
                     width={80}
@@ -42,13 +42,13 @@ const CardRutina = ({ rutina, edit }) => {
 
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                         <span className="text-lg font-semibold text-gray-900">
-                            mes:
+                            Mes:
                         </span>{" "}
                         {rutina.mes}
                     </p>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                         <span className="text-lg font-semibold text-gray-900">
-                            dia:
+                            Día:
                         </span>{" "}
                         {rutina.dia_semana}
                     </p>
