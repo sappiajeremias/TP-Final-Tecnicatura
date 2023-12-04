@@ -14,7 +14,7 @@ const VistaRutinas = (props) => {
             setRutinas(props.rutinas);
         }
     }, []);
-    console.log(props.rutinas);
+    console.log(props);
     
     return (
         <div className=" pt-5">
@@ -22,7 +22,7 @@ const VistaRutinas = (props) => {
                 {" "}
                 Mis Rutinas
             </h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-4 justify-around">
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pt-4 justify-around px-10">
                 {rutinas.map((rutina) => (
                     <CardRutina
                         key={rutina.rutinas.id}

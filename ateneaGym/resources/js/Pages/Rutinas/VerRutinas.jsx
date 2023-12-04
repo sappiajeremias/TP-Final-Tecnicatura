@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CardRutina from "./CardRutina";
 import NuevaRutina from "./NuevaRutina";
 import Modal from "@/Components/Modal";
-import { router, usePage } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 
 const VerRutinas = (props) => {
     const [rutinas, setRutinas] = useState([]);
@@ -57,7 +57,7 @@ const VerRutinas = (props) => {
                     ""
                 )}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-24 pt-4 pb-10 justify-around">
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-24 pt-4 pb-10 justify-around px-10">
                 {rutinas.map((rutina) => (
                     <CardRutina
                         key={rutina.id}

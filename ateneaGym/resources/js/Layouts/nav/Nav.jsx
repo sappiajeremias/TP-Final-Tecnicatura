@@ -349,7 +349,7 @@ const Nav = ({ children, auth, notificaciones }) => {
                                     <div className="flex items-center p-2 mt-12 space-x-4 justify-self-end">
                                         {/* <a href={route("profile.edit")}> */}{" "}
                                         <img
-                                            src="https://source.unsplash.com/100x100/?portrait"
+                                            src="/assets/img/icon/usuario.png"
                                             alt=""
                                             className="w-12 h-12 rounded-lg dark:bg-gray-500"
                                         />

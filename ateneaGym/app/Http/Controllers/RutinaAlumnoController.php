@@ -17,8 +17,8 @@ class RutinaAlumnoController extends Controller {
     public function index() {
         $alumno = Alumno::where('user_id', Auth()->user()->id)->first();
         $rutinas = RutinaAlumno::with('rutinas')->where('alumno_id', $alumno->id)->get();
-
-        return Inertia::render('Rutinas_Alumnos/Index', ['rutinasAlumno' => $rutinas]);
+        $pago = Auth()->user()->ultimoPagoVigente();
+        return Inertia::render('Rutinas_Alumnos/Index', ['rutinasAlumno' => $rutinas, 'pago' => $pago]);
     }
     public function store(Request $request) {
     }

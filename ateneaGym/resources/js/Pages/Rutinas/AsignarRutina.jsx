@@ -60,31 +60,39 @@ const AsignarRutina = ({ auth, alumnos, rutinas, rutinaAlumnos }) => {
                 }
             });
         } else {
-            // El checkbox está desmarcado, entonces agregamos la asignación a la base de datos
-            router
-                .post("/asignarAlumno", {
-                    alumno: idAlumno,
-                    rutina: rutinaActual,
-                })
-                .then(() => {
-                    // Mostrar alerta de éxito
-                    Swal.fire({
-                        title: "Éxito",
-                        text: "Asignación agregada correctamente.",
-                        icon: "success",
+            if (rutinaActual) {
+                // El checkbox está desmarcado, entonces agregamos la asignación a la base de datos
+                router
+                    .post("/asignarAlumno", {
+                        alumno: idAlumno,
+                        rutina: rutinaActual,
+                    })
+                    .then(() => {
+                        // Mostrar alerta de éxito
+                        Swal.fire({
+                            title: "Éxito",
+                            text: "Asignación agregada correctamente.",
+                            icon: "success",
+                        });
+                    })
+                    .catch((error) => {
+                        // Mostrar alerta de error si ocurre un problema
+                        Swal.fire({
+                            title: "Error",
+                            text:
+                                error.response.data.message ||
+                                "Hubo un problema al agregar la asignación.",
+                            icon: "error",
+                        });
+                        console.error(error);
                     });
-                })
-                .catch((error) => {
-                    // Mostrar alerta de error si ocurre un problema
-                    Swal.fire({
-                        title: "Error",
-                        text:
-                            error.response.data.message ||
-                            "Hubo un problema al agregar la asignación.",
-                        icon: "error",
-                    });
-                    console.error(error);
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: "Debe seleccionar una rutina",
+                    icon: "error",
                 });
+            }
         }
     };
 
@@ -95,8 +103,8 @@ const AsignarRutina = ({ auth, alumnos, rutinas, rutinaAlumnos }) => {
                 className="p-4 mt-10 mb-4 text-sm  rounded-lg bg-red-200 dark:bg-gray-800 dark:text-blue-400 max-w-lg m-auto"
                 role="alert"
             >
-                <span className="font-medium">Atencion!</span> Debe seleccionar una
-                rutina para poder asignarle alumnos
+                <span className="font-medium">Atencion!</span> Debe seleccionar
+                una rutina para poder asignarle alumnos
                 {/* {turno.actividad.especialidad.descripcion} */}
             </div>
             <div className="pt-5 mx-6 pb-10">

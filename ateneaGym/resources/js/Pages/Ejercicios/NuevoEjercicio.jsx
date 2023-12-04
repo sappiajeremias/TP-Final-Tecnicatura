@@ -170,13 +170,13 @@ const NuevoEjercicio = (props) => {
                     <button
                         onClick={props.cerrarModal}
                         type="button"
-                        className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ml-4 mt-2"
+                        className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-xs px-5 py-3 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ml-4 mt-2"
                     >
-                        Cancelar
+                        CANCELAR
                     </button>
 
                     <PrimaryButton
-                        className="ml-4"
+                        className="ml-4 py-2.5 "
                         disabled={processing}
                         onClick={submit}
                     >
