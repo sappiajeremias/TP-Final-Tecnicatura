@@ -11,7 +11,7 @@ const Index = ({ auth, ejercicios }) => {
     const [searchValue, setSearchValue] = useState("");
     const [rutina, setRutina] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
-    const itemsPerPage = 3;
+    const itemsPerPage = 7;
     const pagesVisited = pageNumber * itemsPerPage;
     const [modalOpen, setModalOpen] = useState(false);
 

@@ -6,7 +6,9 @@ import { router, useForm } from "@inertiajs/react";
 import Swal from "sweetalert2";
 import Busqueda from "@/Components/tabla/Busqueda";
 
-const ListaUsuariosAsistencia = ({ usuarios }) => {
+const ListaUsuariosAsistencia = ({ usuarios, asistencia }) => {
+    console.log(asistencia);
+    console.log(usuarios);
     const [usuariosFiltrados, setUsuariosFiltrados] = useState(usuarios);
     const [searchValue, setSearchValue] = useState("");
     const { put } = useForm();
@@ -28,22 +30,43 @@ const ListaUsuariosAsistencia = ({ usuarios }) => {
 
     const nombreProp = ["nombre", "dni"];
     // const [usuario, setusuario] = useState('');
+
     const handleUpdate = (usuario) => {
-        put(`/actualizarAsistencia/${usuario.id}`, {
-            onSuccess: () => {
-                Swal.fire({
-                    icon: "success",
-                    text: "Asistencia confirmada!",
-                });
-            },
-            onError: (response) => {
-                Swal.fire({
-                    title: "Error.",
-                    text: response[1],
-                    icon: "error",
-                });
-            },
-        });
+        // Find the attendance record for the current user and date
+        const today = new Date().toISOString().split("T")[0];
+        const usuarioAsistencia = asistencia.find(
+            (asistencia) =>
+                asistencia.alumno_id === usuario.id &&
+                new Date(asistencia.fecha).toISOString().split("T")[0] === today
+        );
+
+        console.log(usuarioAsistencia);
+
+        if (usuarioAsistencia) {
+            Swal.fire({
+                title: "Error.",
+                text: "Este usuario ya tiene presente",
+                icon: "error",
+            });
+            console.log("Remove attendance logic goes here");
+        } else {
+            // Handle logic to confirm attendance
+            put(`/actualizarAsistencia/${usuario.id}`, {
+                onSuccess: () => {
+                    Swal.fire({
+                        icon: "success",
+                        text: "Asistencia confirmada!",
+                    });
+                },
+                onError: (response) => {
+                    Swal.fire({
+                        title: "Error.",
+                        text: response[1],
+                        icon: "error",
+                    });
+                },
+            });
+        }
     };
 
     return (

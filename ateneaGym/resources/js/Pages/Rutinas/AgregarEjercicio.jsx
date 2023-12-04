@@ -8,7 +8,7 @@ const AgregarEjercicio = ({ auth, ejercicios }) => {
     console.log(ejercicios);
     const [pageNumber, setPageNumber] = useState(0);
     console.log(ejercicios);
-    const itemsPerPage = 4;
+    const itemsPerPage = 7;
     const pagesVisited = pageNumber * itemsPerPage;
     const [modalOpen, setModalOpen] = useState(false);
     const pageCount = Math.ceil(coleccionEjercicio.length / itemsPerPage);

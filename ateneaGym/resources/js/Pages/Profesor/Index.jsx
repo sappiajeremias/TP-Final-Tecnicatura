@@ -4,12 +4,13 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import React, { useEffect, useState } from "react";
 import Register from "../Auth/Register";
 import ListaUsuariosAsistencia from "./ListaUsuariosAsistencia";
-const Index = ({ usuarios, auth }) => {
-
+const Index = ({ usuarios, auth, asistencia }) => {
     return (
         <AuthenticatedLayout auth={auth}>
-           
-            <ListaUsuariosAsistencia usuarios={usuarios}></ListaUsuariosAsistencia>
+            <ListaUsuariosAsistencia
+                usuarios={usuarios}
+                asistencia={asistencia}
+            ></ListaUsuariosAsistencia>
         </AuthenticatedLayout>
     );
 };

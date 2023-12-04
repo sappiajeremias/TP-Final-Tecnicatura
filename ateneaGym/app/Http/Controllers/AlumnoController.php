@@ -6,11 +6,9 @@ use App\Models\Alumno;
 use App\Models\Asistencia;
 use Inertia\Inertia;
 
-class AlumnoController extends Controller
-{
+class AlumnoController extends Controller {
     //
-    public function index()
-    {
+    public function index() {
         $alumnos = Alumno::with('usuario')->get()->map(function ($alumn) {
             $userAlumno = $alumn->usuario->ultimoPago();
             // dd($userAlumno);
@@ -22,12 +20,12 @@ class AlumnoController extends Controller
                 ];
             }
         });
+        $asistencia = Asistencia::all();
 
-        return Inertia::render('Profesor/Index', ['usuarios' => $alumnos]);
+        return Inertia::render('Profesor/Index', ['usuarios' => $alumnos, 'asistencia' => $asistencia]);
     }
 
-    public function actualizarAsis(String $id)
-    {
+    public function actualizarAsis(String $id) {
         $alumno = Alumno::find($id);
 
         if ($alumno) {
@@ -45,7 +43,7 @@ class AlumnoController extends Controller
                 } else {
                     return back()->withErrors(['message', 'El alumno ya no tiene dias disponibles.']);
                 }
-            }else {
+            } else {
                 return back()->withErrors(['message', 'El alumno tiene la membresia vencida.']);
             }
         }
