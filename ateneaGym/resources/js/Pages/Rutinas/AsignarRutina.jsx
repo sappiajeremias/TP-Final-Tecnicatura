@@ -90,17 +90,26 @@ const AsignarRutina = ({ auth, alumnos, rutinas, rutinaAlumnos }) => {
 
     return (
         <Authenticated auth={auth}>
-            <div className="pt-8 mx-6">
-                <h1 className="pb-5 text-lg font-medium text-center">
+            {" "}
+            <div
+                className="p-4 mt-10 mb-4 text-sm  rounded-lg bg-red-200 dark:bg-gray-800 dark:text-blue-400 max-w-lg m-auto"
+                role="alert"
+            >
+                <span className="font-medium">Atencion!</span> Debe seleccionar una
+                rutina para poder asignarle alumnos
+                {/* {turno.actividad.especialidad.descripcion} */}
+            </div>
+            <div className="pt-5 mx-6 pb-10">
+                <h1 className="pb-5 text-xl md:text-2xl  font-medium text-center">
                     Seleccione los alumnos{" "}
                 </h1>
-                <div className="pb-5">
+                <div className="pb-10 pt-5 ps-10">
                     <label htmlFor="rutinaSelect">Seleccionar Rutina:</label>
                     <select
                         id="rutinaSelect"
                         value={rutinaActual}
                         onChange={handleChangeRutina}
-                        className="ms-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-rosa-500 focus:border-rosa-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rosa-500 dark:focus:border-rosa-500"
+                        className="ms-7 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-rosa-500 focus:border-rosa-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rosa-500 dark:focus:border-rosa-500"
                     >
                         <option value="">Seleccione una rutina</option>
                         {rutinas.map((rutina) => (

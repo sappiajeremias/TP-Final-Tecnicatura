@@ -4,32 +4,17 @@ import ReactPaginate from "react-paginate";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import NuevoEjercicio from "./NuevoEjercicio";
 import Modal from "@/Components/Modal";
+import Busqueda from "@/Components/tabla/Busqueda";
 
 const Index = ({ auth, ejercicios }) => {
     const [coleccionEjercicio, setColeccionEjercicio] = useState(ejercicios);
+    const [searchValue, setSearchValue] = useState("");
     const [rutina, setRutina] = useState("");
-    console.log(ejercicios);
-    // useEffect(() => {
-    //     if (ejercicios.length > 0 && ejercicios[0].ejercicio) {
-    //         const nuevosEjercicios = ejercicios.map((item) => {
-    //             console.log(item.ejercicio);
-    //             // Aquí puedes realizar cualquier procesamiento adicional si es necesario
-    //             return item.ejercicio;
-    //         });
-
-    //         setColeccionEjercicio(nuevosEjercicios);
-    //         setRutina;
-    //     } else {
-    //         if (ejercicios) {
-    //             setColeccionEjercicio(ejercicios);
-    //         }
-    //     }
-    // }, []);
     const [pageNumber, setPageNumber] = useState(0);
-    console.log(ejercicios);
     const itemsPerPage = 3;
     const pagesVisited = pageNumber * itemsPerPage;
     const [modalOpen, setModalOpen] = useState(false);
+
     const pageCount = Math.ceil(coleccionEjercicio.length / itemsPerPage);
 
     const changePage = ({ selected }) => {
@@ -39,18 +24,44 @@ const Index = ({ auth, ejercicios }) => {
     const cerrarModal = () => {
         setModalOpen(false);
     };
+
     const abrirModal = () => {
         setModalOpen(true);
     };
 
+    useEffect(() => {
+        handleSearch(searchValue);
+    }, [searchValue, ejercicios]);
+
+    const handleSearch = (newValue) => {
+        // Filter exercises based on multiple attributes
+        const filteredEjercicios = ejercicios.filter((ejercicio) => {
+            const searchLower = newValue.toLowerCase();
+            return (
+                ejercicio.nombre.toLowerCase().includes(searchLower) ||
+                ejercicio.musculo.toLowerCase().includes(searchLower) ||
+                ejercicio.parte_cuerpo.toLowerCase().includes(searchLower)
+            );
+        });
+
+        setColeccionEjercicio(filteredEjercicios);
+        setPageNumber(0); // Reset to the first page after filtering
+    };
     return (
         <Authenticated auth={auth}>
-            <div className="px-5">
+            <div className="px-5 pt-6">
                 <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
                     Ejercicios
-                </h1>
+                </h1>{" "}
                 <div>
                     <div className="flex justify-end pe-3">
+                        <div className="w-52 me-5">
+                            <Busqueda
+                                searchValue={searchValue}
+                                setSearchValue={setSearchValue}
+                                onSearch={handleSearch}
+                            />
+                        </div>
                         <button
                             onClick={abrirModal}
                             type="button"
