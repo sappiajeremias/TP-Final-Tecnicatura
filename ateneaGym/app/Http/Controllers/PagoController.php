@@ -81,7 +81,7 @@ class PagoController extends Controller {
         if ($pagoCreado == null) {
             $membresia = Membresia::find($request->items[0]['id']);
             $fecha = Carbon::now();
-            $fecha->addDays(30);
+            $fecha->addMonth();
             $pago = Pago::create([
                 'user_id' => Auth()->user()->id,
                 'membresia_id' => $membresia->id,

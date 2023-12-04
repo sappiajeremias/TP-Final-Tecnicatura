@@ -161,7 +161,9 @@ const PaginaWelcome = () => {
                                     Máquinas increíbles
                                 </h4>
                                 <p className="mt-2">
-                                    En AteneaGym contamos con las mejores máquinas, mancuernas, barras para que tu experiencia de entrenamiento sea la mejor.
+                                    En AteneaGym contamos con las mejores
+                                    máquinas, mancuernas, barras para que tu
+                                    experiencia de entrenamiento sea la mejor.
                                 </p>
                             </div>
                         </div>
@@ -184,7 +186,10 @@ const PaginaWelcome = () => {
                                     Los mejores entrenadores
                                 </h4>
                                 <p className="mt-2">
-                                    Tenemos entrenadores capacitados y dispuestos para ayudar a todos con su entrenamiento. Desde entrenamientos generales a personalizados!
+                                    Tenemos entrenadores capacitados y
+                                    dispuestos para ayudar a todos con su
+                                    entrenamiento. Desde entrenamientos
+                                    generales a personalizados!
                                 </p>
                             </div>
                         </div>
@@ -207,7 +212,9 @@ const PaginaWelcome = () => {
                                     Actividades únicas
                                 </h4>
                                 <p className="mt-2">
-                                    Tenemos actividades y planes para todas y todos. Con nuestros profesionales siempre vas a encontrar algo para vos.
+                                    Tenemos actividades y planes para todas y
+                                    todos. Con nuestros profesionales siempre
+                                    vas a encontrar algo para vos.
                                 </p>
                             </div>
                         </div>
@@ -234,7 +241,8 @@ const PaginaWelcome = () => {
                                         Pilates
                                     </h4>
                                     <p className="text-gray-700">
-                                        Clases de pilates con las mejores herramientas. 
+                                        Clases de pilates con las mejores
+                                        herramientas.
                                     </p>
                                 </div>
                             </div>
@@ -253,7 +261,8 @@ const PaginaWelcome = () => {
                                         Musculación
                                     </h4>
                                     <p className="text-gray-700">
-                                        Gran cantidad de máquinas, pesas, mancuernas y más!
+                                        Gran cantidad de máquinas, pesas,
+                                        mancuernas y más!
                                     </p>
                                 </div>
                             </div>
@@ -272,7 +281,8 @@ const PaginaWelcome = () => {
                                         Yoga
                                     </h4>
                                     <p className="text-gray-700">
-                                        Clases semanales de yoga para relajar el cuerpo y el alma.
+                                        Clases semanales de yoga para relajar el
+                                        cuerpo y el alma.
                                     </p>
                                 </div>
                             </div>
@@ -291,7 +301,8 @@ const PaginaWelcome = () => {
                                         Spinning
                                     </h4>
                                     <p className="text-gray-700">
-                                        Clases dinamicas e intensas con las mejores bicicletas fijas!
+                                        Clases dinamicas e intensas con las
+                                        mejores bicicletas fijas!
                                     </p>
                                 </div>
                             </div>
@@ -406,7 +417,7 @@ const PaginaWelcome = () => {
                                     POSTULATE COMO
                                 </strong>
                                 <h4 className="text-2xl font-semibold text-white mb-4">
-                                    Profesor 
+                                    Profesor
                                 </h4>
                                 <p className="text-white mb-4">
                                     ¡Únete a nuestro equipo como Entrenador
@@ -414,19 +425,21 @@ const PaginaWelcome = () => {
                                     con certificación y experiencia. Ofrecemos
                                     un ambiente positivo, flexibilidad horaria y
                                     compensación competitiva. Envía tu
-                                    currículum a [correo electrónico].
-                                    ¡Transforma vidas a través del fitness con
-                                    nosotros!
+                                    currículum a ateneagym@gmail.com.
+                                  
                                 </p>
                                 <button className="bg-pink-500 text-white px-4 py-2 rounded-lg">
-                                  Contactar
+                                    Contactar
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer className="flex flex-col items-center justify-between px-4 py-12 mx-auto  md:flex-row bg-gray-800 " id="footerId">
+            <footer
+                className="flex flex-col items-center justify-between px-4 py-12 mx-auto  md:flex-row bg-gray-800 "
+                id="footerId"
+            >
                 <p className="mb-8 text-sm text-center text-white md:text-left md:mb-0">
                     © Copyright 2023 AteneaGym. All Rights Reserved.
                 </p>

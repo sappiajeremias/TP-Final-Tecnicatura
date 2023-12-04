@@ -43,3 +43,15 @@ American Express	3711 803032 57522	cod.	1234	f. ven.11/25
 
 mail mp
 test_user_1519535880@testuser.com
+
+usuarios de Prueba
+profe: jeremias.sappia@gmail.com
+alumno1: maria.rossi@gmail.com
+alumno2: teo.sappia@gmail.com
+
+rutina : Espalda
+
+ejercicio
+nombre: remo
+
+https://xn--80abigtpd7an.xn--p1ai/gymkeeper_gifs/180/00271305-Barbell-Bent-Over-Row_Back-FIX_180.gif
