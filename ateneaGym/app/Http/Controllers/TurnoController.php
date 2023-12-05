@@ -92,7 +92,7 @@ class TurnoController extends Controller {
                     ]);
                     $asistencia->save();
                 } else {
-                    return back()->withErrors(['message' => 'No le quedan dias disponibles']);
+                    return back()->withErrors(['message' => 'No le quedan dias disponibles o su membresia esta vencida']);
                 }
                 // Aquí tienes la colección de pagos, y puedes hacer lo que necesites con ella
             }
