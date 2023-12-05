@@ -18,12 +18,13 @@ class DatabaseSeeder extends Seeder {
         $this->call(EspecialidadSeeder::class);
         $this->call(EspecialidadProfesorSeeder::class);
         $this->call(ActividadSeeder::class);
-        // $this->call(TurnoSeeder::class);
+        $this->call(TurnoSeeder::class);
         $this->call(RutinaSeeder::class);
         $this->call(RutinaAlumnoSeeder::class);
         $this->call(EjercicioRutinaSeeder::class);
         $this->call(MembresiaSeeder::class);
         $this->call(PagoSeeder::class);
+        $this->call(AsistenciaSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
