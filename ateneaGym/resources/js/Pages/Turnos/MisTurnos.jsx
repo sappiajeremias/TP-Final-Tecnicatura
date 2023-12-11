@@ -18,9 +18,11 @@ const TurnosAlumno = ({ auth, turnos, pago }) => {
         <>
             <AuthenticatedLayout auth={auth}>
                 <TarjetaTurnos turnos={turnos}></TarjetaTurnos>
-                <h1 className="text-xl font-semibold mt-2">
-                    Dias disponibles: {diasDisponibles}
-                </h1>
+                <div className="">
+                    <h1 className="text-xl font-semibold mt-10  rounded-md max-w-xs text-center bg-teal-100 m-auto ">
+                        Dias disponibles: {diasDisponibles}
+                    </h1>
+                </div>
             </AuthenticatedLayout>
         </>
     );
